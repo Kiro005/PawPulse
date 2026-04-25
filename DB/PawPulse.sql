@@ -355,3 +355,4 @@ INSERT INTO Adoption (AdoptionID, ApplicationDate, AdoptionStatus, AdoptionFee, 
 (1306, '2026-04-13', 'Pending', 1500.00, 607, 105, 204), -- Tarek also applying for Rocky (Waitlist)
 (1307, '2025-11-10', 'Approved', 500.00, 606, 105, 206);  -- Tarek adopted Daisy
 
+SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1

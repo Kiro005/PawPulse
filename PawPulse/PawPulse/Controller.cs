@@ -21,18 +21,12 @@ namespace DBapplication
             dbMan.CloseConnection();
         }
 
-        public int TestConnection()
+        public DataTable GetActiveEmployees()
         {
-            
-            string query = "SELECT 1";
+            // Query to fetch active employees only based on the soft-delete mechanism
+            string query = "SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1;";
 
-            object result = dbMan.ExecuteScalar(query);
-
-            if (result != null)
-            {
-                return Convert.ToInt32(result);
-            }
-            return 0;
+            return dbMan.ExecuteReader(query);
         }
 
 

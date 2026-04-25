@@ -29,6 +29,26 @@ namespace PawPulse
                 TextShade.WHITE);
         }
 
-       
+        private void materialButton1_Click(object sender, EventArgs e)
+        {
+            // Create an instance of the Controller
+            Controller controllerObj = new Controller();
+
+            // Fetch the data
+            DataTable dt = controllerObj.GetActiveEmployees();
+
+            // Check if the DataTable has data
+            if (dt != null)
+            {
+                // Bind the data to the grid
+                dataGridViewEmployees.DataSource = dt;
+                dataGridViewEmployees.Refresh();
+            }
+            else
+            {
+                // Print error message in English
+                MessageBox.Show("No active employees found or database connection failed.", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
