@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DBapplication;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,12 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
 
 namespace PawPulse
 {
-    public partial class AdminDashboard : Form
+    public partial class AdminDashboard : MaterialForm
     {
         public AdminDashboard()
         {
@@ -28,6 +29,6 @@ namespace PawPulse
                 TextShade.WHITE);
         }
 
-        
+       
     }
 }

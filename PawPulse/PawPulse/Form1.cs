@@ -16,5 +16,12 @@ namespace PawPulse
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AdminDashboard form = new AdminDashboard();
+            form.Show();
+            this.Hide();
+        }
     }
 }

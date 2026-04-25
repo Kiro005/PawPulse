@@ -20,8 +20,22 @@ namespace DBapplication
         {
             dbMan.CloseConnection();
         }
-       
 
-      
+        public int TestConnection()
+        {
+            
+            string query = "SELECT 1";
+
+            object result = dbMan.ExecuteScalar(query);
+
+            if (result != null)
+            {
+                return Convert.ToInt32(result);
+            }
+            return 0;
+        }
+
+
+
     }
 }

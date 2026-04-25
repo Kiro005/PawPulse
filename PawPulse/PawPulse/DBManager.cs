@@ -10,9 +10,9 @@ namespace DBapplication
 {
     public class DBManager
     {
-        //TODO: Make Sure to change Connection String to your Database 
+        //gharbawy : Data Source=.;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True
 
-        static string DB_Connection_String = @"Data Source=DESKTOP-EMUTUKT;Initial Catalog=CompanyDBLab5_New;Integrated Security=True";
+        static string DB_Connection_String = @"Data Source=.;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True";
         SqlConnection myConnection;
 
         public DBManager()
