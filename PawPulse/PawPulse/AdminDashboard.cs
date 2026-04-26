@@ -50,5 +50,10 @@ namespace PawPulse
                 MessageBox.Show("No active employees found or database connection failed.", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void tabPageUsers_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

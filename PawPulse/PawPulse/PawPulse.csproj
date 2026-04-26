@@ -56,7 +56,25 @@
     <Compile Include="AdminDashboard.Designer.cs">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnimalUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AnimalUC.Designer.cs">
+      <DependentUpon>AnimalUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientDashboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientDashboardForm.Designer.cs">
+      <DependentUpon>ClientDashboardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controller.cs" />
+    <Compile Include="DashboardUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DashboardUC.Designer.cs">
+      <DependentUpon>DashboardUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBManager.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -68,6 +86,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AdminDashboard.resx">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimalUC.resx">
+      <DependentUpon>AnimalUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientDashboardForm.resx">
+      <DependentUpon>ClientDashboardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashboardUC.resx">
+      <DependentUpon>DashboardUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
