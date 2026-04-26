@@ -190,23 +190,23 @@ CREATE TABLE Adoption (
 
 -- 1. CLIENT (Covers Active/Inactive, different cities)
 INSERT INTO CLIENT (ClientID, FirstName, LastName, Phone, Email, City, Street, BuildingNumber, PasswordHash, IsActive) VALUES 
-(101, 'Omar', 'Hassan', '01012345678', 'omar.h@email.com', 'Cairo', 'Talaat Harb', '12B', 'hash1', 1),
-(102, 'Salma', 'Ibrahim', '01198765432', 'salma.i@email.com', 'Giza', 'Dokki St', '45', 'hash2', 1),
-(103, 'Youssef', 'Ali', '01233344455', 'y.ali@email.com', 'Alexandria', 'Corniche', '10', 'hash3', 0), -- Inactive
-(104, 'Nour', 'Kamal', '01555566677', 'nour.k@email.com', 'Cairo', 'Maadi Rd', '5', 'hash4', 1),
-(105, 'Tarek', 'Zaki', '01099887766', 't.zaki@email.com', 'Giza', 'Pyramids St', '99', 'hash5', 1),
-(106, 'Heba', 'Farid', '01122334455', 'heba.f@email.com', 'Cairo', 'Zamalek St', '1', 'hash6', 1),
-(107, 'Kareem', 'Saeed', '01299988877', 'k.saeed@email.com', 'Alexandria', 'Sporting', '22', 'hash7', 0); -- Inactive
+(101, 'Omar', 'Hassan', '01012345678', 'omar.h@email.com', 'Cairo', 'Talaat Harb', '12B', '$2a$11$xgCqVmpVFRtpU.mJDFHTc.t3Qqe.Qj0JN0AGvY1ivuCp/vRA.8G76', 1), -- 1240124
+(102, 'Salma', 'Ibrahim', '01198765432', 'salma.i@email.com', 'Giza', 'Dokki St', '45', '$2a$11$Is1CGauDw1xU7YocNsRTWO4WPnE958aRoolauU9I1O1ORrecALary', 1), -- 1234
+(103, 'Youssef', 'Ali', '01233344455', 'y.ali@email.com', 'Alexandria', 'Corniche', '10', '$2a$11$Qk9u/MNsZXGUpLTpohs6bOkgjdXrTrC32frhVecI663XzAHXL2ppi', 0), -- Inactive -- 987
+(104, 'Nour', 'Kamal', '01555566677', 'nour.k@email.com', 'Cairo', 'Maadi Rd', '5', '$2a$11$3tjTXy5BXI45BUeTxXkeKusPb.sSl739weV6yXb2BB/9CoEfollUK', 1), -- 654
+(105, 'Tarek', 'Zaki', '01099887766', 't.zaki@email.com', 'Giza', 'Pyramids St', '99', '$2a$11$.9R1JHNxlmSfQvlAvZNdaeo9cVa9biSce.4EueYRNRCem3g5fei.K', 1), -- 951
+(106, 'Heba', 'Farid', '01122334455', 'heba.f@email.com', 'Cairo', 'Zamalek St', '1', '$2a$11$kXzKu1HVPOv/.eU8FrRe2etKOi4OEpIDaFPWcAHVq2Ujo3uU3IYNO', 1), -- 852
+(107, 'Kareem', 'Saeed', '01299988877', 'k.saeed@email.com', 'Alexandria', 'Sporting', '22', '$2a$11$1XXwcSMeakPsEkh/pdsrs.RGpW50s3kbx9VmCx3SKA0uKISAzMLVe', 0); -- Inactive -- 555
 
 -- 2. Employee (Covers Vets, Receptionists, Shelter Staff, Active/Inactive)
 INSERT INTO Employee (EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, PasswordHash, HireDate, Salary, IsActive) VALUES 
-(201, 'Dr. Amina', 'Fawzy', 'Veterinarian', '01011122233', 'amina.vet@pawpulse.com', 'pwd1', '2020-03-15', 25000.00, 1),
-(202, 'Dr. Kareem', 'Mostafa', 'Veterinarian', '01122233344', 'kareem.vet@pawpulse.com', 'pwd2', '2021-06-01', 23000.00, 1),
-(203, 'Hala', 'Saad', 'Receptionist', '01244455566', 'hala.s@pawpulse.com', 'pwd3', '2023-01-10', 10000.00, 1),
-(204, 'Amr', 'Adel', 'Shelter Staff', '01511223344', 'amr.a@pawpulse.com', 'pwd4', '2022-08-20', 12000.00, 1),
-(205, 'Dr. Layla', 'Nasser', 'Veterinarian', '01055544433', 'layla.vet@pawpulse.com', 'pwd5', '2019-11-05', 28000.00, 0), -- Inactive Vet
-(206, 'Mona', 'Galal', 'Shelter Staff', '01166677788', 'mona.g@pawpulse.com', 'pwd6', '2024-02-01', 11000.00, 1),
-(207, 'Rami', 'Hussein', 'Manager', '01200011122', 'rami.h@pawpulse.com', 'pwd7', '2018-01-15', 35000.00, 1);
+(201, 'Dr. Amina', 'Fawzy', 'Veterinarian', '01011122233', 'amina.vet@pawpulse.com', '$2a$11$xgCqVmpVFRtpU.mJDFHTc.t3Qqe.Qj0JN0AGvY1ivuCp/vRA.8G76', '2020-03-15', 25000.00, 1), -- 1240124
+(202, 'Dr. Kareem', 'Mostafa', 'Veterinarian', '01122233344', 'kareem.vet@pawpulse.com', '$2a$11$Is1CGauDw1xU7YocNsRTWO4WPnE958aRoolauU9I1O1ORrecALary', '2021-06-01', 23000.00, 1), -- 1234
+(203, 'Hala', 'Saad', 'Receptionist', '01244455566', 'hala.s@pawpulse.com', '$2a$11$Qk9u/MNsZXGUpLTpohs6bOkgjdXrTrC32frhVecI663XzAHXL2ppi', '2023-01-10', 10000.00, 1), -- 987
+(204, 'Amr', 'Adel', 'Shelter Staff', '01511223344', 'amr.a@pawpulse.com', '$2a$11$3tjTXy5BXI45BUeTxXkeKusPb.sSl739weV6yXb2BB/9CoEfollUK', '2022-08-20', 12000.00, 1), -- 654
+(205, 'Dr. Layla', 'Nasser', 'Veterinarian', '01055544433', 'layla.vet@pawpulse.com', '$2a$11$.9R1JHNxlmSfQvlAvZNdaeo9cVa9biSce.4EueYRNRCem3g5fei.K', '2019-11-05', 28000.00, 0), -- Inactive Vet -951
+(206, 'Mona', 'Galal', 'Shelter Staff', '01166677788', 'mona.g@pawpulse.com', '$2a$11$kXzKu1HVPOv/.eU8FrRe2etKOi4OEpIDaFPWcAHVq2Ujo3uU3IYNO', '2024-02-01', 11000.00, 1), -- 852
+(207, 'Rami', 'Hussein', 'Manager', '01200011122', 'rami.h@pawpulse.com', '$2a$11$1XXwcSMeakPsEkh/pdsrs.RGpW50s3kbx9VmCx3SKA0uKISAzMLVe', '2018-01-15', 35000.00, 1); -- 555
 
 -- 3. Kennel (Covers all sizes, ward types, and statuses)
 INSERT INTO Kennel (KennelID, Capacity, KennelSize, WardType, KennelStatus) VALUES 
@@ -355,4 +355,6 @@ INSERT INTO Adoption (AdoptionID, ApplicationDate, AdoptionStatus, AdoptionFee, 
 (1306, '2026-04-13', 'Pending', 1500.00, 607, 105, 204), -- Tarek also applying for Rocky (Waitlist)
 (1307, '2025-11-10', 'Approved', 500.00, 606, 105, 206);  -- Tarek adopted Daisy
 
-SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1
+-- SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1
+
+-- DROP TABLE IF EXISTS Adoption; DROP TABLE IF EXISTS Prescription; DROP TABLE IF EXISTS Lab_Test; DROP TABLE IF EXISTS MEDICAL_RECORD; DROP TABLE IF EXISTS Animal_Vaccine_History; DROP TABLE IF EXISTS APPOINTMENT; DROP TABLE IF EXISTS Bill_Item; DROP TABLE IF EXISTS Medicine; DROP TABLE IF EXISTS Bill; DROP TABLE IF EXISTS ANIMAL; DROP TABLE IF EXISTS CLIENT; DROP TABLE IF EXISTS Employee; DROP TABLE IF EXISTS Kennel; DROP TABLE IF EXISTS Vaccine; DROP TABLE IF EXISTS Supplier;
