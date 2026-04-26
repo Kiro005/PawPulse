@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,12 +23,11 @@ namespace PawPulse
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            lblError.Text = ""; // Clear any previous error messages
+            lblError.Text = "";
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
             DataTable dt = ControllerObj.GetUserLoginInfo(email);
@@ -36,39 +35,35 @@ namespace PawPulse
             if (dt != null && dt.Rows.Count > 0)
             {
                 string hashFromDatabase = dt.Rows[0]["PasswordHash"].ToString();
-                string userRole = dt.Rows[0]["Role"].ToString(); // This will be Client, Admin, Vet, or Staff
+                string userRole = dt.Rows[0]["Role"].ToString();
+                int userId = int.Parse(dt.Rows[0]["UserID"].ToString());
+                string firstName = dt.Rows[0]["FirstName"].ToString();
+                string lastName = dt.Rows[0]["LastName"].ToString();
+                string fullName = firstName + " " + lastName;
 
                 bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, hashFromDatabase);
 
                 if (isPasswordValid)
                 {
-                    // Success! Hide the login screen
                     this.Hide();
 
-                    // 4. Route them to the exact right portal based on their role
                     switch (userRole)
                     {
                         case "Client":
                             ClientDashboardForm clientPortal = new ClientDashboardForm();
                             clientPortal.Show();
                             break;
-                        case "Admin":
-                            //AdminDashboardForm adminPortal = new AdminDashboardForm();
-                            //adminPortal.Show();
+                        case "Veterinarian":
+                            VetDashboardForm vetPortal = new VetDashboardForm(userId, fullName);
+                            vetPortal.Show();
                             break;
-                        case "Vet":
-                            // Replace with your actual Vet form name
-                            //VetDashboardForm vetPortal = new VetDashboardForm();
-                            //vetPortal.Show();
+                        case "Admin":
                             break;
                         case "Staff":
-                            // Replace with your actual Staff form name
-                            //StaffDashboardForm staffPortal = new StaffDashboardForm();
-                            //staffPortal.Show();
                             break;
                         default:
                             MessageBox.Show("Error: Unrecognized user role.");
-                            this.Show(); // Show login screen again if something went wrong
+                            this.Show();
                             break;
                     }
                 }

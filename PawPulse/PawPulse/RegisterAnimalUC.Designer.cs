@@ -1,0 +1,9 @@
+namespace PawPulse
+{
+    partial class RegisterAnimalUC
+    {
+        private System.ComponentModel.IContainer components = null;
+        protected override void Dispose(bool disposing) { if (disposing && (components != null)) components.Dispose(); base.Dispose(disposing); }
+        private void InitializeComponent() { this.SuspendLayout(); this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None; this.Name = "RegisterAnimalUC"; this.Size = new System.Drawing.Size(848, 594); this.ResumeLayout(false); }
+    }
+}
