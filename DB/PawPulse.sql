@@ -1,4 +1,5 @@
 -- LEVEL 1
+Use PawPulse;
 
 CREATE TABLE CLIENT (
     ClientID INT PRIMARY KEY,
@@ -17,7 +18,7 @@ CREATE TABLE Employee (
     EmployeeID INT PRIMARY KEY,
     FirstName VARCHAR(50),
     LastName VARCHAR(50),
-    EmployeeRole VARCHAR(50), -- e.g., 'Veterinarian', 'Receptionist', 'Shelter Staff'
+    EmployeeRole VARCHAR(50), -- e.g., 'Vet', 'Admin', 'Staff'
     Phone VARCHAR(15),
     Email VARCHAR(100) UNIQUE,
     PasswordHash VARCHAR(255),
@@ -357,4 +358,10 @@ INSERT INTO Adoption (AdoptionID, ApplicationDate, AdoptionStatus, AdoptionFee, 
 
 -- SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1
 
--- DROP TABLE IF EXISTS Adoption; DROP TABLE IF EXISTS Prescription; DROP TABLE IF EXISTS Lab_Test; DROP TABLE IF EXISTS MEDICAL_RECORD; DROP TABLE IF EXISTS Animal_Vaccine_History; DROP TABLE IF EXISTS APPOINTMENT; DROP TABLE IF EXISTS Bill_Item; DROP TABLE IF EXISTS Medicine; DROP TABLE IF EXISTS Bill; DROP TABLE IF EXISTS ANIMAL; DROP TABLE IF EXISTS CLIENT; DROP TABLE IF EXISTS Employee; DROP TABLE IF EXISTS Kennel; DROP TABLE IF EXISTS Vaccine; DROP TABLE IF EXISTS Supplier;
+--DROP TABLE IF EXISTS Adoption; DROP TABLE IF EXISTS Prescription; DROP TABLE IF EXISTS Lab_Test; DROP TABLE IF EXISTS MEDICAL_RECORD; DROP TABLE IF EXISTS Animal_Vaccine_History; DROP TABLE IF EXISTS APPOINTMENT; DROP TABLE IF EXISTS Bill_Item; DROP TABLE IF EXISTS Medicine; DROP TABLE IF EXISTS Bill; DROP TABLE IF EXISTS ANIMAL; DROP TABLE IF EXISTS CLIENT; DROP TABLE IF EXISTS Employee; DROP TABLE IF EXISTS Kennel; DROP TABLE IF EXISTS Vaccine; DROP TABLE IF EXISTS Supplier;
+
+SELECT PasswordHash, 'Client' AS Role FROM Client WHERE Email = 'omar.h@email.com'
+UNION
+SELECT PasswordHash, EmployeeRole AS Role FROM Employee WHERE Email = 'omar.h@email.com';
+
+SELECT * FROM Client WHERE Email = 'omar.h@email.com';

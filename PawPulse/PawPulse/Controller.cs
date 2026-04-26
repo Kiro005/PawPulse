@@ -29,6 +29,17 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        public DataTable GetUserLoginInfo(string email)
+        {
+            // The UNION combines both queries. 
+            // If found in Client, we hardcode the Role as 'Client'.
+            // If found in Employee, we grab their actual EmployeeRole (Admin, Vet, Staff).
+            string query = $"SELECT PasswordHash, 'Client' AS Role FROM Client WHERE Email = '{email}' " +
+                $"UNION " +
+                $"SELECT PasswordHash, EmployeeRole AS Role FROM Employee WHERE Email = '{email}';";
+
+            return dbMan.ExecuteReader(query);
+        }
 
 
     }

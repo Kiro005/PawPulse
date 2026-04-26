@@ -16,7 +16,7 @@ namespace PawPulse
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ClientDashboardForm());
+            Application.Run(new LoginForm());
         }
     }
 }
