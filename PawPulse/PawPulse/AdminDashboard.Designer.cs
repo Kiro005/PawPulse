@@ -66,6 +66,7 @@
             this.tabPageUsers.TabIndex = 0;
             this.tabPageUsers.Text = "Manage Staff";
             this.tabPageUsers.UseVisualStyleBackColor = true;
+            this.tabPageUsers.Click += new System.EventHandler(this.tabPageUsers_Click);
             // 
             // materialButton1
             // 
@@ -101,7 +102,7 @@
             // 
             this.tabPageKennels.Location = new System.Drawing.Point(4, 25);
             this.tabPageKennels.Name = "tabPageKennels";
-            this.tabPageKennels.Size = new System.Drawing.Size(898, 381);
+            this.tabPageKennels.Size = new System.Drawing.Size(1283, 477);
             this.tabPageKennels.TabIndex = 3;
             this.tabPageKennels.Text = "Manage Kennels";
             this.tabPageKennels.UseVisualStyleBackColor = true;
@@ -110,7 +111,7 @@
             // 
             this.tabPageMedicines.Location = new System.Drawing.Point(4, 25);
             this.tabPageMedicines.Name = "tabPageMedicines";
-            this.tabPageMedicines.Size = new System.Drawing.Size(898, 381);
+            this.tabPageMedicines.Size = new System.Drawing.Size(1283, 477);
             this.tabPageMedicines.TabIndex = 1;
             this.tabPageMedicines.Text = "Manage Medicines";
             this.tabPageMedicines.UseVisualStyleBackColor = true;
@@ -119,7 +120,7 @@
             // 
             this.tabPageReports.Location = new System.Drawing.Point(4, 25);
             this.tabPageReports.Name = "tabPageReports";
-            this.tabPageReports.Size = new System.Drawing.Size(898, 381);
+            this.tabPageReports.Size = new System.Drawing.Size(1283, 477);
             this.tabPageReports.TabIndex = 2;
             this.tabPageReports.Text = "Reports";
             this.tabPageReports.UseVisualStyleBackColor = true;
