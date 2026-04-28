@@ -77,5 +77,12 @@ namespace PawPulse
                 lblError.Text = "Invalid email or password.";
             }
         }
+
+        private void SignUplabel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SignUpForm signUpForm = new SignUpForm();
+            signUpForm.Show();
+        }
     }
 }

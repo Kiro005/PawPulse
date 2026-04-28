@@ -79,5 +79,10 @@ namespace PawPulse
         private void RegisterAnimalUC_Load(object sender, EventArgs e) { }
 
         private void formCard_Paint(object sender, PaintEventArgs e) { }
+
+        private void TopBar_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

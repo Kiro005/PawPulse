@@ -19,13 +19,8 @@ namespace DBapplication
         {
             dbMan.CloseConnection();
         }
-
-        public DataTable GetActiveEmployees()
-        {
-            string query = "SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1;";
-            return dbMan.ExecuteReader(query);
-        }
-
+        //////////////////////////////////////////////////////////////////////////////////
+        /// Login and Registration
         public DataTable GetUserLoginInfo(string email)
         {
             string query = $"SELECT PasswordHash, 'Client' AS Role, CAST(ClientID AS VARCHAR) AS UserID, FirstName, LastName FROM Client WHERE Email = '{email}' " +
@@ -34,6 +29,57 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        public bool CheckIfUserExists(string email, string phone)
+        {
+            // A simple query to count if any rows match this email or phone
+            string query = $@"
+        SELECT COUNT(*) 
+        FROM CLIENT 
+        WHERE Email = '{email}' OR Phone = '{phone}';";
+
+            // Assuming ExecuteScalar returns an object that can be cast to an int.
+            // If the count is greater than 0, the user exists!
+            int count = Convert.ToInt32(dbMan.ExecuteScalar(query));
+            return count > 0;
+        }
+
+        public int SignUpClient(string fName, string lName, string phone, string email, string city, string street, string buildingNum, string rawPassword)
+        {
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(rawPassword);
+
+            // We do NOT include ClientID (Identity handles it) or IsActive (Defaults to 1)
+            string query = $@"
+        INSERT INTO CLIENT (FirstName, LastName, Phone, Email, City, Street, BuildingNumber, PasswordHash) 
+        VALUES (
+            '{fName}', 
+            '{lName}', 
+            '{phone}', 
+            '{email}', 
+            '{city}', 
+            '{street}', 
+            '{buildingNum}', 
+            '{hashedPassword}'
+        );";
+
+            // Returns the number of rows affected (should be 1 if successful)
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        /// Client
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
+        /// Veterinarian Dashboard
+
+
+        public DataTable GetActiveEmployees()
+        {
+            string query = "SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1;";
+            return dbMan.ExecuteReader(query);
+        }
+
+        
         public DataTable GetVetAppointments(int vetId)
         {
             string query = $@"
