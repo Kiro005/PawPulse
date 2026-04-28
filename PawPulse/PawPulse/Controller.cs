@@ -51,18 +51,19 @@ namespace DBapplication
             string query = $@"
         INSERT INTO CLIENT (FirstName, LastName, Phone, Email, City, Street, BuildingNumber, PasswordHash) 
         VALUES (
-            '{fName}', 
-            '{lName}', 
-            '{phone}', 
-            '{email}', 
-            '{city}', 
-            '{street}', 
-            '{buildingNum}', 
-            '{hashedPassword}'
-        );";
+            '{fName}', '{lName}', '{phone}', '{email}', '{city}', '{street}', '{buildingNum}', '{hashedPassword}'
+        );
+        SELECT SCOPE_IDENTITY();";
 
-            // Returns the number of rows affected (should be 1 if successful)
-            return dbMan.ExecuteNonQuery(query);
+            object result = dbMan.ExecuteScalar(query);
+
+            // Convert it to an integer and return it
+            if (result != null)
+            {
+                return Convert.ToInt32(result);
+            }
+
+            return 0;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////

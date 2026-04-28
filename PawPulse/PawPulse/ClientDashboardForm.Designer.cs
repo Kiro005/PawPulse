@@ -42,7 +42,7 @@
             this.MainContentPanel = new System.Windows.Forms.Panel();
             this.header = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.whitebg.SuspendLayout();
@@ -84,6 +84,7 @@
             this.button5.Text = "Log Out";
             this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // panel3
             // 
@@ -214,7 +215,7 @@
             // header
             // 
             this.header.Controls.Add(this.pictureBox1);
-            this.header.Controls.Add(this.label2);
+            this.header.Controls.Add(this.lblUsername);
             this.header.Controls.Add(this.textBox1);
             this.header.Dock = System.Windows.Forms.DockStyle.Top;
             this.header.Location = new System.Drawing.Point(0, 0);
@@ -233,17 +234,17 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // label2
+            // lblUsername
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(747, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 25);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Logger";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.lblUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.Location = new System.Drawing.Point(747, 19);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(71, 25);
+            this.lblUsername.TabIndex = 1;
+            this.lblUsername.Text = "Logger";
+            this.lblUsername.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBox1
             // 
@@ -291,7 +292,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel header;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel MainContentPanel;
     }

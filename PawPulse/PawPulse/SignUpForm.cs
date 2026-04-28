@@ -69,11 +69,11 @@ namespace PawPulse
             }
 
 
-            int result = ControllerObj.SignUpClient(fName, lName, phone, email, city, street, buildingNum, password);
+            int newClientId = ControllerObj.SignUpClient(fName, lName, phone, email, city, street, buildingNum, password);
 
-            if (result > 0)
+            if (newClientId > 0)
             {
-                new ClientDashboardForm().Show();
+                new ClientDashboardForm(newClientId, fName + " " + lName).Show();
                 this.Hide();
             }
             else
@@ -81,6 +81,12 @@ namespace PawPulse
                 lblError.Text = "Something went wrong with the database. Please try again.";
                 lblError.Visible = true;
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            new LoginForm().Show();
+            this.Hide();
         }
     }
 }

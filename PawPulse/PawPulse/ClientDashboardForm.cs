@@ -12,9 +12,14 @@ namespace PawPulse
 {
     public partial class ClientDashboardForm : Form
     {
-        public ClientDashboardForm()
+        private int ClientID;
+        private string ClientName;
+        public ClientDashboardForm(int ClientID, string fullname)
         {
             InitializeComponent();
+            this.ClientID = ClientID;
+            this.ClientName = fullname;
+            lblUsername.Text = fullname;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -83,6 +88,13 @@ namespace PawPulse
         {
             HighlightActiveButton(btnAnimals);
             AddUserControl(new AnimalUC());
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+            login.Show();
+            this.Close();
         }
     }
 }

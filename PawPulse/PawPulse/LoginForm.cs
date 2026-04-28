@@ -50,7 +50,7 @@ namespace PawPulse
                     switch (userRole)
                     {
                         case "Client":
-                            ClientDashboardForm clientPortal = new ClientDashboardForm();
+                            ClientDashboardForm clientPortal = new ClientDashboardForm(userId, fullName);
                             clientPortal.Show();
                             break;
                         case "Veterinarian":
