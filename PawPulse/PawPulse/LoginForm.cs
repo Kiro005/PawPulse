@@ -54,7 +54,7 @@ namespace PawPulse
                             clientPortal.Show();
                             break;
                         case "Veterinarian":
-                            VetDashboardForm vetPortal = new VetDashboardForm(userId, fullName);
+                            sidebarPanel2 vetPortal = new sidebarPanel2(userId, fullName);
                             vetPortal.Show();
                             break;
                         case "Admin":
