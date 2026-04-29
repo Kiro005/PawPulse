@@ -23,9 +23,9 @@ namespace DBapplication
         /// Login and Registration
         public DataTable GetUserLoginInfo(string email)
         {
-            string query = $"SELECT PasswordHash, 'Client' AS Role, CAST(ClientID AS VARCHAR) AS UserID, FirstName, LastName FROM Client WHERE Email = '{email}' " +
+            string query = $"SELECT PasswordHash, 'Client' AS Role, CAST(ClientID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Client WHERE Email = '{email}' " +
                 $"UNION " +
-                $"SELECT PasswordHash, EmployeeRole AS Role, CAST(EmployeeID AS VARCHAR) AS UserID, FirstName, LastName FROM Employee WHERE Email = '{email}';";
+                $"SELECT PasswordHash, EmployeeRole AS Role, CAST(EmployeeID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Employee WHERE Email = '{email}';";
             return dbMan.ExecuteReader(query);
         }
 
@@ -68,6 +68,112 @@ namespace DBapplication
 
         ////////////////////////////////////////////////////////////////////////////////////
         /// Client
+        ///////////////////////////////////////////////////////////////////////////////////
+        /////////////////   DashBoard   /////////////////
+        
+        public int getPetsNumber(int clientID)
+        {
+            string query = $"SELECT COUNT(*) FROM ANIMAL WHERE ClientID = {clientID};";
+            object result = dbMan.ExecuteScalar(query);
+            return result != null ? Convert.ToInt32(result) : 0;
+        }
+
+        public object GetNextAppointment(int clientID)
+        {
+            string query = $@"
+        SELECT TOP 1 app.AppDate 
+        FROM APPOINTMENT app
+        INNER JOIN ANIMAL an ON app.AnimalID = an.AnimalID
+        WHERE an.ClientID = {clientID} 
+          AND app.AppDate >= CAST(GETDATE() AS DATE) 
+          AND app.AppStatus = 'Scheduled' 
+        ORDER BY app.AppDate ASC;";
+            return dbMan.ExecuteScalar(query);
+        }
+
+        public decimal GetTotalDept(int clientID)
+        {
+            string query = $"Select sum(Total_Amount) " +
+                $"from Bill " +
+                $"where ClientID = {clientID} " +
+                $"And BillStatus = 'Unpaid';";
+            object result = dbMan.ExecuteScalar(query);
+            if (result != DBNull.Value && result != null)
+            {
+                return Convert.ToDecimal(result);
+            }
+            return 0m;
+        }
+
+        //////////////////////// Animals /////////////////////////////////////
+        public DataTable GetClientPets(int clientID)
+        {
+            string query = $@"
+        SELECT AnimalID, AnimalName, Species, Breed, Age, LatestWeight 
+        FROM ANIMAL 
+        WHERE ClientID = {clientID} AND SystemStatus != 'Adopted';"; // Assuming they still own them
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Medical Things //
+        public DataTable GetPetVisits(int animalID)
+        {
+            string query = $@"
+        SELECT LastUpdatedDate AS 'Date', 
+               Diagnosis, 
+               Notes,
+               RecordedWeight AS 'Weight (kg)'
+        FROM MEDICAL_RECORD 
+        WHERE AnimalID = {animalID} 
+        ORDER BY LastUpdatedDate DESC;";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable GetPetPrescriptions(int animalID)
+        {
+            // We JOIN Prescription -> Medicine (to get the name) -> Medical_Record (to check the AnimalID)
+            string query = $@"
+        SELECT p.IssueDate AS 'Date Issued', 
+               m.MedicineName AS 'Medication', 
+               p.Instructions, 
+               p.RefillsAllowed AS 'Refills'
+        FROM Prescription p
+        INNER JOIN Medicine m ON p.MedicineID = m.MedicineID
+        INNER JOIN MEDICAL_RECORD mr ON p.RecordID = mr.RecordID
+        WHERE mr.AnimalID = {animalID}
+        ORDER BY p.IssueDate DESC;";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable GetPetVaccines(int animalID)
+        {
+            // We JOIN the History diamond table -> Vaccine table
+            string query = $@"
+        SELECT avh.DateAdministered AS 'Date Given', 
+               v.VaccineName AS 'Vaccine', 
+               v.DiseaseTargeted AS 'Target Disease'
+        FROM Animal_Vaccine_History avh
+        INNER JOIN Vaccine v ON avh.VaccineID = v.VaccineID
+        WHERE avh.AnimalID = {animalID}
+        ORDER BY avh.DateAdministered DESC;";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable GetPetLabTests(int animalID)
+        {
+            // JOIN Lab_Test -> Medical_Record to ensure we match the specific AnimalID
+            string query = $@"
+        SELECT lt.TestDate AS 'Date', 
+               lt.TestType AS 'Test', 
+               lt.Result
+        FROM Lab_Test lt
+        INNER JOIN MEDICAL_RECORD mr ON lt.RecordID = mr.RecordID
+        WHERE mr.AnimalID = {animalID}
+        ORDER BY lt.TestDate DESC;";
+
+            return dbMan.ExecuteReader(query);
+        }
 
 
         ///////////////////////////////////////////////////////////////////////////////////

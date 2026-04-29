@@ -43,19 +43,19 @@ namespace PawPulse
         private void btnDashBoard_Click(object sender, EventArgs e)
         {
             HighlightActiveButton(btnDashBoard);
-            AddUserControl(new DashboardUC());
+            AddUserControl(new DashboardUC(ClientID, ClientName));
         }
 
         private void btnAnimals_Click(object sender, EventArgs e)
         {
             HighlightActiveButton(btnAnimals);
-            AddUserControl(new AnimalUC());
+            AddUserControl(new AnimalUC(ClientID, ClientName));
         }
 
         private void ClientDashboardForm_Load(object sender, EventArgs e)
         {
             MainContentPanel.Controls.Clear();
-            AddUserControl(new DashboardUC());
+            AddUserControl(new DashboardUC(ClientID, ClientName));
         }
 
         private void HighlightActiveButton(Button activeBtn)
@@ -81,13 +81,13 @@ namespace PawPulse
         private void btnDashBoard_Click_1(object sender, EventArgs e)
         {
             HighlightActiveButton(btnDashBoard);
-            AddUserControl(new DashboardUC());
+            AddUserControl(new DashboardUC(ClientID, ClientName));
         }
 
         private void btnAnimals_Click_1(object sender, EventArgs e)
         {
             HighlightActiveButton(btnAnimals);
-            AddUserControl(new AnimalUC());
+            AddUserControl(new AnimalUC(ClientID, ClientName));
         }
 
         private void button5_Click(object sender, EventArgs e)

@@ -88,5 +88,10 @@ namespace PawPulse
             new LoginForm().Show();
             this.Hide();
         }
+
+        private void SignUpForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace PawPulse
             string password = txtPassword.Text;
             DataTable dt = ControllerObj.GetUserLoginInfo(email);
 
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt != null && dt.Rows.Count > 0 && Convert.ToBoolean(dt.Rows[0]["IsActive"]))
             {
                 string hashFromDatabase = dt.Rows[0]["PasswordHash"].ToString();
                 string userRole = dt.Rows[0]["Role"].ToString();

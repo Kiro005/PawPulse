@@ -116,11 +116,23 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedicalHistoryClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalHistoryClientForm.Designer.cs">
+      <DependentUpon>MedicalHistoryClientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MedicalRecordsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="MedicalRecordsUC.Designer.cs">
       <DependentUpon>MedicalRecordsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PetCardUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PetCardUC.Designer.cs">
+      <DependentUpon>PetCardUC.cs</DependentUpon>
     </Compile>
     <Compile Include="PrescriptionsUC.cs">
       <SubType>UserControl</SubType>
@@ -184,8 +196,14 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MedicalHistoryClientForm.resx">
+      <DependentUpon>MedicalHistoryClientForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MedicalRecordsUC.resx">
       <DependentUpon>MedicalRecordsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PetCardUC.resx">
+      <DependentUpon>PetCardUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrescriptionsUC.resx">
       <DependentUpon>PrescriptionsUC.cs</DependentUpon>
@@ -213,6 +231,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -274,6 +293,10 @@
       <Link>equipments\panda.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\snowball.png" />
+    <None Include="Resources\penguin %281%29.png" />
+    <None Include="Resources\corgi.png" />
+    <None Include="Resources\catsmile.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

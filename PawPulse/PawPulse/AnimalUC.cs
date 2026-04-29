@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBapplication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,41 @@ namespace PawPulse
 {
     public partial class AnimalUC : UserControl
     {
-        public AnimalUC()
+        int ClientID;
+        string ClientName;
+        Controller ControllerObj;
+        public AnimalUC(int clientID, string clientName)
         {
             InitializeComponent();
+            ControllerObj = new Controller();
+            this.ClientID = clientID;
+            this.ClientName = clientName;
+
+            lblDate.Text = DateTime.Now.ToString("MMMM dd, yyyy");
+
+            flowLayoutPanel1.Controls.Clear();
+            DataTable pets = ControllerObj.GetClientPets(ClientID);
+
+            if (pets != null && pets.Rows.Count > 0)
+            {
+                foreach (DataRow row in pets.Rows)
+                {
+                    int petID = Convert.ToInt32(row["AnimalID"]);
+                    string petName = row["AnimalName"].ToString();
+                    string petSpecie = row["Species"].ToString();
+                    string petBreed = row["Breed"].ToString();
+                    int petAge = row["Age"] != DBNull.Value ? Convert.ToInt32(row["Age"]) : 0;
+                    decimal weight = row["LatestWeight"] != DBNull.Value ? Convert.ToDecimal(row["LatestWeight"]) : 0m;
+
+                    PetCardUC petCard = new PetCardUC(petID, petName, petSpecie, petBreed, petAge, weight);
+                    flowLayoutPanel1.Controls.Add(petCard);
+                }
+            }
+        }
+
+        private void AnimalUC_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
