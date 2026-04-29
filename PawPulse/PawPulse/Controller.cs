@@ -224,8 +224,8 @@ namespace DBapplication
         {
             string apptPart = appointmentId.HasValue ? appointmentId.Value.ToString() : "NULL";
             string query = $@"
-                INSERT INTO MEDICAL_RECORD (RecordID, LastUpdatedDate, RecordedWeight, Diagnosis, Notes, AnimalID, AppointmentID)
-                VALUES ((SELECT ISNULL(MAX(RecordID), 1000) + 1 FROM MEDICAL_RECORD), CAST(GETDATE() AS DATE), {weight}, '{diagnosis}', '{notes}', {animalId}, {apptPart});";
+                INSERT INTO MEDICAL_RECORD (LastUpdatedDate, RecordedWeight, Diagnosis, Notes, AnimalID, AppointmentID)
+                VALUES (CAST(GETDATE() AS DATE), {weight}, '{diagnosis}', '{notes}', {animalId}, {apptPart});";
             return dbMan.ExecuteNonQuery(query) > 0;
         }
 
@@ -246,8 +246,8 @@ namespace DBapplication
         public bool AddPrescription(int recordId, int medicineId, int vetId, string instructions, int refills, int duration)
         {
             string query = $@"
-                INSERT INTO Prescription (PrescriptionID, Instructions, IssueDate, RefillsAllowed, DurationInDays, RecordID, MedicineID, EmployeeID)
-                VALUES ((SELECT ISNULL(MAX(PrescriptionID), 1200) + 1 FROM Prescription), '{instructions}', CAST(GETDATE() AS DATE), {refills}, {duration}, {recordId}, {medicineId}, {vetId});";
+                INSERT INTO Prescription (Instructions, IssueDate, RefillsAllowed, DurationInDays, RecordID, MedicineID, EmployeeID)
+                VALUES ('{instructions}', CAST(GETDATE() AS DATE), {refills}, {duration}, {recordId}, {medicineId}, {vetId});";
             return dbMan.ExecuteNonQuery(query) > 0;
         }
 
@@ -266,8 +266,8 @@ namespace DBapplication
         public bool AddLabTest(int recordId, string testType, string result, decimal cost)
         {
             string query = $@"
-                INSERT INTO Lab_Test (TestID, TestType, TestDate, Result, Cost, RecordID)
-                VALUES ((SELECT ISNULL(MAX(TestID), 1100) + 1 FROM Lab_Test), '{testType}', CAST(GETDATE() AS DATE), '{result}', {cost}, {recordId});";
+                INSERT INTO Lab_Test (TestType, TestDate, Result, Cost, RecordID)
+                VALUES ('{testType}', CAST(GETDATE() AS DATE), '{result}', {cost}, {recordId});";
             return dbMan.ExecuteNonQuery(query) > 0;
         }
 
@@ -312,11 +312,10 @@ namespace DBapplication
         public bool IssueClearance(int animalId)
         {
             string query = $@"
-                INSERT INTO MEDICAL_RECORD (RecordID, LastUpdatedDate, RecordedWeight, Diagnosis, Notes, AnimalID, AppointmentID)
-                SELECT ISNULL(MAX(RecordID), 1000) + 1, CAST(GETDATE() AS DATE),
+                INSERT INTO MEDICAL_RECORD (LastUpdatedDate, RecordedWeight, Diagnosis, Notes, AnimalID, AppointmentID)
+                VALUES (CAST(GETDATE() AS DATE),
                        ISNULL((SELECT LatestWeight FROM ANIMAL WHERE AnimalID = {animalId}), 0),
-                       'Cleared for Adoption', 'Animal has been examined and cleared for adoption.', {animalId}, NULL
-                FROM MEDICAL_RECORD;";
+                       'Cleared for Adoption', 'Animal has been examined and cleared for adoption.', {animalId}, NULL);";
             return dbMan.ExecuteNonQuery(query) > 0;
         }
 
@@ -357,8 +356,8 @@ namespace DBapplication
         public bool RegisterAnimal(string name, string species, string breed, string gender, string dob, decimal weight, int kennelId)
         {
             string query = $@"
-                INSERT INTO ANIMAL (AnimalID, AnimalName, Species, Breed, Gender, EstimatedDOB, SystemStatus, LatestWeight, ClientID, KennelID)
-                VALUES ((SELECT ISNULL(MAX(AnimalID), 600) + 1 FROM ANIMAL), '{name}', '{species}', '{breed}', '{gender}', '{dob}', 'Shelter', {weight}, NULL, {kennelId});
+                INSERT INTO ANIMAL (AnimalName, Species, Breed, Gender, EstimatedDOB, SystemStatus, LatestWeight, ClientID, KennelID)
+                VALUES ('{name}', '{species}', '{breed}', '{gender}', '{dob}', 'Shelter', {weight}, NULL, {kennelId});
                 UPDATE Kennel SET KennelStatus = 'Occupied' WHERE KennelID = {kennelId};";
             return dbMan.ExecuteNonQuery(query) > 0;
         }
