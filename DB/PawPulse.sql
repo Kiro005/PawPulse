@@ -356,6 +356,16 @@ INSERT INTO Adoption (ApplicationDate, AdoptionStatus, AdoptionFee, AnimalID, Cl
 ('2026-04-13', 'Pending', 1500.00, 7, 5, 4), -- Tarek also applying for Rocky (Waitlist)
 ('2025-11-10', 'Approved', 500.00, 6, 5, 6);  -- Tarek adopted Daisy
 
+
+-- Step 1: Temporarily remove the derived column
+ALTER TABLE ANIMAL DROP COLUMN Age;
+-- Step 2: Now SQL will let you alter the DOB column!
+ALTER TABLE ANIMAL ALTER COLUMN EstimatedDOB DATE NULL;
+-- Step 3: Put the derived column right back
+ALTER TABLE ANIMAL ADD Age AS (DATEDIFF(YEAR, EstimatedDOB, GETDATE()));
+ALTER TABLE ANIMAL ALTER COLUMN LatestWeight DECIMAL(5,2) NULL;
+ALTER TABLE ANIMAL ALTER COLUMN Breed VARCHAR(50) NULL;
+
 -- SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1
 
 --DROP TABLE IF EXISTS Adoption; DROP TABLE IF EXISTS Prescription; DROP TABLE IF EXISTS Lab_Test; DROP TABLE IF EXISTS MEDICAL_RECORD; DROP TABLE IF EXISTS Animal_Vaccine_History; DROP TABLE IF EXISTS APPOINTMENT; DROP TABLE IF EXISTS Bill_Item; DROP TABLE IF EXISTS Medicine; DROP TABLE IF EXISTS Bill; DROP TABLE IF EXISTS ANIMAL; DROP TABLE IF EXISTS CLIENT; DROP TABLE IF EXISTS Employee; DROP TABLE IF EXISTS Kennel; DROP TABLE IF EXISTS Vaccine; DROP TABLE IF EXISTS Supplier;

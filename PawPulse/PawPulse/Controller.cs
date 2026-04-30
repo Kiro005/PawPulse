@@ -175,6 +175,126 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        // requestig an Appointment //
+        public DataTable GetActiveVets()
+        {
+            string query = @"
+        SELECT EmployeeID, ('Dr. ' + FirstName + ' ' + LastName) AS VetName 
+        FROM Employee 
+        WHERE EmployeeRole = 'Veterinarian' AND IsActive = 1;";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable GetBookedTimes(int vetID, string date)
+        {
+            // We only care about appointments that are actually happening
+            string query = $@"
+        SELECT AppTime 
+        FROM APPOINTMENT 
+        WHERE EmployeeID = {vetID} 
+        AND AppDate = '{date}' 
+        AND AppStatus != 'Cancelled';";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public int BookAppointment(string date, string time, string purpose, int animalID, int vetID)
+        {
+            string safePurpose = purpose.Replace("'", "''");
+            string query = $@"
+        INSERT INTO APPOINTMENT (AppDate, AppTime, Purpose, AppStatus, AnimalID, EmployeeID)
+        VALUES ('{date}', '{time}', '{purpose}', 'Scheduled', {animalID}, {vetID});";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Adding new Pet
+        public int AddNewPet(string name, string species, string breed, string gender, string dobValue, string weightValue, int clientID)
+        {
+            name = name.Replace("'", "''");
+            breed = breed.Replace("'", "''");
+            species = species.Replace("'", "''");
+
+            string query = $@"
+        INSERT INTO ANIMAL (AnimalName, Species, Breed, Gender, EstimatedDOB, SystemStatus, LatestWeight, ClientID, KennelID) 
+        VALUES ('{name}', '{species}', '{breed}', '{gender}', {dobValue}, 'Owned', {weightValue}, {clientID}, NULL);";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Editing a Pet
+        public int UpdatePet(int animalID, string name, string species, string breed, string gender, string dobValue, string weightValue)
+        {
+            name = name.Replace("'", "''");
+            breed = breed.Replace("'", "''");
+            species = species.Replace("'", "''");
+
+            string query = $@"
+        UPDATE ANIMAL 
+        SET AnimalName = '{name}', 
+            Species = '{species}', 
+            Breed = '{breed}', 
+            Gender = '{gender}', 
+            EstimatedDOB = {dobValue}, 
+            LatestWeight = {weightValue}
+        WHERE AnimalID = {animalID};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public DataTable GetPetDetails(int animalID)
+        {
+            string query = $"SELECT AnimalName, Species, Breed, Gender, EstimatedDOB, LatestWeight FROM ANIMAL WHERE AnimalID = {animalID};";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Delete a pet .. make SystemStatus "Archived"
+        public int RemovePetFromClient(int animalID)
+        {
+            // Detach the pet from the client and mark it as 'Archived'
+            // This keeps all Medical Records and Bills perfectly intact!
+            string query = $@"
+        UPDATE ANIMAL 
+        SET ClientID = NULL, 
+            SystemStatus = 'Archived' 
+        WHERE AnimalID = {animalID};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+
+        //////////////////////      Appointments Client     ///////////////////////////////
+        // 1. Fetch the appointments for the Grid
+        public DataTable GetClientAppointments(int clientID)
+        {
+            string query = $@"
+        SELECT 
+            app.AppointmentID, 
+            anim.AnimalName AS [Pet Name], 
+            app.AppDate AS [Date], 
+            app.AppTime AS [Time], 
+            emp.FirstName AS [Vet Name], 
+            app.Purpose, 
+            app.AppStatus AS [Status]
+        FROM APPOINTMENT app
+        JOIN ANIMAL anim ON app.AnimalID = anim.AnimalID
+        JOIN Employee emp ON app.EmployeeID = emp.EmployeeID
+        WHERE anim.ClientID = {clientID}
+        AND anim.SystemStatus != 'Archived'
+        ORDER BY app.AppDate DESC, app.AppTime DESC;";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Soft-Delete (Cancel) the appointment
+        public int CancelAppointment(int appointmentID)
+        {
+            // The WHERE clause ensures it ONLY updates if it is currently 'Scheduled'
+            string query = $@"
+        UPDATE APPOINTMENT 
+        SET AppStatus = 'Cancelled' 
+        WHERE AppointmentID = {appointmentID} AND AppStatus = 'Scheduled';";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////
         /// Veterinarian Dashboard

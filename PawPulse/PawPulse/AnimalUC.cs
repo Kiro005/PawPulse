@@ -45,9 +45,46 @@ namespace PawPulse
             }
         }
 
+        public void LoadPets()
+        {
+            // 1. Clear the old cards first!
+            flowLayoutPanel1.Controls.Clear();
+
+            // 2. Fetch the updated list of pets from the database
+            DataTable dtPets = ControllerObj.GetClientPets(ClientID);
+
+            // 3. Loop through and create the new cards
+            if (dtPets != null)
+            {
+                foreach (DataRow row in dtPets.Rows)
+                {
+                    int petID = Convert.ToInt32(row["AnimalID"]);
+                    string petName = row["AnimalName"].ToString();
+                    string petSpecie = row["Species"].ToString();
+                    string petBreed = row["Breed"].ToString();
+                    int petAge = row["Age"] != DBNull.Value ? Convert.ToInt32(row["Age"]) : 0;
+                    decimal weight = row["LatestWeight"] != DBNull.Value ? Convert.ToDecimal(row["LatestWeight"]) : 0m;
+
+                    PetCardUC petCard = new PetCardUC(petID, petName, petSpecie, petBreed, petAge, weight);
+                    flowLayoutPanel1.Controls.Add(petCard);
+                }
+            }
+        }
         private void AnimalUC_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAddPet_Click(object sender, EventArgs e)
+        {
+            AddPetClientForm addForm = new AddPetClientForm(ClientID);
+
+            // 2. Open it, and wait for it to close. If it reports "OK" (success)...
+            if (addForm.ShowDialog() == DialogResult.OK)
+            {
+                // 3. ...Refresh the layout!
+                LoadPets();
+            }
         }
     }
 }

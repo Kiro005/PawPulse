@@ -1,6 +1,6 @@
 ﻿namespace PawPulse
 {
-    partial class AnimalUC
+    partial class AppointmentsClientUC
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,39 +29,24 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnAddPet = new System.Windows.Forms.Button();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(38)))), ((int)(((byte)(62)))));
-            this.panel1.Controls.Add(this.btnAddPet);
             this.panel1.Controls.Add(this.lblDate);
             this.panel1.Controls.Add(this.lblWelcome);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(848, 75);
-            this.panel1.TabIndex = 15;
-            // 
-            // btnAddPet
-            // 
-            this.btnAddPet.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.btnAddPet.FlatAppearance.BorderSize = 0;
-            this.btnAddPet.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnAddPet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddPet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddPet.ForeColor = System.Drawing.Color.White;
-            this.btnAddPet.Location = new System.Drawing.Point(182, 18);
-            this.btnAddPet.Name = "btnAddPet";
-            this.btnAddPet.Size = new System.Drawing.Size(136, 41);
-            this.btnAddPet.TabIndex = 17;
-            this.btnAddPet.Text = "+ ADD PET";
-            this.btnAddPet.UseVisualStyleBackColor = false;
-            this.btnAddPet.Click += new System.EventHandler(this.btnAddPet_Click);
+            this.panel1.TabIndex = 16;
             // 
             // lblDate
             // 
@@ -81,29 +66,47 @@
             this.lblWelcome.ForeColor = System.Drawing.Color.MediumAquamarine;
             this.lblWelcome.Location = new System.Drawing.Point(29, 18);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(138, 38);
+            this.lblWelcome.Size = new System.Drawing.Size(205, 38);
             this.lblWelcome.TabIndex = 0;
-            this.lblWelcome.Text = "Your Pets";
+            this.lblWelcome.Text = "Appointments";
             // 
-            // flowLayoutPanel1
+            // dataGridView1
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(77, 93);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(700, 501);
-            this.flowLayoutPanel1.TabIndex = 16;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(36, 135);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(772, 383);
+            this.dataGridView1.TabIndex = 17;
             // 
-            // AnimalUC
+            // btnDelete
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.btnDelete.BackColor = System.Drawing.Color.Firebrick;
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.Color.White;
+            this.btnDelete.Location = new System.Drawing.Point(622, 524);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(186, 41);
+            this.btnDelete.TabIndex = 18;
+            this.btnDelete.Text = "+ ADD PET";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            // 
+            // AppointmentsClientUC
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
-            this.Name = "AnimalUC";
+            this.Name = "AppointmentsClientUC";
             this.Size = new System.Drawing.Size(848, 594);
-            this.Load += new System.EventHandler(this.AnimalUC_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -113,7 +116,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblWelcome;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btnAddPet;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

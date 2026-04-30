@@ -66,6 +66,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddAppointmentClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddAppointmentClient.Designer.cs">
+      <DependentUpon>AddAppointmentClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPetClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPetClientForm.Designer.cs">
+      <DependentUpon>AddPetClientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AnimalUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,6 +104,12 @@
       <DependentUpon>DashboardUC.cs</DependentUpon>
     </Compile>
     <Compile Include="DBManager.cs" />
+    <Compile Include="EditPetClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditPetClientForm.Designer.cs">
+      <DependentUpon>EditPetClientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +190,12 @@
     <Compile Include="VetDashboardUC.Designer.cs">
       <DependentUpon>VetDashboardUC.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddAppointmentClient.resx">
+      <DependentUpon>AddAppointmentClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPetClientForm.resx">
+      <DependentUpon>AddPetClientForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AnimalUC.resx">
       <DependentUpon>AnimalUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DashboardUC.resx">
       <DependentUpon>DashboardUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditPetClientForm.resx">
+      <DependentUpon>EditPetClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
