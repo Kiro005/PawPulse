@@ -158,6 +158,7 @@
             this.txtBNum.Name = "txtBNum";
             this.txtBNum.Size = new System.Drawing.Size(59, 30);
             this.txtBNum.TabIndex = 17;
+            this.txtBNum.TextChanged += new System.EventHandler(this.txtBNum_TextChanged);
             // 
             // label9
             // 

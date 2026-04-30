@@ -68,9 +68,15 @@ namespace PawPulse
             btnAnimals.BackColor = Color.FromArgb(30, 40, 55);
             btnAnimals.ForeColor = Color.FromArgb(200, 200, 200); // Optional: Reset text color for better contrast
             btnAnimals.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 80); // Optional: Reset hover color for consistency
-            //btnAppointments.BackColor = Color.FromArgb(30, 40, 55);
-            //btnBilling.BackColor = Color.FromArgb(30, 40, 55);
-            //btnAdoption.BackColor = Color.FromArgb(30, 40, 55);
+            btnApp.BackColor = Color.FromArgb(30, 40, 55);
+            btnApp.ForeColor = Color.FromArgb(200, 200, 200); // Optional: Reset text color for better contrast
+            btnApp.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 80); // Optional: Reset hover color for consistency
+            btnBilling.BackColor = Color.FromArgb(30, 40, 55);
+            btnBilling.ForeColor = Color.FromArgb(200, 200, 200); // Optional: Reset text color for better contrast
+            btnBilling.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 80); // Optional: Reset hover color for consistency
+            btnAdoption.BackColor = Color.FromArgb(30, 40, 55);
+            btnAdoption.ForeColor = Color.FromArgb(200, 200, 200); // Optional: Reset text color for better contrast
+            btnAdoption.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 55, 80); // Optional: Reset hover color for consistency
 
             // 2. Change the button that was just clicked to your nice green color!
             activeBtn.BackColor = Color.FromArgb(113, 196, 175); // Use your exact green color here
@@ -95,6 +101,18 @@ namespace PawPulse
             LoginForm login = new LoginForm();
             login.Show();
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            HighlightActiveButton(btnApp);
+            AddUserControl(new AppointmentsClientUC(ClientID, ClientName));
+        }
+
+        private void btnBilling_Click(object sender, EventArgs e)
+        {
+            HighlightActiveButton(btnBilling);
+            AddUserControl(new ClientBillingUC(ClientID, ClientName));
         }
     }
 }

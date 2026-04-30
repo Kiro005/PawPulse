@@ -296,6 +296,39 @@ namespace DBapplication
             return dbMan.ExecuteNonQuery(query);
         }
 
+        ////////////////////////////    ClientBilling   /////////////////////////////
+
+        // 1. Get the summary of bills for the client
+        public DataTable GetClientBills(int clientID)
+        {
+            string query = $@"
+        SELECT 
+            BillID, 
+            BillDate AS [Date], 
+            Total_Amount AS [Total Amount], 
+            BillStatus AS [Status]
+        FROM Bill
+        WHERE ClientID = {clientID}
+        ORDER BY BillDate DESC;";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Get the specific line items for a clicked bill
+        public DataTable GetBillItems(int billID)
+        {
+            string query = $@"
+        SELECT 
+            ItemDescription AS [Item / Service], 
+            UnitCost AS [Unit Price], 
+            Quantity AS [Qty], 
+            Subtotal AS [Subtotal]
+        FROM Bill_Item
+        WHERE BillID = {billID};";
+
+            return dbMan.ExecuteReader(query);
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////
         /// Veterinarian Dashboard
 

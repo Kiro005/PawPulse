@@ -25,7 +25,7 @@ namespace PawPulse
             label2.Text = petName;
 
             // 1. Setup Dropdowns (Just like the Add form!)
-            cmbSpecies.Items.AddRange(new string[] { "Dog", "Cat", "Bird", "Rabbit", "Other" });
+            cmbSpecies.Items.AddRange(new string[] { "Dog", "Cat", "Rabbit", "Other" });
             cmbGender.Items.AddRange(new string[] { "Male", "Female" });
 
             // 2. Load the Pet's Data

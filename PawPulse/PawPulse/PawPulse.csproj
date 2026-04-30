@@ -84,11 +84,23 @@
     <Compile Include="AnimalUC.Designer.cs">
       <DependentUpon>AnimalUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppointmentsClientUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AppointmentsClientUC.Designer.cs">
+      <DependentUpon>AppointmentsClientUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppointmentsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="AppointmentsUC.Designer.cs">
       <DependentUpon>AppointmentsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientBillingUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ClientBillingUC.Designer.cs">
+      <DependentUpon>ClientBillingUC.cs</DependentUpon>
     </Compile>
     <Compile Include="ClientDashboardForm.cs">
       <SubType>Form</SubType>
@@ -199,8 +211,14 @@
     <EmbeddedResource Include="AnimalUC.resx">
       <DependentUpon>AnimalUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AppointmentsClientUC.resx">
+      <DependentUpon>AppointmentsClientUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AppointmentsUC.resx">
       <DependentUpon>AppointmentsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientBillingUC.resx">
+      <DependentUpon>ClientBillingUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ClientDashboardForm.resx">
       <DependentUpon>ClientDashboardForm.cs</DependentUpon>

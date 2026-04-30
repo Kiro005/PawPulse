@@ -93,5 +93,10 @@ namespace PawPulse
         {
 
         }
+
+        private void txtBNum_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

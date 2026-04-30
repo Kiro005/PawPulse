@@ -89,6 +89,7 @@
             // 
             // cmpDoctor
             // 
+            this.cmpDoctor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmpDoctor.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmpDoctor.FormattingEnabled = true;
             this.cmpDoctor.Location = new System.Drawing.Point(523, 47);
@@ -121,6 +122,7 @@
             // 
             // AvailableTime
             // 
+            this.AvailableTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AvailableTime.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AvailableTime.FormattingEnabled = true;
             this.AvailableTime.Location = new System.Drawing.Point(522, 165);
