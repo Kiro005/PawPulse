@@ -140,6 +140,12 @@
     <Compile Include="EditUserForm.Designer.cs">
       <DependentUpon>EditUserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FirstTimeSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FirstTimeSetupForm.Designer.cs">
+      <DependentUpon>FirstTimeSetupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditUserForm.resx">
       <DependentUpon>EditUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FirstTimeSetupForm.resx">
+      <DependentUpon>FirstTimeSetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

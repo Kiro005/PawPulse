@@ -102,6 +102,17 @@ namespace PawPulse
             // Hide the login form
             this.Hide();
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            FirstTimeSetupForm setupForm = new FirstTimeSetupForm();
+            setupForm.ShowDialog();
+        }
     }
     
 }
