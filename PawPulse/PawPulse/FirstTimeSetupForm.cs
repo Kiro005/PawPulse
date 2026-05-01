@@ -51,7 +51,10 @@ namespace PawPulse
 
                 // UI Magic: Hide Phase 1, Show Phase 2!
                 pnlVerify.Visible = false;
+                pnlVerify.Enabled = false;
+
                 pnlPassword.Visible = true;
+                pnlVerify.Enabled = true;
 
                 MessageBox.Show("Identity verified! Please create your new password.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
