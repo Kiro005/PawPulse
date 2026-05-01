@@ -42,7 +42,8 @@
             this.panel1.Controls.Add(this.btnAddPet);
             this.panel1.Controls.Add(this.lblDate);
             this.panel1.Controls.Add(this.lblWelcome);
-            this.panel1.Location = new System.Drawing.Point(0, -1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(848, 75);
             this.panel1.TabIndex = 15;
@@ -91,7 +92,7 @@
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(77, 93);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(700, 501);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(700, 498);
             this.flowLayoutPanel1.TabIndex = 16;
             // 
             // AnimalUC

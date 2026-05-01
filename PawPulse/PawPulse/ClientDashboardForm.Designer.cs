@@ -110,6 +110,7 @@
             this.btnAdoption.Text = "  Adoption Center";
             this.btnAdoption.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAdoption.UseVisualStyleBackColor = false;
+            this.btnAdoption.Click += new System.EventHandler(this.btnAdoption_Click);
             // 
             // btnBilling
             // 

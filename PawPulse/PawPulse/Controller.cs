@@ -355,8 +355,71 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        ///////////////////////////     Adoption Client     //////////////////////////////
+
+        // For Tab 1: Get pets in the shelter that haven't been adopted yet
+        public DataTable GetAvailablePets()
+        {
+            // Make sure Age and LatestWeight are actually typed out in the SELECT line!
+            string query = @"
+        SELECT AnimalID, AnimalName, Species, Breed, Gender, Age, LatestWeight 
+        FROM ANIMAL 
+        WHERE SystemStatus = 'Shelter';";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // For Tab 2: Get the client's specific requests
+        public DataTable GetMyAdoptionRequests(int clientID)
+        {
+            // We join Adoption and ANIMAL to get the pet's details along with the request status!
+            string query = $@"
+        SELECT 
+            adp.AdoptionID, 
+            adp.ApplicationDate, 
+            adp.AdoptionStatus, 
+            adp.AdoptionFee, 
+            anim.AnimalName, 
+            anim.Species, 
+            anim.Breed,
+            adp.AnimalID,
+            anim.Gender,
+            anim.Age,
+            anim.LatestWeight
+        FROM Adoption adp
+        JOIN ANIMAL anim ON adp.AnimalID = anim.AnimalID
+        WHERE adp.ClientID = {clientID}
+        ORDER BY adp.ApplicationDate DESC;";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        public int SubmitAdoptionRequest(int animalID, int clientID)
+        {
+            // Inserts the pending request. EmployeeID is NULL because no admin has reviewed it yet!
+            string query = $@"
+        INSERT INTO Adoption (ApplicationDate, AdoptionStatus, AdoptionFee, AnimalID, ClientID, EmployeeID) 
+        VALUES (CAST(GETDATE() AS DATE), 'Pending', 0.00, {animalID}, {clientID}, NULL);";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public int CancelAdoptionRequest(int animalID, int clientID)
+        {
+            // The "AND AdoptionStatus = 'Pending'" is a safety net! 
+            // Even if a user somehow clicks cancel on an approved request, the database will refuse to delete it.
+            string query = $@"
+        DELETE FROM Adoption 
+        WHERE AnimalID = {animalID} 
+        AND ClientID = {clientID} 
+        AND AdoptionStatus = 'Pending';";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////
         /// Veterinarian Dashboard
+        /// ///////////////////////////////////////////////////////////////////////////////
 
 
         public DataTable GetActiveEmployees()

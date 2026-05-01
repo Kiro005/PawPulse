@@ -27,6 +27,11 @@ namespace PawPulse
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtEmail.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                lblError.Text = "Please enter both email and password.";
+                return;
+            }
             lblError.Text = "";
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
