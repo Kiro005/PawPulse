@@ -29,6 +29,32 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        // 1. Check if they are a valid new employee
+        public DataTable VerifyFirstTimeEmployee(string email, string phone)
+        {
+            // Returns the EmployeeID ONLY if they exist, are active, and haven't set a password yet!
+            string query = $@"
+        SELECT EmployeeID 
+        FROM Employee 
+        WHERE Email = '{email}' 
+        AND Phone = '{phone}' 
+        AND PasswordHash IS NULL 
+        AND IsActive = 1;";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Save their new password
+        public int SetEmployeePassword(int employeeId, string hashedPassword)
+        {
+            string query = $@"
+        UPDATE Employee 
+        SET PasswordHash = '{hashedPassword}' 
+        WHERE EmployeeID = {employeeId};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
         public bool CheckIfUserExists(string email, string phone)
         {
             // A simple query to count if any rows match this email or phone
@@ -556,8 +582,8 @@ namespace DBapplication
         public int InsertEmployee(string fName, string lName, string role, string email, string phone, decimal salary)
         {
             // SQL query with formatted values
-            string query = "INSERT INTO Employee (FirstName, LastName, EmployeeRole, Email, Phone, Salary, IsActive) " +
-                           $"VALUES ('{fName}', '{lName}', '{role}', '{email}', '{phone}', {salary}, 1)";
+            string query = "INSERT INTO Employee (FirstName, LastName, EmployeeRole, Email, PasswordHash, Phone, HireDate, Salary, IsActive) " +
+                           $"VALUES ('{fName}', '{lName}', '{role}', '{email}', null, '{phone}', CAST(GETDATE() AS DATE), {salary}, 1)";
 
             return dbMan.ExecuteNonQuery(query); // Returns rows affected
         }

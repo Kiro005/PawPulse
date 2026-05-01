@@ -39,7 +39,8 @@
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -47,7 +48,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.SignUplabel);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.lblError);
@@ -60,13 +62,14 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(404, 450);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // SignUplabel
             // 
             this.SignUplabel.AutoSize = true;
             this.SignUplabel.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUplabel.ForeColor = System.Drawing.Color.NavajoWhite;
-            this.SignUplabel.Location = new System.Drawing.Point(169, 363);
+            this.SignUplabel.Location = new System.Drawing.Point(267, 358);
             this.SignUplabel.Name = "SignUplabel";
             this.SignUplabel.Size = new System.Drawing.Size(70, 23);
             this.SignUplabel.TabIndex = 8;
@@ -164,15 +167,28 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // button1
+            // label3
             // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.NavajoWhite;
+            this.label3.Location = new System.Drawing.Point(69, 358);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(174, 23);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "First Time Staff Setup";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.NavajoWhite;
+            this.label5.Location = new System.Drawing.Point(246, 358);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(15, 23);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "|";
             // 
             // LoginForm
             // 
@@ -204,6 +220,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Label SignUplabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
     }
 }
