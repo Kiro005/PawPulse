@@ -454,7 +454,8 @@ namespace DBapplication
             string query = $@"
                 SELECT mr.RecordID, mr.LastUpdatedDate AS Date, mr.RecordedWeight AS Weight,
                        mr.Diagnosis, mr.Notes, an.AnimalName, an.Species,
-                       ISNULL(c.FirstName + ' ' + c.LastName, 'Shelter Animal') AS OwnerName
+                       ISNULL(c.FirstName + ' ' + c.LastName, 'Shelter Animal') AS OwnerName,
+                       mr.AnimalID, mr.AppointmentID
                 FROM MEDICAL_RECORD mr
                 JOIN ANIMAL an ON mr.AnimalID = an.AnimalID
                 LEFT JOIN CLIENT c ON an.ClientID = c.ClientID
@@ -475,7 +476,8 @@ namespace DBapplication
         {
             string query = $@"
                 SELECT p.PrescriptionID, p.IssueDate AS Date, m.MedicineName, an.AnimalName,
-                       p.Instructions, p.RefillsAllowed AS Refills, p.DurationInDays AS Duration
+                       p.Instructions, p.RefillsAllowed AS Refills, p.DurationInDays AS Duration,
+                       p.RecordID, p.MedicineID
                 FROM Prescription p
                 JOIN MEDICAL_RECORD mr ON p.RecordID = mr.RecordID
                 JOIN ANIMAL an ON mr.AnimalID = an.AnimalID
@@ -497,7 +499,7 @@ namespace DBapplication
         {
             string query = $@"
                 SELECT lt.TestID, lt.TestType AS Type, lt.TestDate AS Date, lt.Result, lt.Cost,
-                       an.AnimalName
+                       an.AnimalName, lt.RecordID
                 FROM Lab_Test lt
                 JOIN MEDICAL_RECORD mr ON lt.RecordID = mr.RecordID
                 JOIN ANIMAL an ON mr.AnimalID = an.AnimalID
@@ -601,6 +603,69 @@ namespace DBapplication
                 INSERT INTO ANIMAL (AnimalName, Species, Breed, Gender, EstimatedDOB, SystemStatus, LatestWeight, ClientID, KennelID)
                 VALUES ('{name}', '{species}', '{breed}', '{gender}', '{dob}', 'Shelter', {weight}, NULL, {kennelId});
                 UPDATE Kennel SET KennelStatus = 'Occupied' WHERE KennelID = {kennelId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool UpdateMedicalRecord(int recordId, int animalId, string diagnosis, string notes, decimal weight, int? appointmentId)
+        {
+            string apptPart = appointmentId.HasValue ? appointmentId.Value.ToString() : "NULL";
+            string query = $"UPDATE MEDICAL_RECORD SET AnimalID={animalId}, Diagnosis='{diagnosis}', Notes='{notes}', RecordedWeight={weight}, AppointmentID={apptPart}, LastUpdatedDate=CAST(GETDATE() AS DATE) WHERE RecordID={recordId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeleteMedicalRecord(int recordId)
+        {
+            string query = $"DELETE FROM MEDICAL_RECORD WHERE RecordID={recordId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool UpdatePrescription(int prescriptionId, int recordId, int medicineId, string instructions, int refills, int duration)
+        {
+            string query = $"UPDATE Prescription SET RecordID={recordId}, MedicineID={medicineId}, Instructions='{instructions}', RefillsAllowed={refills}, DurationInDays={duration} WHERE PrescriptionID={prescriptionId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeletePrescription(int prescriptionId)
+        {
+            string query = $"DELETE FROM Prescription WHERE PrescriptionID={prescriptionId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool UpdateLabTest(int testId, int recordId, string testType, string result, decimal cost)
+        {
+            string query = $"UPDATE Lab_Test SET RecordID={recordId}, TestType='{testType}', Result='{result}', Cost={cost} WHERE TestID={testId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeleteLabTest(int testId)
+        {
+            string query = $"DELETE FROM Lab_Test WHERE TestID={testId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeleteVaccination(int animalId, int vaccineId, string date)
+        {
+            string query = $"DELETE FROM Animal_Vaccine_History WHERE AnimalID={animalId} AND VaccineID={vaccineId} AND DateAdministered='{date}';";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public DataTable GetAnimalById(int animalId)
+        {
+            string query = $"SELECT AnimalID, AnimalName, Species, Breed, Gender, EstimatedDOB, LatestWeight FROM ANIMAL WHERE AnimalID={animalId};";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public bool UpdateShelterAnimal(int animalId, string name, string species, string breed, string gender, string dob, decimal weight)
+        {
+            string query = $"UPDATE ANIMAL SET AnimalName='{name}', Species='{species}', Breed='{breed}', Gender='{gender}', EstimatedDOB='{dob}', LatestWeight={weight} WHERE AnimalID={animalId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeleteAnimal(int animalId)
+        {
+            string query = $@"
+                UPDATE Kennel SET KennelStatus='Available' WHERE KennelID=(SELECT KennelID FROM ANIMAL WHERE AnimalID={animalId} AND KennelID IS NOT NULL);
+                UPDATE ANIMAL SET SystemStatus='Archived', ClientID=NULL, KennelID=NULL WHERE AnimalID={animalId};";
             return dbMan.ExecuteNonQuery(query) > 0;
         }
 

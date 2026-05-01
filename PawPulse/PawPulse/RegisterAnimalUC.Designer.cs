@@ -25,6 +25,8 @@ namespace PawPulse
             this.lblAnimalName = new System.Windows.Forms.Label();
             this.lblForm = new System.Windows.Forms.Label();
             this.accentBar = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.TopBar.SuspendLayout();
             this.formCard.SuspendLayout();
             this.SuspendLayout();
@@ -32,6 +34,8 @@ namespace PawPulse
             // TopBar
             // 
             this.TopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(38)))), ((int)(((byte)(62)))));
+            this.TopBar.Controls.Add(this.button2);
+            this.TopBar.Controls.Add(this.button1);
             this.TopBar.Controls.Add(this.lblTitle);
             this.TopBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.TopBar.Location = new System.Drawing.Point(0, 0);
@@ -258,6 +262,32 @@ namespace PawPulse
             this.accentBar.Size = new System.Drawing.Size(6, 420);
             this.accentBar.TabIndex = 0;
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Brown;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(438, 13);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(130, 34);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "- Delete";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(280, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(130, 34);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Update";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // RegisterAnimalUC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -295,5 +325,7 @@ namespace PawPulse
         private System.Windows.Forms.Button btnClear2;
         private System.Windows.Forms.Button btnRegister2;
         private System.Windows.Forms.TextBox txtWeight2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

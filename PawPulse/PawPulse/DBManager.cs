@@ -36,12 +36,15 @@ namespace DBapplication
         {
             try
             {
+                if (myConnection.State == System.Data.ConnectionState.Closed)
+                    myConnection.Open();
                 SqlCommand myCommand = new SqlCommand(query, myConnection);
                 return myCommand.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message, "DB Error");
                 return 0;
             }
         }
@@ -85,6 +88,8 @@ namespace DBapplication
         {
             try
             {
+                if (myConnection.State == System.Data.ConnectionState.Closed)
+                    myConnection.Open();
                 SqlCommand myCommand = new SqlCommand(query, myConnection);
                 return myCommand.ExecuteScalar();
             }
