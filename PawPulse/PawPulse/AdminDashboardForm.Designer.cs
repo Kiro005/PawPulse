@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboardForm));
             this.whitebg = new System.Windows.Forms.Panel();
             this.MainContentPanel = new System.Windows.Forms.Panel();
@@ -44,10 +45,14 @@
             this.btnMedicines = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmsUser = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.emplyeeDircToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.whitebg.SuspendLayout();
             this.header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.cmsUser.SuspendLayout();
             this.SuspendLayout();
             // 
             // whitebg
@@ -227,7 +232,6 @@
             this.btnMedicines.Text = "    Medicines";
             this.btnMedicines.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnMedicines.UseVisualStyleBackColor = false;
-            this.btnMedicines.Click += new System.EventHandler(this.btnMedicines_Click_1);
             // 
             // btnUsers
             // 
@@ -245,6 +249,8 @@
             this.btnUsers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnUsers.UseVisualStyleBackColor = false;
             this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
+            this.btnUsers.MouseEnter += new System.EventHandler(this.btnUsers_MouseEnter);
+            this.btnUsers.MouseLeave += new System.EventHandler(this.btnUsers_MouseLeave);
             // 
             // label1
             // 
@@ -258,6 +264,32 @@
             this.label1.Size = new System.Drawing.Size(256, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "       PawPulse";
+            // 
+            // cmsUser
+            // 
+            this.cmsUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
+            this.cmsUser.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmsUser.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsUser.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.emplyeeDircToolStripMenuItem,
+            this.clientDirectoryToolStripMenuItem});
+            this.cmsUser.Name = "contextMenuStrip1";
+            this.cmsUser.Size = new System.Drawing.Size(229, 60);
+            // 
+            // emplyeeDircToolStripMenuItem
+            // 
+            this.emplyeeDircToolStripMenuItem.Name = "emplyeeDircToolStripMenuItem";
+            this.emplyeeDircToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.emplyeeDircToolStripMenuItem.Text = "Employee Directory";
+            this.emplyeeDircToolStripMenuItem.Click += new System.EventHandler(this.emplyeeDircToolStripMenuItem_Click);
+            // 
+            // clientDirectoryToolStripMenuItem
+            // 
+            this.clientDirectoryToolStripMenuItem.Name = "clientDirectoryToolStripMenuItem";
+            this.clientDirectoryToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.clientDirectoryToolStripMenuItem.Text = "Client Directory";
+            this.clientDirectoryToolStripMenuItem.Click += new System.EventHandler(this.clientDirectoryToolStripMenuItem_Click);
+            this.clientDirectoryToolStripMenuItem.MouseEnter += new System.EventHandler(this.clientDirectoryToolStripMenuItem_MouseEnter);
             // 
             // AdminDashboardForm
             // 
@@ -276,6 +308,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.cmsUser.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -285,17 +318,20 @@
         private System.Windows.Forms.Panel whitebg;
         private System.Windows.Forms.Panel MainContentPanel;
         private System.Windows.Forms.Panel header;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnReports;
         private System.Windows.Forms.Button btnAdoptionfees;
         private System.Windows.Forms.Button btnKennels;
         private System.Windows.Forms.Button btnMedicines;
-        private System.Windows.Forms.Button btnUsers;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnUsers;
+        private System.Windows.Forms.ContextMenuStrip cmsUser;
+        private System.Windows.Forms.ToolStripMenuItem emplyeeDircToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientDirectoryToolStripMenuItem;
     }
 }
