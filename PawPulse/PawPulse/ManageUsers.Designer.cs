@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblSubTitle = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
@@ -47,7 +47,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(38)))), ((int)(((byte)(62)))));
-            this.panel1.Controls.Add(this.lblTitle);
+            this.panel1.Controls.Add(this.lblSubTitle);
             this.panel1.Controls.Add(this.lblDate);
             this.panel1.Controls.Add(this.lblWelcome);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -56,16 +56,15 @@
             this.panel1.Size = new System.Drawing.Size(848, 75);
             this.panel1.TabIndex = 21;
             // 
-            // lblTitle
+            // lblSubTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblTitle.Location = new System.Drawing.Point(118, 45);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(126, 16);
-            this.lblTitle.TabIndex = 2;
-            this.lblTitle.Text = "Employee Directory";
-            this.lblTitle.Click += new System.EventHandler(this.label1_Click);
+            this.lblSubTitle.AutoSize = true;
+            this.lblSubTitle.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblSubTitle.Location = new System.Drawing.Point(118, 45);
+            this.lblSubTitle.Name = "lblSubTitle";
+            this.lblSubTitle.Size = new System.Drawing.Size(126, 16);
+            this.lblSubTitle.TabIndex = 2;
+            this.lblSubTitle.Text = "Employee Directory";
             // 
             // lblDate
             // 
@@ -134,7 +133,7 @@
             this.btnِAddUser.ForeColor = System.Drawing.Color.White;
             this.btnِAddUser.Location = new System.Drawing.Point(689, 273);
             this.btnِAddUser.Name = "btnِAddUser";
-            this.btnِAddUser.Size = new System.Drawing.Size(144, 48);
+            this.btnِAddUser.Size = new System.Drawing.Size(156, 48);
             this.btnِAddUser.TabIndex = 25;
             this.btnِAddUser.Text = "+ Add User";
             this.btnِAddUser.UseVisualStyleBackColor = false;
@@ -148,9 +147,9 @@
             this.btnEditusr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditusr.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditusr.ForeColor = System.Drawing.Color.White;
-            this.btnEditusr.Location = new System.Drawing.Point(689, 382);
+            this.btnEditusr.Location = new System.Drawing.Point(689, 381);
             this.btnEditusr.Name = "btnEditusr";
-            this.btnEditusr.Size = new System.Drawing.Size(145, 51);
+            this.btnEditusr.Size = new System.Drawing.Size(156, 51);
             this.btnEditusr.TabIndex = 26;
             this.btnEditusr.Text = "✎ Edit User";
             this.btnEditusr.UseVisualStyleBackColor = false;
@@ -184,7 +183,7 @@
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(688, 476);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(145, 59);
+            this.button1.Size = new System.Drawing.Size(156, 51);
             this.button1.TabIndex = 60;
             this.button1.Text = "× FIRE USER";
             this.button1.UseVisualStyleBackColor = false;
@@ -222,7 +221,7 @@
         private System.Windows.Forms.ComboBox cmbRoleFilter;
         private System.Windows.Forms.Button btnِAddUser;
         private System.Windows.Forms.Button btnEditusr;
-        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblSubTitle;
         private System.Windows.Forms.Label lblFilterTag;
         private System.Windows.Forms.Label lblSearchTag;
         private System.Windows.Forms.Button button1;

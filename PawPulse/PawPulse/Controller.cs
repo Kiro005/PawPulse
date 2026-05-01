@@ -599,5 +599,53 @@ namespace DBapplication
             return dbMan.ExecuteNonQuery(query);
         }
 
+       
+
+        // Update existing client information
+        public int UpdateClient(int clientID, string txtFName, string txtLName, string txtPhone, string txtEmail,
+                                string txtCity, string txtStreet, string txtBuilding)
+        {
+            string query = $@"UPDATE Clients 
+                      SET FirstName = '{txtFName}', 
+                          LastName = '{txtLName}', 
+                          Phone = '{txtPhone}', 
+                          Email = '{txtEmail}', 
+                          City = '{txtCity}', 
+                          Street = '{txtStreet}', 
+                          BuildingNumber = '{txtBuilding}' 
+                      WHERE ClientID = {clientID}";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Update only the activation status of a client
+        public int UpdateClientStatus(int clientId, int newStatusValue)
+        {
+            // SQL query to update the IsActive bit (0 or 1)
+            string query = $"UPDATE Clients SET IsActive = {newStatusValue} WHERE ClientID = {clientId}";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+        // Delete a client record permanently from the database
+        public int DeleteClient(int clientID)
+        {
+            // SQL query targeting the Clients table and its Primary Key
+            string query = $"DELETE FROM Clients WHERE ClientID = {clientID}";
+
+            // Execute the non-query and return rows affected
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Retrieve all client details excluding sensitive PasswordHash
+        public DataTable GetAllClients()
+        {
+            // Selecting columns based on the schema in image_67d47a.png
+            string query = @"SELECT ClientID, FirstName, LastName, Phone, Email, 
+                            City, Street, BuildingNumber, IsActive 
+                    FROM Client";
+
+            return dbMan.ExecuteReader(query);
+        }
+
     }
 }

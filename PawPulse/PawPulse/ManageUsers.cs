@@ -11,54 +11,118 @@ using System.Windows.Forms;
 
 namespace PawPulse
 {
-    
     public partial class ManageUsers : UserControl
     {
         Controller controllerObj;
-        DataView employeeView; // Global for filtering
-        int ClientID;
-        string ClientName;
+        DataView currentDataView; // Generic name for filtering
+        int AdminID;
+        string AdminName;
+        string currentView; // Tracks "Employee" or "Client"
 
-        public ManageUsers(int clientID, string clientName)
+        // Updated Constructor with viewType parameter
+        public ManageUsers(int adminId, string adminName, string viewType = "Employee")
         {
             InitializeComponent();
             controllerObj = new Controller();
-            this.ClientID = clientID;
-            this.ClientName = clientName;
+            this.AdminID = adminId;
+            this.AdminName = adminName;
+            this.currentView = viewType;
+
             lblDate.Text = DateTime.Now.ToString("MMMM dd, yyyy");
 
-            // 1. Initialize ComboBox Items
-            cmbRoleFilter.Items.Clear();
-            cmbRoleFilter.Items.AddRange(new string[] { "All", "Veterinarian", "Receptionist", "Manager", "Staff" });
-            cmbRoleFilter.SelectedIndex = 0;
+            // Setup UI and Data based on view type
+            ApplyViewConfiguration();
+        }
+        private void dgvEmployees_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // 1. Validate that the click is on a valid row (not the header)
+            if (e.RowIndex >= 0)
+            {
+                string columnName = dgvEmployees.Columns[e.ColumnIndex].Name;
+                string headerText = dgvEmployees.Columns[e.ColumnIndex].HeaderText;
+                var cellValue = dgvEmployees.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
 
-            // 2. Setup Grid Structure
+                if (cellValue == null || cellValue == DBNull.Value) return;
+
+                // 2. Show details if the user double-clicks on Email or Address fields
+                if (headerText.Contains("Email") || headerText.Contains("Street") || headerText.Contains("City"))
+                {
+                    string detailValue = cellValue.ToString();
+
+                    // Show a professional message box with the detail
+                    MessageBox.Show($"{headerText}: {detailValue}",
+                                    "Contact Details",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void ApplyViewConfiguration()
+        {
+            // 1. Initialize Filters and Visibility
+            if (currentView == "Client")
+            {
+                btnِAddUser.Visible = false;      // Clients sign up themselves
+                cmbRoleFilter.Visible = false;   // Roles not applicable to clients
+                lblFilterTag.Visible = false;
+                lblSubTitle.Text = "Client Directory";
+                btnEditusr.Top = 140; // Move Edit button up to align with clients' shorter info
+                button1.Text = "Delete Client"; // Change button text for clients
+                button1.Top = 140; // Move Delete button up as well
+                button1.Left= 300; // Move Delete button to the right for better spacing
+                dgvEmployees.Width= 600; // Expand grid width for client info
+
+            }
+            else
+            {
+                btnِAddUser.Visible = true;
+                cmbRoleFilter.Visible = true;
+                lblFilterTag.Visible = true;
+                lblSubTitle.Text = "Employee Directory";
+
+                cmbRoleFilter.Items.Clear();
+                cmbRoleFilter.Items.AddRange(new string[] { "All", "Veterinarian", "Receptionist", "Manager", "Staff" });
+                cmbRoleFilter.SelectedIndex = 0;
+            }
+
+            // 2. Format Grid and Load Data
             StyleDataGridView();
-
-            // 3. Load Data
             RefreshGrid();
-
-            // 4. Style Input Controls
             StyleInputControls();
-
-            // 5. Style Labels
             StyleLabels();
         }
 
-
         private void RefreshGrid()
         {
-            DataTable dt = controllerObj.GetAllEmployees(); // Using your method
+            // 1. Clear existing binding to reset the grid schema
+            dgvEmployees.DataSource = null;
+            dgvEmployees.Columns.Clear(); // Clear manual columns like btnStatus to recreate them
+
+            DataTable dt;
+            if (currentView == "Client")
+            {
+                dt = controllerObj.GetAllClients();
+            }
+            else
+            {
+                dt = controllerObj.GetAllEmployees();
+            }
+
             if (dt != null)
             {
-                employeeView = new DataView(dt);
-                dgvEmployees.DataSource = employeeView;
+                currentDataView = new DataView(dt);
 
-                // Hide raw data columns
+                // 2. Re-apply styling and the Status button AFTER setting the new data
+                StyleDataGridView();
+                dgvEmployees.DataSource = currentDataView;
+
+                // 3. Hide the correct ID column based on view
+                string idCol = (currentView == "Client") ? "ClientID" : "EmployeeID";
+                if (dgvEmployees.Columns.Contains(idCol)) dgvEmployees.Columns[idCol].Visible = false;
                 if (dgvEmployees.Columns.Contains("IsActive")) dgvEmployees.Columns["IsActive"].Visible = false;
-                if (dgvEmployees.Columns.Contains("EmployeeID")) dgvEmployees.Columns["EmployeeID"].Visible = false;
 
-                // Ensure the toggle button is on the far right
+                // Ensure the status button is at the end
                 if (dgvEmployees.Columns.Contains("btnStatus"))
                     dgvEmployees.Columns["btnStatus"].DisplayIndex = dgvEmployees.Columns.Count - 1;
             }
@@ -66,112 +130,79 @@ namespace PawPulse
 
         private void txtSearchUser_TextChanged(object sender, EventArgs e)
         {
-            if (employeeView != null)
+            if (currentDataView == null) return;
+
+            // Adjust search query based on available columns
+            if (currentView == "Client")
             {
-                // Use the EXACT Aliases from your SQL: FullName and [Work Email]
-                employeeView.RowFilter = string.Format("FullName LIKE '%{0}%' OR [Work Email] LIKE '%{0}%'", txtSearchUser.Text);
+                // Clients use FirstName and Email
+                currentDataView.RowFilter = string.Format("FirstName LIKE '%{0}%' OR Email LIKE '%{0}%'", txtSearchUser.Text);
+            }
+            else
+            {
+                // Employees use FullName and [Work Email]
+                currentDataView.RowFilter = string.Format("FullName LIKE '%{0}%' OR [Work Email] LIKE '%{0}%'", txtSearchUser.Text);
             }
         }
 
         private void cmbRoleFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (employeeView == null) return;
+            if (currentDataView == null || currentView == "Client") return;
 
             string selectedRole = cmbRoleFilter.SelectedItem.ToString();
-
             if (selectedRole == "All")
-                employeeView.RowFilter = "";
+                currentDataView.RowFilter = "";
             else
-                // Use the [Role] alias from your SQL
-                employeeView.RowFilter = string.Format("Role = '{0}'", selectedRole);
+                currentDataView.RowFilter = string.Format("Role = '{0}'", selectedRole);
         }
-
-
-
-        
-
-        
-
-        
-        
-        
-        private void LoadEmployees()
-        {
-            DataTable dt = controllerObj.GetAllEmployees();
-            dgvEmployees.DataSource = dt;
-
-            // Technical Note: Hide sensitive columns like IDs if needed
-            dgvEmployees.Columns["EmployeeID"].Visible = false;
-        }
-
-        // Filter logic for the ComboBox
-        
 
         private void StyleDataGridView()
         {
-            // --- 1. Reset & Setup ---
             dgvEmployees.BackgroundColor = Color.White;
             dgvEmployees.BorderStyle = BorderStyle.None;
             dgvEmployees.AllowUserToAddRows = false;
             dgvEmployees.RowHeadersVisible = false;
             dgvEmployees.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEmployees.EnableHeadersVisualStyles = false;
 
-            // Enable custom header styles
-            dgvEmployees.EnableHeadersVisualStyles = false; 
-
-    // --- 2. Add Status Button  ---
-    if (!dgvEmployees.Columns.Contains("btnStatus"))
+            // Add Status Button column if missing
+            if (!dgvEmployees.Columns.Contains("btnStatus"))
             {
                 DataGridViewButtonColumn btnCol = new DataGridViewButtonColumn();
                 btnCol.Name = "btnStatus";
-                btnCol.HeaderText = "Status"; 
-        btnCol.FlatStyle = FlatStyle.Flat;
+                btnCol.HeaderText = "Status";
+                btnCol.FlatStyle = FlatStyle.Flat;
                 dgvEmployees.Columns.Add(btnCol);
             }
 
-            // --- 3. Manage Visibility & Order ---
-            // Hide original checkbox column
-            if (dgvEmployees.Columns.Contains("IsActive"))
-                dgvEmployees.Columns["IsActive"].Visible = false; 
-
-    // Move Status button to the far right
-    dgvEmployees.Columns["btnStatus"].DisplayIndex = dgvEmployees.Columns.Count - 1; 
-
-    // --- 4. Fix Column Squashing (FillWeights) ---
-    dgvEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
-
-    // Assign weights to prevent compression
-    if (dgvEmployees.Columns.Contains("FullName")) dgvEmployees.Columns["FullName"].FillWeight = 150;
-            if (dgvEmployees.Columns.Contains("EmployeeRole")) dgvEmployees.Columns["EmployeeRole"].FillWeight = 100;
-            if (dgvEmployees.Columns.Contains("Email")) dgvEmployees.Columns["Email"].FillWeight = 120;
-            dgvEmployees.Columns["btnStatus"].FillWeight = 60; // Keep button slim
-
-            // --- 5. Styling & Colors ---
+            dgvEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvEmployees.RowTemplate.Height = 45;
             dgvEmployees.ColumnHeadersHeight = 50;
 
-            // Header Colors
+            // Dark Navy Header Style
             dgvEmployees.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(30, 40, 55);
             dgvEmployees.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgvEmployees.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
-            // Row Selection Colors
+            // Row Styling
             dgvEmployees.DefaultCellStyle.SelectionBackColor = Color.FromArgb(235, 240, 245);
             dgvEmployees.DefaultCellStyle.SelectionForeColor = Color.FromArgb(30, 40, 55);
+            dgvEmployees.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
             if (dgvEmployees.Columns.Contains("btnStatus"))
             {
-                // Force the selection background of this column to stay White
                 dgvEmployees.Columns["btnStatus"].DefaultCellStyle.SelectionBackColor = Color.White;
-
-                // Ensure the button weight stays correct
                 dgvEmployees.Columns["btnStatus"].FillWeight = 60;
             }
-
-
-            // Disable text wrapping to keep rows clean
-            dgvEmployees.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            //if (currentView == "Client")
+            //{
+            //    // English comments: Adjusting column weights for better visibility
+            //    if (dgvEmployees.Columns.Contains("Email")) dgvEmployees.Columns["Email"].FillWeight = 150;
+            //    if (dgvEmployees.Columns.Contains("Street")) dgvEmployees.Columns["Street"].FillWeight = 150;
+            //    if (dgvEmployees.Columns.Contains("Phone")) dgvEmployees.Columns["Phone"].FillWeight = 100;
+            //}
         }
+
         private void dgvEmployees_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             if (!dgvEmployees.Columns.Contains("btnStatus")) return;
@@ -187,107 +218,49 @@ namespace PawPulse
                     {
                         statusCell.Value = "Active";
                         statusCell.Style.ForeColor = Color.Green;
-                        // Keep text Green even when the row is selected
                         statusCell.Style.SelectionForeColor = Color.Green;
                     }
                     else
                     {
                         statusCell.Value = "Inactive";
                         statusCell.Style.ForeColor = Color.Red;
-                        // Keep text Red even when the row is selected
                         statusCell.Style.SelectionForeColor = Color.Red;
                     }
                 }
             }
         }
+
         private void dgvEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Ensure the click is on the button column and not the header
             if (e.RowIndex >= 0 && dgvEmployees.Columns[e.ColumnIndex].Name == "btnStatus")
             {
-                int empId = Convert.ToInt32(dgvEmployees.Rows[e.RowIndex].Cells["EmployeeID"].Value);
+                // Dynamic ID identification
+                string idCol = currentView == "Client" ? "ClientID" : "EmployeeID";
+                int targetId = Convert.ToInt32(dgvEmployees.Rows[e.RowIndex].Cells[idCol].Value);
                 bool currentStatus = Convert.ToBoolean(dgvEmployees.Rows[e.RowIndex].Cells["IsActive"].Value);
+
                 string action = currentStatus ? "deactivate" : "activate";
 
-                DialogResult result = MessageBox.Show($"Are you sure you want to {action} this employee?",
-                                                    "Confirm Status Change",
-                                                    MessageBoxButtons.YesNo,
-                                                    MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show($"Are you sure you want to {action} this user?",
+                                    "Confirm Status Change", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
                     int newStatusValue = currentStatus ? 0 : 1;
-                    int rowsAffected = controllerObj.UpdateEmployeeStatus(empId, newStatusValue);
 
-                    if (rowsAffected > 0) // <--- THIS IS THE BLOCK
+                    // Update status based on type
+                    int rowsAffected = (currentView == "Client")
+                        ? controllerObj.UpdateClientStatus(targetId, newStatusValue)
+                        : controllerObj.UpdateEmployeeStatus(targetId, newStatusValue);
+
+                    if (rowsAffected > 0)
                     {
-                        // 1. Update the hidden boolean cell value
                         dgvEmployees.Rows[e.RowIndex].Cells["IsActive"].Value = (newStatusValue == 1);
-
-                        // 2. Reference the button cell to update its style
-                        DataGridViewCell buttonCell = dgvEmployees.Rows[e.RowIndex].Cells["btnStatus"];
-
-                        if (newStatusValue == 1)
-                        {
-                            buttonCell.Value = "Active";
-                            buttonCell.Style.ForeColor = Color.Green;
-                            buttonCell.Style.SelectionForeColor = Color.Green; // Keep color when selected
-                        }
-                        else
-                        {
-                            buttonCell.Value = "Inactive";
-                            buttonCell.Style.ForeColor = Color.Red;
-                            buttonCell.Style.SelectionForeColor = Color.Red; // Keep color when selected
-                        }
-
-                        MessageBox.Show($"Employee {action}d successfully!");
+                        MessageBox.Show($"User {action}d successfully!");
+                        RefreshGrid(); // Refresh to apply visual styles
                     }
                 }
             }
-        }
-
-        private void dgvEmployees_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Validate row index and column name
-            if (e.RowIndex >= 0 && dgvEmployees.Columns[e.ColumnIndex].HeaderText.Contains("Email"))
-            {
-                string fullEmail = dgvEmployees.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                MessageBox.Show($"Contact Email: {fullEmail}", "Employee Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void StyleInputControls()
-        {
-            // Search TextBox Styling
-            txtSearchUser.BorderStyle = BorderStyle.FixedSingle;
-            txtSearchUser.Font = new Font("Segoe UI", 11);
-            txtSearchUser.BackColor = Color.White;
-
-            // Role ComboBox Styling
-            cmbRoleFilter.FlatStyle = FlatStyle.Flat;
-            cmbRoleFilter.Font = new Font("Segoe UI", 10);
-            cmbRoleFilter.BackColor = Color.White;
-        }
-        private void StyleLabels()
-        {
-            // Main Title Label (e.g., "Employee Management")
-            //lblTitle.Font = new Font("Segoe UI", , FontStyle.Bold);
-
-            // Search Label
-            lblSearchTag.ForeColor = Color.DimGray; // Soft dark gray for labels
-            lblSearchTag.Font = new Font("Segoe UI Semibold", 9);
-            lblSearchTag.Text = "SEARCH BY NAME OR EMAIL";
-
-            // Filter Label
-            lblFilterTag.ForeColor = Color.DimGray;
-            lblFilterTag.Font = new Font("Segoe UI Semibold", 9);
-            lblFilterTag.Text = "FILTER BY ROLE";
-
-            // Optional: Add a subtle separator line color if you have any
         }
 
         private void btnِAddUser_Click(object sender, EventArgs e)
@@ -295,7 +268,7 @@ namespace PawPulse
             AddUserForm addFrm = new AddUserForm();
             if (addFrm.ShowDialog() == DialogResult.OK)
             {
-                RefreshGrid(); // Automatically update the table after adding
+                RefreshGrid();
             }
         }
 
@@ -303,62 +276,69 @@ namespace PawPulse
         {
             if (dgvEmployees.SelectedRows.Count > 0)
             {
-                // Get the ID from the selected row (column "EmployeeID")
-                int id = Convert.ToInt32(dgvEmployees.SelectedRows[0].Cells["EmployeeID"].Value);
+                string idCol = currentView == "Client" ? "ClientID" : "EmployeeID";
+                int id = Convert.ToInt32(dgvEmployees.SelectedRows[0].Cells[idCol].Value);
 
-                // Open Edit form and pass the ID
-                EditUserForm editFrm = new EditUserForm(id);
-                if (editFrm.ShowDialog() == DialogResult.OK)
+                if (currentView == "Client")
                 {
-                    RefreshGrid(); // Refresh the table after saving
+                    // Open EditClientForm if you created one
+                    // EditClientForm editFrm = new EditClientForm(id);
+                    // editFrm.ShowDialog();
+                }
+                else
+                {
+                    EditUserForm editFrm = new EditUserForm(id);
+                    if (editFrm.ShowDialog() == DialogResult.OK) RefreshGrid();
                 }
             }
             else
             {
-                MessageBox.Show("Please select an employee to edit.");
+                MessageBox.Show("Please select a record to edit.");
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // Fire/Delete Button
         {
             if (dgvEmployees.SelectedRows.Count > 0)
             {
-                // 2. Get the EmployeeID from the selected row
-                int empID = Convert.ToInt32(dgvEmployees.SelectedRows[0].Cells["EmployeeID"].Value);
-                string empName = dgvEmployees.SelectedRows[0].Cells["FullName"].Value.ToString();
+                string idCol = currentView == "Client" ? "ClientID" : "EmployeeID";
+                int targetID = Convert.ToInt32(dgvEmployees.SelectedRows[0].Cells[idCol].Value);
 
-                // 3. Show a confirmation message box before deletion
-                DialogResult result = MessageBox.Show($"Are you sure you want to fire {empName} and delete their record?",
-                                                    "Confirm Deletion",
-                                                    MessageBoxButtons.YesNo,
-                                                    MessageBoxIcon.Warning);
+                string msg = currentView == "Client" ? "delete this client?" : "fire this employee?";
+
+                DialogResult result = MessageBox.Show($"Are you sure you want to {msg}", "Confirm Action",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
-                    // 4. Call the controller to delete the record
-                    int affectedRows = controllerObj.DeleteEmployee(empID);
+                    int affected = (currentView == "Client")
+                        ? controllerObj.DeleteClient(targetID)
+                        : controllerObj.DeleteEmployee(targetID);
 
-                    if (affectedRows > 0)
+                    if (affected > 0)
                     {
-                        MessageBox.Show("Employee has been removed successfully.");
-
-                        // 5. Refresh the grid to show the updated list
+                        MessageBox.Show("Record removed successfully.");
                         RefreshGrid();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error: Could not delete the employee.");
                     }
                 }
             }
-            else
-            {
-                // Alert if the user clicked the button without selecting a row
-                MessageBox.Show("Please select an employee first.");
-            }
+        }
+
+        // --- Styling Helper Methods ---
+        private void StyleInputControls()
+        {
+            txtSearchUser.BorderStyle = BorderStyle.FixedSingle;
+            txtSearchUser.Font = new Font("Segoe UI", 11);
+            cmbRoleFilter.FlatStyle = FlatStyle.Flat;
+            cmbRoleFilter.Font = new Font("Segoe UI", 10);
+        }
+
+        private void StyleLabels()
+        {
+            lblSearchTag.ForeColor = Color.DimGray;
+            lblSearchTag.Font = new Font("Segoe UI Semibold", 9);
+            lblFilterTag.ForeColor = Color.DimGray;
+            lblFilterTag.Font = new Font("Segoe UI Semibold", 9);
         }
     }
-
-
 }
-
