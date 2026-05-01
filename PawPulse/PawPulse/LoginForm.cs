@@ -57,7 +57,9 @@ namespace PawPulse
                             sidebarPanel2 vetPortal = new sidebarPanel2(userId, fullName);
                             vetPortal.Show();
                             break;
-                        case "Admin":
+                        case "Manager":
+                            AdminDashboardForm adminPortal = new AdminDashboardForm(userId, fullName);
+                            adminPortal.Show();
                             break;
                         case "Staff":
                             break;
@@ -84,5 +86,22 @@ namespace PawPulse
             SignUpForm signUpForm = new SignUpForm();
             signUpForm.Show();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            
+            // Temporary bypass for testing purposes
+            // Using Mohamed Gharabwy (ID: 7) as the default manager from your SQL data
+            int tempManagerID = 7;
+            string tempManagerName = "Mohamed Gharabwy";
+
+            // Initialize and show the Admin Dashboard directly
+            AdminDashboardForm adminDash = new AdminDashboardForm(tempManagerID, tempManagerName);
+            adminDash.Show();
+
+            // Hide the login form
+            this.Hide();
+        }
     }
+    
 }

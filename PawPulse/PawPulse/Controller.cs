@@ -535,5 +535,69 @@ namespace DBapplication
             object result = dbMan.ExecuteScalar(query);
             return result != null ? Convert.ToInt32(result) : 0;
         }
+
+
+        // Get all employees from database
+        public DataTable GetAllEmployees()
+        {
+            string query = "SELECT EmployeeID, FirstName + ' ' + LastName AS FullName, EmployeeRole AS [Role] , Email AS [Work Email], Phone AS [Contact Number], Salary [Monthly Salary], IsActive FROM Employee";
+            return dbMan.ExecuteReader(query); // Assuming dbManager handles the connection
+        }
+        // Update employee active status in DB
+        // 
+
+
+        public int UpdateEmployeeStatus(int id, int status)
+        {
+            string query = $"UPDATE Employee SET IsActive = {status} WHERE EmployeeID = {id}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+        // Insert a new employee into the database
+        public int InsertEmployee(string fName, string lName, string role, string email, string phone, decimal salary)
+        {
+            // SQL query with formatted values
+            string query = "INSERT INTO Employee (FirstName, LastName, EmployeeRole, Email, Phone, Salary, IsActive) " +
+                           $"VALUES ('{fName}', '{lName}', '{role}', '{email}', '{phone}', {salary}, 1)";
+
+            return dbMan.ExecuteNonQuery(query); // Returns rows affected
+        }
+        // Get distinct employee roles for the dropdown
+        public DataTable GetEmployeeRoles()
+        {
+            string query = "SELECT DISTINCT EmployeeRole FROM Employee";
+            return dbMan.ExecuteReader(query);
+        }
+        // Get a single employee's data by ID
+        public DataTable GetEmployeeByID(int empID)
+        {
+            string query = $"SELECT * FROM Employee WHERE EmployeeID = {empID}";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Update existing employee data
+        public int UpdateEmployee(int empID, string txtFName, string txtLName, string cmbRole, string txtEmail, string txtphone, decimal txtSalary)
+        {
+            string query = $@"UPDATE Employee 
+                      SET FirstName = '{txtFName}', 
+                          LastName = '{txtLName}', 
+                          EmployeeRole = '{cmbRole}', 
+                          Email = '{txtEmail}', 
+                          Phone = '{txtphone}', 
+                          Salary = {txtSalary} 
+                      WHERE EmployeeID = {empID}";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Delete an employee permanently from the database
+        public int DeleteEmployee(int empID)
+        {
+            // SQL query to remove the record based on its unique ID
+            string query = $"DELETE FROM Employee WHERE EmployeeID = {empID}";
+
+            // Execute and return the number of affected rows
+            return dbMan.ExecuteNonQuery(query);
+        }
+
     }
 }
