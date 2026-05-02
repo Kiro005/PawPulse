@@ -232,6 +232,12 @@
     <Compile Include="RegisterAnimalUC.Designer.cs">
       <DependentUpon>RegisterAnimalUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShelterStaffDashboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShelterStaffDashboardForm.Designer.cs">
+      <DependentUpon>ShelterStaffDashboardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SignUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -336,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegisterAnimalUC.resx">
       <DependentUpon>RegisterAnimalUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShelterStaffDashboardForm.resx">
+      <DependentUpon>ShelterStaffDashboardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
