@@ -107,13 +107,13 @@ namespace PawPulse
         private void btnKennels_Click(object sender, EventArgs e)
         {
             HighlightActiveButton(btnKennels);
-            AddUserControl(new AppointmentsClientUC(ClientID, ClientName));
+            AddUserControl(new ManageKennelsUC(ClientID, ClientName));
         }
 
         private void btnAdoptionfees_Click(object sender, EventArgs e)
         {
             HighlightActiveButton(btnAdoptionfees);
-            AddUserControl(new ClientBillingUC(ClientID, ClientName));
+            AddUserControl(new ManageAdoptionFeesUC());
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -170,6 +170,21 @@ namespace PawPulse
         private void btnUsers_MouseLeave(object sender, EventArgs e)
         {
             //cmsUsers.Hide();
+        }
+
+        private void btnMedicines_Click_1(object sender, EventArgs e)
+        {
+            HighlightActiveButton(btnMedicines);
+            AddUserControl(new ManageMedicinesUC(ClientID, ClientName));
+
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+            // 1. Highlight the Reports button in the sidebar
+            HighlightActiveButton(btnReports);
+            // 2. Load the Reports UserControl
+            AddUserControl(new ReportsUC(ClientID, ClientName));
         }
     }
 }

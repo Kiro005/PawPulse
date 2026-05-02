@@ -281,9 +281,10 @@ namespace PawPulse
 
                 if (currentView == "Client")
                 {
-                    // Open EditClientForm if you created one
-                    // EditClientForm editFrm = new EditClientForm(id);
-                    // editFrm.ShowDialog();
+                     
+                     EditClientForm editFrm = new EditClientForm(id);
+                    editFrm.ShowDialog();
+                        RefreshGrid();
                 }
                 else
                 {
