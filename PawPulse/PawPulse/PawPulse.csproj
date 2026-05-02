@@ -273,6 +273,12 @@
     <Compile Include="PrescriptionsUC.Designer.cs">
       <DependentUpon>PrescriptionsUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProcessAdoptionsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProcessAdoptionsUC.Designer.cs">
+      <DependentUpon>ProcessAdoptionsUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterAnimalUC.cs">
@@ -292,6 +298,18 @@
     </Compile>
     <Compile Include="ResupplyForm.Designer.cs">
       <DependentUpon>ResupplyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShelterManageKennelsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShelterManageKennelsUC.Designer.cs">
+      <DependentUpon>ShelterManageKennelsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShelterStaffDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShelterStaffDashboard.Designer.cs">
+      <DependentUpon>ShelterStaffDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="SignUpForm.cs">
       <SubType>Form</SubType>
@@ -404,11 +422,20 @@
     <EmbeddedResource Include="PrescriptionsUC.resx">
       <DependentUpon>PrescriptionsUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProcessAdoptionsUC.resx">
+      <DependentUpon>ProcessAdoptionsUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegisterAnimalUC.resx">
       <DependentUpon>RegisterAnimalUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsUC.resx">
       <DependentUpon>ReportsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShelterManageKennelsUC.resx">
+      <DependentUpon>ShelterManageKennelsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShelterStaffDashboard.resx">
+      <DependentUpon>ShelterStaffDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>

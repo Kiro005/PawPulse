@@ -1098,5 +1098,110 @@ namespace DBapplication
         }
 
 
+
+        //Shelter staff stuff
+
+        // 1. Get shelter animals that are NOT in a kennel yet
+        public DataTable GetUnassignedShelterAnimals()
+        {
+            string query = "SELECT AnimalID, AnimalName FROM ANIMAL WHERE SystemStatus = 'Shelter' AND KennelID IS NULL;";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Assign an animal to a kennel
+        public int AssignAnimalToKennel(int animalId, int kennelId)
+        {
+            string query = $@"
+        UPDATE ANIMAL SET KennelID = {kennelId} WHERE AnimalID = {animalId};
+        UPDATE Kennel SET KennelStatus = 'Occupied' WHERE KennelID = {kennelId};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // 3. Clear a kennel (Removes the animal and marks kennel for cleaning)
+        public int ClearKennel(int kennelId)
+        {
+            string query = $@"
+        UPDATE ANIMAL SET KennelID = NULL WHERE KennelID = {kennelId};
+        UPDATE Kennel SET KennelStatus = 'Needs Cleaning' WHERE KennelID = {kennelId};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
+        /// Shelter Staff: Process Adoptions
+        ///////////////////////////////////////////////////////////////////////////////////
+
+        // 1. Get all Pending Adoptions for the staff to review
+        public DataTable GetPendingAdoptions()
+        {
+            // We JOIN Adoption, ANIMAL, and CLIENT to get a complete picture
+            string query = @"
+                SELECT 
+                    adp.AdoptionID, 
+                    adp.ApplicationDate, 
+                    adp.AdoptionFee,
+                    anim.AnimalID,
+                    anim.AnimalName, 
+                    anim.Species, 
+                    c.ClientID,
+                    c.FirstName + ' ' + c.LastName AS ClientName,
+                    c.Phone
+                FROM Adoption adp
+                JOIN ANIMAL anim ON adp.AnimalID = anim.AnimalID
+                JOIN CLIENT c ON adp.ClientID = c.ClientID
+                WHERE adp.AdoptionStatus = 'Pending'
+                ORDER BY adp.ApplicationDate ASC;";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Reject an Adoption
+        public int RejectAdoption(int adoptionId, int employeeId)
+        {
+            // Update the status and record WHICH staff member rejected it
+            string query = $@"
+                UPDATE Adoption 
+                SET AdoptionStatus = 'Rejected', EmployeeID = {employeeId} 
+                WHERE AdoptionID = {adoptionId};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // 3. Approve an Adoption (Complex transaction!)
+        public int ApproveAdoption(int adoptionId, int animalId, int clientId, int employeeId)
+        {
+            /* 
+             * When an adoption is approved:
+             * 1. Update the Adoption record (Approved, mark the employee).
+             * 2. Free up the Kennel (Only affects the kennel if the animal actually had one).
+             * 3. Update the Animal record (SystemStatus = 'Adopted', assign ClientID, clear KennelID).
+             */
+            string query = $@"
+                UPDATE Adoption 
+                SET AdoptionStatus = 'Approved', EmployeeID = {employeeId} 
+                WHERE AdoptionID = {adoptionId};
+
+                UPDATE Kennel 
+                SET KennelStatus = 'Needs Cleaning' 
+                WHERE KennelID = (SELECT KennelID FROM ANIMAL WHERE AnimalID = {animalId});
+
+                UPDATE ANIMAL 
+                SET SystemStatus = 'Adopted', ClientID = {clientId}, KennelID = NULL 
+                WHERE AnimalID = {animalId};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+
+
+
+
+
+
     }
 }
