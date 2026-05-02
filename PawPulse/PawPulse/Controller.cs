@@ -1072,14 +1072,15 @@ namespace DBapplication
         public DataTable GetAllKennelsWithAnimals()
         {
             string query = @"SELECT 
-                        K.KennelID, 
-                        K.KennelSize AS [Size], 
-                        K.WardType AS [Ward], 
-                        K.Capacity, 
-                        K.KennelStatus AS [Status],
-                        ISNULL(A.AnimalName, 'Empty') AS [Occupied By]
-                     FROM Kennel K
-                     LEFT JOIN ANIMAL A ON K.KennelID = A.KennelID";
+                K.KennelID, 
+                K.KennelSize AS [Size], 
+                K.WardType AS [Ward], 
+                K.Capacity, 
+                K.KennelStatus AS [Status],
+                ISNULL(A.AnimalName, 'Empty') AS [Occupied By],
+                A.AnimalID  -- WE MUST ADD THIS LINE SO THE GRID HAS THE ID
+             FROM Kennel K
+             LEFT JOIN ANIMAL A ON K.KennelID = A.KennelID";
             return dbMan.ExecuteReader(query);
         }
 
@@ -1111,21 +1112,37 @@ namespace DBapplication
         // 2. Assign an animal to a kennel
         public int AssignAnimalToKennel(int animalId, int kennelId)
         {
-            string query = $@"
-        UPDATE ANIMAL SET KennelID = {kennelId} WHERE AnimalID = {animalId};
-        UPDATE Kennel SET KennelStatus = 'Occupied' WHERE KennelID = {kennelId};";
+            // 1. Assign the animal
+            string query1 = $"UPDATE ANIMAL SET KennelID = {kennelId} WHERE AnimalID = {animalId};";
+            dbMan.ExecuteNonQuery(query1);
 
-            return dbMan.ExecuteNonQuery(query);
+            // 2. Dynamically check if the kennel is full now, and update status accordingly
+            string query2 = $@"
+        IF (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = {kennelId}) >= (SELECT Capacity FROM Kennel WHERE KennelID = {kennelId})
+            UPDATE Kennel SET KennelStatus = 'Occupied' WHERE KennelID = {kennelId};
+        ELSE
+            UPDATE Kennel SET KennelStatus = 'Available' WHERE KennelID = {kennelId};";
+
+            return dbMan.ExecuteNonQuery(query2);
         }
 
         // 3. Clear a kennel (Removes the animal and marks kennel for cleaning)
-        public int ClearKennel(int kennelId)
+        // Removes a specific animal from a kennel and marks the kennel for cleaning
+        // Removes a specific animal from a kennel and marks the kennel for cleaning
+        public int RemoveAnimalFromKennel(int animalId, int kennelId)
         {
-            string query = $@"
-        UPDATE ANIMAL SET KennelID = NULL WHERE KennelID = {kennelId};
-        UPDATE Kennel SET KennelStatus = 'Needs Cleaning' WHERE KennelID = {kennelId};";
+            // 1. Remove ONLY the specific animal we clicked on (Notice: WHERE AnimalID = ...)
+            string query1 = $"UPDATE ANIMAL SET KennelID = NULL WHERE AnimalID = {animalId};";
+            dbMan.ExecuteNonQuery(query1);
 
-            return dbMan.ExecuteNonQuery(query);
+            // 2. Check if the kennel is NOW completely empty
+            string query2 = $@"
+        IF (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = {kennelId}) = 0
+            UPDATE Kennel SET KennelStatus = 'Needs Cleaning' WHERE KennelID = {kennelId};
+        ELSE
+            UPDATE Kennel SET KennelStatus = 'Available' WHERE KennelID = {kennelId};";
+
+            return dbMan.ExecuteNonQuery(query2);
         }
 
 
@@ -1195,6 +1212,77 @@ namespace DBapplication
                 WHERE AnimalID = {animalId};";
 
             return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Checks if the kennel has reached its maximum capacity
+        public bool IsKennelFull(int kennelId)
+        {
+            string query = $@"
+        SELECT 
+            (SELECT Capacity FROM Kennel WHERE KennelID = {kennelId}) - 
+            (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = {kennelId})";
+
+            object result = dbMan.ExecuteScalar(query);
+            int freeSpace = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+
+            return freeSpace <= 0; // Returns true if there is 0 or less free space
+        }
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
+        /// Shelter Staff: Register Animal
+        ///////////////////////////////////////////////////////////////////////////////////
+
+        // 1. Get Kennels that actually have space (Capacity > current occupants)
+        public DataTable GetKennelsWithSpace()
+        {
+            // This query creates a nice display string "Size - Ward (ID: X)" 
+            // but ONLY for kennels that are not full.
+            string query = @"
+                SELECT 
+                    K.KennelID, 
+                    K.KennelSize + ' - ' + K.WardType + ' (ID: ' + CAST(K.KennelID AS VARCHAR) + ')' AS Display 
+                FROM Kennel K
+                WHERE (SELECT COUNT(*) FROM ANIMAL A WHERE A.KennelID = K.KennelID) < K.Capacity;";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Register the Animal (Smart enough to handle NULL kennels)
+        public bool ShelterRegisterAnimal(string name, string species, string breed, string gender, string dob, decimal weight, int? kennelId)
+        {
+            // Handle the NULL value for SQL if they leave the kennel blank
+            string kennelPart = kennelId.HasValue ? kennelId.Value.ToString() : "NULL";
+
+            // Insert the animal
+            string query1 = $@"
+                INSERT INTO ANIMAL (AnimalName, Species, Breed, Gender, EstimatedDOB, SystemStatus, LatestWeight, ClientID, KennelID)
+                VALUES ('{name}', '{species}', '{breed}', '{gender}', '{dob}', 'Shelter', {weight}, NULL, {kennelPart});";
+
+            dbMan.ExecuteNonQuery(query1);
+
+            // ONLY update kennel capacity if a kennel was actually selected
+            if (kennelId.HasValue)
+            {
+                string query2 = $@"
+                    IF (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = {kennelId.Value}) >= (SELECT Capacity FROM Kennel WHERE KennelID = {kennelId.Value})
+                        UPDATE Kennel SET KennelStatus = 'Occupied' WHERE KennelID = {kennelId.Value};
+                    ELSE
+                        UPDATE Kennel SET KennelStatus = 'Available' WHERE KennelID = {kennelId.Value};";
+
+                dbMan.ExecuteNonQuery(query2);
+            }
+
+            return true;
+        }
+
+        // Fetches a unique list of species currently in the database
+        //For animal data entry
+        public DataTable GetExistingSpecies()
+        {
+            string query = "SELECT DISTINCT Species FROM ANIMAL WHERE Species IS NOT NULL AND Species != ''";
+            return dbMan.ExecuteReader(query);
         }
 
 

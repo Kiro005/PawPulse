@@ -305,6 +305,12 @@
     <Compile Include="ShelterManageKennelsUC.Designer.cs">
       <DependentUpon>ShelterManageKennelsUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShelterRegisterAnimalUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShelterRegisterAnimalUC.Designer.cs">
+      <DependentUpon>ShelterRegisterAnimalUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShelterStaffDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -433,6 +439,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ShelterManageKennelsUC.resx">
       <DependentUpon>ShelterManageKennelsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShelterRegisterAnimalUC.resx">
+      <DependentUpon>ShelterRegisterAnimalUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ShelterStaffDashboard.resx">
       <DependentUpon>ShelterStaffDashboard.cs</DependentUpon>

@@ -55,6 +55,10 @@ namespace PawPulse
 
         }
 
-       
+        private void btnRegisterAnimal_Click(object sender, EventArgs e)
+        {
+            ShelterRegisterAnimalUC registerScreen = new ShelterRegisterAnimalUC();
+            LoadUserControl(registerScreen);
+        }
     }
 }

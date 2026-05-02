@@ -73,7 +73,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(224, 619);
+            this.panel1.Size = new System.Drawing.Size(237, 619);
             this.panel1.TabIndex = 2;
             // 
             // button5
@@ -181,13 +181,14 @@
             this.btnRegisterAnimal.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.btnRegisterAnimal.ForeColor = System.Drawing.Color.White;
             this.btnRegisterAnimal.Image = ((System.Drawing.Image)(resources.GetObject("btnRegisterAnimal.Image")));
-            this.btnRegisterAnimal.Location = new System.Drawing.Point(12, 130);
+            this.btnRegisterAnimal.Location = new System.Drawing.Point(-5, 128);
             this.btnRegisterAnimal.Name = "btnRegisterAnimal";
             this.btnRegisterAnimal.Size = new System.Drawing.Size(238, 57);
             this.btnRegisterAnimal.TabIndex = 1;
             this.btnRegisterAnimal.Text = "Register Animal";
             this.btnRegisterAnimal.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRegisterAnimal.UseVisualStyleBackColor = false;
+            this.btnRegisterAnimal.Click += new System.EventHandler(this.btnRegisterAnimal_Click);
             // 
             // label1
             // 

@@ -84,7 +84,7 @@
             this.btnRemove.Depth = 0;
             this.btnRemove.HighEmphasis = true;
             this.btnRemove.Icon = null;
-            this.btnRemove.Location = new System.Drawing.Point(382, 191);
+            this.btnRemove.Location = new System.Drawing.Point(498, 191);
             this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRemove.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRemove.Name = "btnRemove";
@@ -104,7 +104,7 @@
             this.btnUpdateStatus.Depth = 0;
             this.btnUpdateStatus.HighEmphasis = true;
             this.btnUpdateStatus.Icon = null;
-            this.btnUpdateStatus.Location = new System.Drawing.Point(43, 191);
+            this.btnUpdateStatus.Location = new System.Drawing.Point(222, 191);
             this.btnUpdateStatus.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnUpdateStatus.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnUpdateStatus.Name = "btnUpdateStatus";
