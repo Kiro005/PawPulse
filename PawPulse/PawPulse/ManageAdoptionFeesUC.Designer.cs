@@ -132,11 +132,13 @@
             // 
             // cmbSpecies
             // 
+            this.cmbSpecies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSpecies.FormattingEnabled = true;
             this.cmbSpecies.Location = new System.Drawing.Point(6, 41);
             this.cmbSpecies.Name = "cmbSpecies";
             this.cmbSpecies.Size = new System.Drawing.Size(205, 24);
             this.cmbSpecies.TabIndex = 76;
+            this.cmbSpecies.SelectedIndexChanged += new System.EventHandler(this.cmbSpecies_SelectedIndexChanged);
             // 
             // txtFees
             // 
