@@ -65,6 +65,7 @@
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(106, 31);
             this.lblDate.TabIndex = 1;
+            this.lblDate.Tag = "Header";
             this.lblDate.Text = "--/--/----";
             // 
             // lblWelcome
@@ -76,6 +77,7 @@
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(206, 38);
             this.lblWelcome.TabIndex = 0;
+            this.lblWelcome.Tag = "Header";
             this.lblWelcome.Text = "Adoption Fees";
             // 
             // lblFilterTag

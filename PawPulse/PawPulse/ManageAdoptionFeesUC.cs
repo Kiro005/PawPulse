@@ -144,7 +144,7 @@ namespace PawPulse
             // This loops through controls directly on the UserControl
             foreach (Control ctrl in this.Controls)
             {
-                if (ctrl is Label && ctrl.Name != "lblState")
+                if (ctrl is Label && ctrl.Name != "lblState" && ctrl.Name != "lblWelcome" && ctrl.Name != "lblDate")
                 {
                     ctrl.Font = new Font("Segoe UI Semibold", 9.5F, FontStyle.Bold);
                     ctrl.ForeColor = Color.DimGray;
@@ -195,12 +195,7 @@ namespace PawPulse
             lblSearchTag.Font = tagFont;
             lblSearchTag.ForeColor = tagColor;
 
-            // 2. Header Labels styling (assuming they are on the dark navy panel)
-            lblWelcome.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            lblWelcome.ForeColor = Color.White;
-
-            lblDate.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-            lblDate.ForeColor = Color.White;
+            
 
             // 3. Input Controls styling (Flat and Clean)
             Color inputBg = Color.FromArgb(245, 247, 250); // Soft light blue-gray

@@ -80,14 +80,14 @@ namespace PawPulse
         {
             HighlightActiveButton(btnUsers);
             // Load ManageUsers in "Employee" mode
-            AddUserControl(new ManageUsers(ClientID, ClientName, "Employee"));
+            AddUserControl(new ManageUsersUC(ClientID, ClientName, "Employee"));
         }
 
         private void ClientDirectory_Click(object sender, EventArgs e)
         {
             HighlightActiveButton(btnUsers);
             // Load ManageUsers in "Client" mode (Add button should be hidden here)
-            AddUserControl(new ManageUsers(ClientID, ClientName, "Client"));
+            AddUserControl(new ManageUsersUC(ClientID, ClientName, "Client"));
         }
 
         // --- Navigation Handlers ---
@@ -144,7 +144,7 @@ namespace PawPulse
 
             // 2. Load ManageUsers control with "Employee" view
             // This will show the Add button and employee data
-            AddUserControl(new ManageUsers(ClientID, ClientName, "Employee"));
+            AddUserControl(new ManageUsersUC(ClientID, ClientName, "Employee"));
 
         }
 
@@ -155,7 +155,7 @@ namespace PawPulse
 
             // 2. Load ManageUsers control with "Client" view
             // This will hide the Add button and show client data
-            AddUserControl(new ManageUsers(ClientID, ClientName, "Client"));
+            AddUserControl(new ManageUsersUC(ClientID, ClientName, "Client"));
         }
 
         private void clientDirectoryToolStripMenuItem_MouseEnter(object sender, EventArgs e)

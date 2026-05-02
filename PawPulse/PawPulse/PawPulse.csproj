@@ -237,11 +237,11 @@
     <Compile Include="ManageSuppliersForm.Designer.cs">
       <DependentUpon>ManageSuppliersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageUsers.cs">
+    <Compile Include="ManageUsersUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ManageUsers.Designer.cs">
-      <DependentUpon>ManageUsers.cs</DependentUpon>
+    <Compile Include="ManageUsersUC.Designer.cs">
+      <DependentUpon>ManageUsersUC.cs</DependentUpon>
     </Compile>
     <Compile Include="MedicalHistoryClientForm.cs">
       <SubType>Form</SubType>
@@ -386,8 +386,8 @@
     <EmbeddedResource Include="ManageMedicinesUC.resx">
       <DependentUpon>ManageMedicinesUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageUsers.resx">
-      <DependentUpon>ManageUsers.cs</DependentUpon>
+    <EmbeddedResource Include="ManageUsersUC.resx">
+      <DependentUpon>ManageUsersUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalHistoryClientForm.resx">
       <DependentUpon>MedicalHistoryClientForm.cs</DependentUpon>
