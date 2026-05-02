@@ -118,6 +118,16 @@ namespace PawPulse
             FirstTimeSetupForm setupForm = new FirstTimeSetupForm();
             setupForm.ShowDialog();
         }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            // Skip authentication for testing purposes
+            // Using dummy ID (1) and generic Name
+            AdminDashboardForm adminDash = new AdminDashboardForm(1, "Test Administrator");
+
+            adminDash.Show();
+            this.Hide(); // Hide login form to keep app running
+        }
     }
     
 }

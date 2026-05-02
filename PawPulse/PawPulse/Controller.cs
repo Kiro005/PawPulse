@@ -759,7 +759,7 @@ namespace DBapplication
         public int UpdateClient(int clientID, string txtFName, string txtLName, string txtPhone, string txtEmail,
                                 string txtCity, string txtStreet, string txtBuilding)
         {
-            string query = $@"UPDATE Clients 
+            string query = $@"UPDATE Client 
                       SET FirstName = '{txtFName}', 
                           LastName = '{txtLName}', 
                           Phone = '{txtPhone}', 
@@ -771,12 +771,21 @@ namespace DBapplication
 
             return dbMan.ExecuteNonQuery(query);
         }
+        // Retrieve a single client record by ID for editing purposes
+        public DataTable GetClientById(int clientId)
+        {
+            // SQL query to fetch all details for the specified client
+            string query = $"SELECT * FROM Client WHERE ClientID = {clientId}";
+
+            // Execute the query and return the resulting data table
+            return dbMan.ExecuteReader(query);
+        }
 
         // Update only the activation status of a client
         public int UpdateClientStatus(int clientId, int newStatusValue)
         {
             // SQL query to update the IsActive bit (0 or 1)
-            string query = $"UPDATE Clients SET IsActive = {newStatusValue} WHERE ClientID = {clientId}";
+            string query = $"UPDATE Client SET IsActive = {newStatusValue} WHERE ClientID = {clientId}";
 
             return dbMan.ExecuteNonQuery(query);
         }
@@ -784,7 +793,7 @@ namespace DBapplication
         public int DeleteClient(int clientID)
         {
             // SQL query targeting the Clients table and its Primary Key
-            string query = $"DELETE FROM Clients WHERE ClientID = {clientID}";
+            string query = $"DELETE FROM Client WHERE ClientID = {clientID}";
 
             // Execute the non-query and return rows affected
             return dbMan.ExecuteNonQuery(query);
@@ -800,6 +809,294 @@ namespace DBapplication
 
             return dbMan.ExecuteReader(query);
         }
+
+        // --- Medicines & Suppliers Logic ---
+
+        // 1.GET all medicines with supplier names for display in the DataGridView
+        public DataTable GetAllMedicines()
+        {
+            // English comments: Joining Medicine and Supplier to show names instead of IDs
+            string query = @"SELECT M.MedicineID, M.MedicineName, M.Dosage, M.StockQuantity, 
+                            M.UnitPrice, M.ExpiryDate, S.SupplierName 
+                     FROM Medicine M 
+                     JOIN Supplier S ON M.SupplierID = S.SupplierID";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. GET all suppliers for the dropdown when adding/editing medicines
+        public DataTable GetAllSuppliers()
+        {
+            string query = "SELECT * FROM Supplier";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 3. Search medicines by name or supplier name using a single query with JOIN and LIKE
+        public DataTable SearchMedicines(string term)
+        {
+            string query = $@"SELECT M.MedicineID, M.MedicineName, M.Dosage, M.StockQuantity, 
+                             M.UnitPrice, M.ExpiryDate, S.SupplierName 
+                      FROM Medicine M 
+                      JOIN Supplier S ON M.SupplierID = S.SupplierID
+                      WHERE M.MedicineName LIKE '%{term}%' OR S.SupplierName LIKE '%{term}%'";
+            return dbMan.ExecuteReader(query);
+        }
+        // Retrieves all medicines joined with their supplier names
+        public DataTable GetAllMedicinesWithSuppliers()
+        {
+            string query = @"SELECT M.MedicineID, M.MedicineName, M.Dosage, M.StockQuantity, 
+                            M.UnitPrice, M.ExpiryDate, S.SupplierName 
+                     FROM Medicine M 
+                     JOIN Supplier S ON M.SupplierID = S.SupplierID";
+            return dbMan.ExecuteReader(query);
+        }
+
+        
+
+        // Deletes a medicine record by ID
+        public int DeleteMedicine(int medicineID)
+        {
+            string query = $"DELETE FROM Medicine WHERE MedicineID = {medicineID}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Retrieve distinct species from the ANIMAL table for the ComboBox suggestions
+        public DataTable GetDistinctSpecies()
+        {
+            string query = "SELECT DISTINCT Species FROM ANIMAL WHERE Species IS NOT NULL";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Retrieve current adoption fees configuration
+        public DataTable GetAdoptionSettings()
+        {
+            string query = "SELECT SettingID, Species, BaseFee FROM AdoptionSettings";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Insert or Update the adoption fee for a specific species
+        public int SetAdoptionFee(string species, decimal fee)
+        {
+            // Check if the species already exists in the settings
+            string checkQuery = $"SELECT COUNT(*) FROM AdoptionSettings WHERE Species = '{species}'";
+            int count = (int)dbMan.ExecuteScalar(checkQuery);
+
+            string query;
+            if (count > 0)
+            {
+                query = $"UPDATE AdoptionSettings SET BaseFee = {fee} WHERE Species = '{species}'";
+            }
+            else
+            {
+                query = $"INSERT INTO AdoptionSettings (Species, BaseFee) VALUES ('{species}', {fee})";
+            }
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+        // 1. Get total revenue for a specific month
+        public decimal GetMonthlyRevenue(int month, int year)
+        {
+            // English comments: Summing up all paid bills for the given period
+            string query = $@"SELECT SUM(Total_Amount) FROM Bill 
+                      WHERE MONTH(BillDate) = {month} 
+                      AND YEAR(BillDate) = {year} 
+                      AND BillStatus = 'Paid'";
+            object result = dbMan.ExecuteScalar(query);
+            return result == DBNull.Value ? 0 : Convert.ToDecimal(result);
+        }
+        // 1. Detailed Animals Report (Using existing columns only)
+        public DataTable GetDetailedAnimalsReport()
+        {
+            // English comments: Joining ANIMAL with AdoptionSettings based on Species
+            string query = @"SELECT 
+                        A.AnimalName AS [Name], 
+                        A.Species, 
+                        A.Breed, 
+                        A.Gender,
+                        A.Age,
+                        ISNULL(S.BaseFee, 0) AS [Base Adoption Fee],
+                        A.SystemStatus AS [Current Status]
+                     FROM ANIMAL A
+                     LEFT JOIN AdoptionSettings S ON A.Species = S.Species";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Managerial Report (Financials and HR summaries)
+        public DataTable GetManagerialReport(int month, int year)
+        {
+            // English comments: Aggregating stats from Employee, Medicine, and Bill tables
+            string query = $@"
+        SELECT 'Total Staff' AS [Category], CAST(COUNT(*) AS VARCHAR) AS [Stats] 
+        FROM Employee WHERE IsActive = 1
+        
+        UNION ALL
+        
+        SELECT 'Monthly Payroll (Salaries)', CAST(SUM(Salary) AS VARCHAR) 
+        FROM Employee WHERE IsActive = 1
+        
+        UNION ALL
+        
+        SELECT 'Unique Medicines in Stock', CAST(COUNT(*) AS VARCHAR) 
+        FROM Medicine
+        
+        UNION ALL
+        
+        SELECT 'Total Inventory Value (Meds)', CAST(SUM(StockQuantity * UnitPrice) AS VARCHAR) 
+        FROM Medicine
+        
+        UNION ALL
+        
+        SELECT 'Monthly Revenue', CAST(ISNULL(SUM(Total_Amount), 0) AS VARCHAR) 
+        FROM Bill 
+        WHERE MONTH(BillDate) = {month} AND YEAR(BillDate) = {year} AND BillStatus = 'Paid'";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Retrieves the total count of all animals in the database
+        public int GetTotalAnimals()
+        {
+            string query = "SELECT COUNT(*) FROM ANIMAL";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // 2. Get animal species distribution for the Pie Chart
+        public DataTable GetSpeciesDistribution()
+        {
+            
+            string query = "SELECT Species, COUNT(*) AS SpeciesCount FROM ANIMAL GROUP BY Species";
+            return dbMan.ExecuteReader(query);
+        }
+        // ==========================================
+        // Dashboard & Reports Data Retrieval
+        // ==========================================
+
+        // Retrieves the total count of animals currently in the shelter
+        public int GetTotalShelterAnimals()
+        {
+            string query = "SELECT COUNT(*) FROM ANIMAL WHERE SystemStatus = 'Shelter'";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // Retrieves the total revenue from paid bills for the current month
+        public decimal GetCurrentMonthRevenue()
+        {
+            string query = @"SELECT SUM(Total_Amount) FROM Bill 
+                     WHERE MONTH(BillDate) = MONTH(GETDATE()) 
+                     AND YEAR(BillDate) = YEAR(GETDATE()) 
+                     AND BillStatus = 'Paid'";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToDecimal(result) : 0m;
+        }
+
+        // Retrieves the count of pending adoption requests
+        public int GetPendingAdoptionsCount()
+        {
+            string query = "SELECT COUNT(*) FROM Adoption WHERE AdoptionStatus = 'Pending'";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // Retrieves the count of medicines with stock below 10
+        public int GetLowStockMedicineCount()
+        {
+            string query = "SELECT COUNT(*) FROM Medicine WHERE StockQuantity < 10";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // Retrieves monthly revenue trend for the Column Chart (Last 6 months)
+        public DataTable GetRevenueTrend()
+        {
+            string query = @"SELECT FORMAT(BillDate, 'MMM yyyy') AS MonthName, SUM(Total_Amount) AS Revenue 
+                     FROM Bill 
+                     WHERE BillStatus = 'Paid' AND BillDate >= DATEADD(month, -6, GETDATE())
+                     GROUP BY FORMAT(BillDate, 'MMM yyyy'), YEAR(BillDate), MONTH(BillDate)
+                     ORDER BY YEAR(BillDate), MONTH(BillDate)";
+            return dbMan.ExecuteReader(query);
+        }
+        // 1. Get total number of active employees
+        public int GetTotalActiveEmployees()
+        {
+            string query = "SELECT COUNT(*) FROM Employee WHERE IsActive = 1";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // 2. Get total monthly salaries for active staff
+        public decimal GetTotalSalaries()
+        {
+            string query = "SELECT SUM(Salary) FROM Employee WHERE IsActive = 1";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+        }
+
+        // 3. Get total types of medicine in stock
+        public int GetMedicineCount()
+        {
+            string query = "SELECT COUNT(*) FROM Medicine";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // 4. Get total monetary value of medicine inventory
+        public decimal GetTotalInventoryValue()
+        {
+            string query = "SELECT SUM(StockQuantity * UnitPrice) FROM Medicine";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+        }
+
+        // 5. Get distribution of employee roles for Pie Chart
+        public DataTable GetEmployeeRoleDist()
+        {
+            string query = "SELECT EmployeeRole, COUNT(*) AS Count FROM Employee WHERE IsActive = 1 GROUP BY EmployeeRole";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 6. Get a summary of Revenue vs Salaries for the Column Chart
+        public DataTable GetFinancialSummary(int month, int year)
+        {
+            string query = $@"
+        SELECT 'Revenue' AS Category, ISNULL(SUM(Total_Amount), 0) AS Amount 
+        FROM Bill 
+        WHERE MONTH(BillDate) = {month} AND YEAR(BillDate) = {year} AND BillStatus = 'Paid'
+        UNION ALL
+        SELECT 'Salaries', ISNULL(SUM(Salary), 0) 
+        FROM Employee 
+        WHERE IsActive = 1";
+            return dbMan.ExecuteReader(query);
+        }
+        // Retrieves all kennels and the names of assigned animals
+        public DataTable GetAllKennelsWithAnimals()
+        {
+            string query = @"SELECT 
+                        K.KennelID, 
+                        K.KennelSize AS [Size], 
+                        K.WardType AS [Ward], 
+                        K.Capacity, 
+                        K.KennelStatus AS [Status],
+                        ISNULL(A.AnimalName, 'Empty') AS [Occupied By]
+                     FROM Kennel K
+                     LEFT JOIN ANIMAL A ON K.KennelID = A.KennelID";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Updates the status of a specific kennel
+        public int UpdateKennelStatus(int kennelId, string newStatus)
+        {
+            string query = $"UPDATE Kennel SET KennelStatus = '{newStatus}' WHERE KennelID = {kennelId}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Deletes a kennel from the database
+        public int DeleteKennel(int kennelId)
+        {
+            string query = $"DELETE FROM Kennel WHERE KennelID = {kennelId}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
 
     }
 }

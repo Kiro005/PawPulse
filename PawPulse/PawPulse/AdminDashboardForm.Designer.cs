@@ -33,26 +33,26 @@
             this.whitebg = new System.Windows.Forms.Panel();
             this.MainContentPanel = new System.Windows.Forms.Panel();
             this.header = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.cmsUser = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.emplyeeDircToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.btnReports = new System.Windows.Forms.Button();
             this.btnAdoptionfees = new System.Windows.Forms.Button();
             this.btnKennels = new System.Windows.Forms.Button();
             this.btnMedicines = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmsUser = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.emplyeeDircToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.whitebg.SuspendLayout();
             this.header.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.cmsUser.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // whitebg
@@ -64,7 +64,7 @@
             this.whitebg.Location = new System.Drawing.Point(281, 0);
             this.whitebg.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.whitebg.Name = "whitebg";
-            this.whitebg.Size = new System.Drawing.Size(954, 818);
+            this.whitebg.Size = new System.Drawing.Size(932, 672);
             this.whitebg.TabIndex = 3;
             // 
             // MainContentPanel
@@ -73,7 +73,7 @@
             this.MainContentPanel.Location = new System.Drawing.Point(0, 75);
             this.MainContentPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MainContentPanel.Name = "MainContentPanel";
-            this.MainContentPanel.Size = new System.Drawing.Size(954, 743);
+            this.MainContentPanel.Size = new System.Drawing.Size(932, 612);
             this.MainContentPanel.TabIndex = 2;
             // 
             // header
@@ -85,27 +85,15 @@
             this.header.Location = new System.Drawing.Point(0, 0);
             this.header.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.header.Name = "header";
-            this.header.Size = new System.Drawing.Size(954, 75);
+            this.header.Size = new System.Drawing.Size(932, 60);
             this.header.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(724, 19);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(55, 50);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
             // 
             // lblUsername
             // 
             this.lblUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.Location = new System.Drawing.Point(782, 24);
+            this.lblUsername.Location = new System.Drawing.Point(779, 19);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(86, 30);
             this.lblUsername.TabIndex = 1;
@@ -139,8 +127,53 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 818);
+            this.panel1.Size = new System.Drawing.Size(250, 672);
             this.panel1.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel3.Location = new System.Drawing.Point(20, 90);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 1);
+            this.panel3.TabIndex = 6;
+            // 
+            // cmsUser
+            // 
+            this.cmsUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
+            this.cmsUser.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmsUser.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsUser.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.emplyeeDircToolStripMenuItem,
+            this.clientDirectoryToolStripMenuItem});
+            this.cmsUser.Name = "contextMenuStrip1";
+            this.cmsUser.Size = new System.Drawing.Size(229, 60);
+            // 
+            // emplyeeDircToolStripMenuItem
+            // 
+            this.emplyeeDircToolStripMenuItem.Name = "emplyeeDircToolStripMenuItem";
+            this.emplyeeDircToolStripMenuItem.Size = new System.Drawing.Size(228, 28);
+            this.emplyeeDircToolStripMenuItem.Text = "Employee Directory";
+            this.emplyeeDircToolStripMenuItem.Click += new System.EventHandler(this.emplyeeDircToolStripMenuItem_Click);
+            // 
+            // clientDirectoryToolStripMenuItem
+            // 
+            this.clientDirectoryToolStripMenuItem.Name = "clientDirectoryToolStripMenuItem";
+            this.clientDirectoryToolStripMenuItem.Size = new System.Drawing.Size(228, 28);
+            this.clientDirectoryToolStripMenuItem.Text = "Client Directory";
+            this.clientDirectoryToolStripMenuItem.Click += new System.EventHandler(this.clientDirectoryToolStripMenuItem_Click);
+            this.clientDirectoryToolStripMenuItem.MouseEnter += new System.EventHandler(this.clientDirectoryToolStripMenuItem_MouseEnter);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(728, 15);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(49, 40);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // button5
             // 
@@ -152,8 +185,7 @@
             this.button5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.Location = new System.Drawing.Point(14, 731);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button5.Location = new System.Drawing.Point(12, 603);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(252, 71);
             this.button5.TabIndex = 7;
@@ -161,15 +193,6 @@
             this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.btnLogout_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel3.Location = new System.Drawing.Point(22, 112);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(225, 1);
-            this.panel3.TabIndex = 6;
             // 
             // btnReports
             // 
@@ -188,6 +211,7 @@
             this.btnReports.Text = "  Reports";
             this.btnReports.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnAdoptionfees
             // 
@@ -244,6 +268,7 @@
             this.btnMedicines.Text = "    Medicines";
             this.btnMedicines.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnMedicines.UseVisualStyleBackColor = false;
+            this.btnMedicines.Click += new System.EventHandler(this.btnMedicines_Click_1);
             // 
             // btnUsers
             // 
@@ -278,37 +303,11 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "       PawPulse";
             // 
-            // cmsUser
-            // 
-            this.cmsUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
-            this.cmsUser.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmsUser.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsUser.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.emplyeeDircToolStripMenuItem,
-            this.clientDirectoryToolStripMenuItem});
-            this.cmsUser.Name = "contextMenuStrip1";
-            this.cmsUser.Size = new System.Drawing.Size(257, 72);
-            // 
-            // emplyeeDircToolStripMenuItem
-            // 
-            this.emplyeeDircToolStripMenuItem.Name = "emplyeeDircToolStripMenuItem";
-            this.emplyeeDircToolStripMenuItem.Size = new System.Drawing.Size(256, 34);
-            this.emplyeeDircToolStripMenuItem.Text = "Employee Directory";
-            this.emplyeeDircToolStripMenuItem.Click += new System.EventHandler(this.emplyeeDircToolStripMenuItem_Click);
-            // 
-            // clientDirectoryToolStripMenuItem
-            // 
-            this.clientDirectoryToolStripMenuItem.Name = "clientDirectoryToolStripMenuItem";
-            this.clientDirectoryToolStripMenuItem.Size = new System.Drawing.Size(256, 34);
-            this.clientDirectoryToolStripMenuItem.Text = "Client Directory";
-            this.clientDirectoryToolStripMenuItem.Click += new System.EventHandler(this.clientDirectoryToolStripMenuItem_Click);
-            this.clientDirectoryToolStripMenuItem.MouseEnter += new System.EventHandler(this.clientDirectoryToolStripMenuItem_MouseEnter);
-            // 
             // AdminDashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1235, 818);
+            this.ClientSize = new System.Drawing.Size(1182, 672);
             this.Controls.Add(this.whitebg);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -319,10 +318,10 @@
             this.whitebg.ResumeLayout(false);
             this.header.ResumeLayout(false);
             this.header.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.cmsUser.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

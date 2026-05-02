@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace PawPulse
 {
-    public partial class ManageUsers : UserControl
+    public partial class ManageUsersUC : UserControl
     {
         Controller controllerObj;
         DataView currentDataView; // Generic name for filtering
@@ -20,7 +20,7 @@ namespace PawPulse
         string currentView; // Tracks "Employee" or "Client"
 
         // Updated Constructor with viewType parameter
-        public ManageUsers(int adminId, string adminName, string viewType = "Employee")
+        public ManageUsersUC(int adminId, string adminName, string viewType = "Employee")
         {
             InitializeComponent();
             controllerObj = new Controller();
@@ -281,9 +281,10 @@ namespace PawPulse
 
                 if (currentView == "Client")
                 {
-                    // Open EditClientForm if you created one
-                    // EditClientForm editFrm = new EditClientForm(id);
-                    // editFrm.ShowDialog();
+                     
+                     EditClientForm editFrm = new EditClientForm(id);
+                    editFrm.ShowDialog();
+                        RefreshGrid();
                 }
                 else
                 {
