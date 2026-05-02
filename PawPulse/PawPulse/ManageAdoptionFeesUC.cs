@@ -216,7 +216,31 @@ namespace PawPulse
             // 4. Status Label (Keeping it distinct for notifications)
             lblState.Font = new Font("Segoe UI", 9, FontStyle.Italic);
         }
+        // Filters the DataGridView dynamically based on the species input
+        private void FilterGrid()
+        {
+            if (dgvFees.DataSource == null) return;
 
+            DataTable dt = (DataTable)dgvFees.DataSource;
 
+            // Prevent SQL syntax errors by escaping single quotes
+            string searchText = cmbSpecies.Text.Trim().Replace("'", "''");
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                // Apply filter to show rows matching the entered species
+                dt.DefaultView.RowFilter = $"Species LIKE '%{searchText}%'";
+            }
+            else
+            {
+                // Clear the filter to show all records
+                dt.DefaultView.RowFilter = string.Empty;
+            }
+        }
+
+        private void cmbSpecies_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterGrid();
+        }
     }
 }
