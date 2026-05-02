@@ -61,7 +61,8 @@
             this.whitebg.Controls.Add(this.MainContentPanel);
             this.whitebg.Controls.Add(this.header);
             this.whitebg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.whitebg.Location = new System.Drawing.Point(250, 0);
+            this.whitebg.Location = new System.Drawing.Point(281, 0);
+            this.whitebg.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.whitebg.Name = "whitebg";
             this.whitebg.Size = new System.Drawing.Size(932, 672);
             this.whitebg.TabIndex = 3;
@@ -69,7 +70,8 @@
             // MainContentPanel
             // 
             this.MainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainContentPanel.Location = new System.Drawing.Point(0, 60);
+            this.MainContentPanel.Location = new System.Drawing.Point(0, 75);
+            this.MainContentPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MainContentPanel.Name = "MainContentPanel";
             this.MainContentPanel.Size = new System.Drawing.Size(932, 612);
             this.MainContentPanel.TabIndex = 2;
@@ -81,6 +83,7 @@
             this.header.Controls.Add(this.textBox1);
             this.header.Dock = System.Windows.Forms.DockStyle.Top;
             this.header.Location = new System.Drawing.Point(0, 0);
+            this.header.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.header.Name = "header";
             this.header.Size = new System.Drawing.Size(932, 60);
             this.header.TabIndex = 1;
@@ -92,7 +95,7 @@
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsername.Location = new System.Drawing.Point(779, 19);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(71, 25);
+            this.lblUsername.Size = new System.Drawing.Size(86, 30);
             this.lblUsername.TabIndex = 1;
             this.lblUsername.Text = "Logger";
             // 
@@ -102,9 +105,10 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.textBox1.Location = new System.Drawing.Point(51, 15);
+            this.textBox1.Location = new System.Drawing.Point(57, 19);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 31);
+            this.textBox1.Size = new System.Drawing.Size(281, 36);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "🔍 Search...";
             // 
@@ -121,6 +125,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(250, 672);
             this.panel1.TabIndex = 2;
@@ -182,7 +187,7 @@
             this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
             this.button5.Location = new System.Drawing.Point(12, 603);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(224, 57);
+            this.button5.Size = new System.Drawing.Size(252, 71);
             this.button5.TabIndex = 7;
             this.button5.Text = "Log Out";
             this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -198,9 +203,10 @@
             this.btnReports.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReports.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnReports.Image = ((System.Drawing.Image)(resources.GetObject("btnReports.Image")));
-            this.btnReports.Location = new System.Drawing.Point(12, 428);
+            this.btnReports.Location = new System.Drawing.Point(14, 535);
+            this.btnReports.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnReports.Name = "btnReports";
-            this.btnReports.Size = new System.Drawing.Size(224, 57);
+            this.btnReports.Size = new System.Drawing.Size(252, 71);
             this.btnReports.TabIndex = 5;
             this.btnReports.Text = "  Reports";
             this.btnReports.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -216,9 +222,10 @@
             this.btnAdoptionfees.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdoptionfees.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnAdoptionfees.Image = ((System.Drawing.Image)(resources.GetObject("btnAdoptionfees.Image")));
-            this.btnAdoptionfees.Location = new System.Drawing.Point(12, 353);
+            this.btnAdoptionfees.Location = new System.Drawing.Point(14, 441);
+            this.btnAdoptionfees.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAdoptionfees.Name = "btnAdoptionfees";
-            this.btnAdoptionfees.Size = new System.Drawing.Size(224, 57);
+            this.btnAdoptionfees.Size = new System.Drawing.Size(252, 71);
             this.btnAdoptionfees.TabIndex = 4;
             this.btnAdoptionfees.Text = "  Adoption Fees   ";
             this.btnAdoptionfees.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -234,9 +241,10 @@
             this.btnKennels.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKennels.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnKennels.Image = ((System.Drawing.Image)(resources.GetObject("btnKennels.Image")));
-            this.btnKennels.Location = new System.Drawing.Point(12, 281);
+            this.btnKennels.Location = new System.Drawing.Point(14, 351);
+            this.btnKennels.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnKennels.Name = "btnKennels";
-            this.btnKennels.Size = new System.Drawing.Size(224, 57);
+            this.btnKennels.Size = new System.Drawing.Size(252, 71);
             this.btnKennels.TabIndex = 3;
             this.btnKennels.Text = "    Kennels";
             this.btnKennels.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -252,9 +260,10 @@
             this.btnMedicines.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMedicines.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnMedicines.Image = ((System.Drawing.Image)(resources.GetObject("btnMedicines.Image")));
-            this.btnMedicines.Location = new System.Drawing.Point(12, 206);
+            this.btnMedicines.Location = new System.Drawing.Point(14, 258);
+            this.btnMedicines.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMedicines.Name = "btnMedicines";
-            this.btnMedicines.Size = new System.Drawing.Size(224, 57);
+            this.btnMedicines.Size = new System.Drawing.Size(252, 71);
             this.btnMedicines.TabIndex = 2;
             this.btnMedicines.Text = "    Medicines";
             this.btnMedicines.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -269,9 +278,10 @@
             this.btnUsers.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.btnUsers.ForeColor = System.Drawing.Color.White;
             this.btnUsers.Image = ((System.Drawing.Image)(resources.GetObject("btnUsers.Image")));
-            this.btnUsers.Location = new System.Drawing.Point(12, 130);
+            this.btnUsers.Location = new System.Drawing.Point(14, 162);
+            this.btnUsers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnUsers.Name = "btnUsers";
-            this.btnUsers.Size = new System.Drawing.Size(224, 57);
+            this.btnUsers.Size = new System.Drawing.Size(252, 71);
             this.btnUsers.TabIndex = 1;
             this.btnUsers.Text = "     Users";
             this.btnUsers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -287,19 +297,20 @@
             this.label1.ForeColor = System.Drawing.Color.MediumAquamarine;
             this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(11, 33);
+            this.label1.Location = new System.Drawing.Point(12, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(256, 50);
+            this.label1.Size = new System.Drawing.Size(310, 61);
             this.label1.TabIndex = 0;
             this.label1.Text = "       PawPulse";
             // 
             // AdminDashboardForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 672);
             this.Controls.Add(this.whitebg);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "AdminDashboardForm";
             this.Text = "AdminDashboardForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminDashboardForm_FormClosed);
