@@ -22,7 +22,7 @@ namespace PawPulse
 
             // Initialize UI elements
             lblDate.Text = DateTime.Now.ToString("MMMM dd, yyyy");
-            if (lblWelcome != null) lblWelcome.Text = $"Welcome, {fullName}";
+            //if (lblWelcome != null) lblWelcome.Text = $"Welcome, {fullName}";
 
             SetupGridStyle();
             LoadSupplierFilters();
