@@ -73,6 +73,7 @@
             this.btnApprove.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnApprove.UseAccentColor = false;
             this.btnApprove.UseVisualStyleBackColor = true;
+            this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
             // 
             // btnReject
             // 
@@ -92,6 +93,7 @@
             this.btnReject.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnReject.UseAccentColor = false;
             this.btnReject.UseVisualStyleBackColor = true;
+            this.btnReject.Click += new System.EventHandler(this.btnReject_Click);
             // 
             // ProcessAdoptionsUC
             // 

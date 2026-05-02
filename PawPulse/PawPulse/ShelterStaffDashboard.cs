@@ -12,14 +12,15 @@ namespace PawPulse
 {
     public partial class ShelterStaffDashboard : Form
     {
+        private int _staffId;
+        private string _staffName;
+
         public ShelterStaffDashboard(int id, string name)
         {
-            
-            
-            
             InitializeComponent();
-
-
+            _staffId = id;
+            _staffName = name;
+            lblUsername.Text = name; // show the real name in the header
         }
 
 
@@ -37,16 +38,15 @@ namespace PawPulse
 
         private void btnManageKennels_Click(object sender, EventArgs e)
         {
-            // Create a new instance of the User Control you just built
-            ShelterManageKennelsUC manageKennelsScreen = new ShelterManageKennelsUC();
-
-            // Send it to the stage!
-            LoadUserControl(manageKennelsScreen);
+            ShelterManageKennelsUC uc = new ShelterManageKennelsUC();
+            LoadUserControl(uc);
+            // EXPLICITLY call a public refresh method
+            uc.RefreshData();
         }
 
         private void btnAdoption_Click(object sender, EventArgs e)
         {
-            ProcessAdoptionsUC adoptionsScreen = new ProcessAdoptionsUC();
+            ProcessAdoptionsUC adoptionsScreen = new ProcessAdoptionsUC(_staffId);
             LoadUserControl(adoptionsScreen);
         }
 

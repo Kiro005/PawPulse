@@ -11,11 +11,12 @@ namespace PawPulse
 
         // For testing, we use a placeholder Staff ID (e.g., 4)
         // In the final version, pass the actual logged-in EmployeeID here
-        int currentStaffId = 4;
+        int currentStaffId;
 
-        public ProcessAdoptionsUC()
+        public ProcessAdoptionsUC(int staffId)
         {
             InitializeComponent();
+            currentStaffId = staffId;
         }
 
         private void ProcessAdoptionsUC_Load(object sender, EventArgs e)

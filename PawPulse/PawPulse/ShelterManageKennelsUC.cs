@@ -33,17 +33,26 @@ namespace PawPulse
         }
 
         // Helper method to reload both the grid and the dropdown so it's always up to date
-        private void RefreshData()
+        public void RefreshData()
         {
             // 1. Load the Grid using the Admin function
             dgvKennels.DataSource = controllerObj.GetAllKennelsWithAnimals();
 
             // 2. Load Dropdown with animals needing a home
             DataTable dtAnimals = controllerObj.GetUnassignedShelterAnimals();
-            cmbUnassignedAnimals.DataSource = dtAnimals;
-            cmbUnassignedAnimals.DisplayMember = "AnimalName";
-            cmbUnassignedAnimals.ValueMember = "AnimalID";
-            cmbUnassignedAnimals.SelectedIndex = -1;
+
+            if (dtAnimals != null && dtAnimals.Rows.Count > 0)
+            {
+                cmbUnassignedAnimals.DataSource = dtAnimals;
+                cmbUnassignedAnimals.DisplayMember = "AnimalName";
+                cmbUnassignedAnimals.ValueMember = "AnimalID";
+                cmbUnassignedAnimals.SelectedIndex = -1;
+            }
+            else
+            {
+                cmbUnassignedAnimals.DataSource = null;
+                cmbUnassignedAnimals.Items.Clear();
+            }
         }
 
         // ASSIGN BUTTON
