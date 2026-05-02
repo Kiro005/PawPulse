@@ -61,5 +61,10 @@ namespace PawPulse
         {
 
         }
+
+        private void dgvVisits_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

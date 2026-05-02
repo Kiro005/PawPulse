@@ -14,7 +14,7 @@ namespace DBapplication
         //gharbawy : Data Source=.;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True
         //Kiro: Data Source=localhost\SQLEXPRESS02;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True
         // Orashy :  Data Source=.\SQLEXPRESS;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True
-        static string DB_Connection_String = @"Data Source=.;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True";
+        static string DB_Connection_String = @"Data Source=localhost\SQLEXPRESS02;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True";
         SqlConnection myConnection;
 
         public DBManager()
@@ -36,12 +36,15 @@ namespace DBapplication
         {
             try
             {
+                if (myConnection.State == System.Data.ConnectionState.Closed)
+                    myConnection.Open();
                 SqlCommand myCommand = new SqlCommand(query, myConnection);
                 return myCommand.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message, "DB Error");
                 return 0;
             }
         }
@@ -50,8 +53,15 @@ namespace DBapplication
         {
             try
             {
+                // 1. THE FIX: Make sure the connection is open before we do anything!
+                if (myConnection.State == System.Data.ConnectionState.Closed)
+                {
+                    myConnection.Open();
+                }
+
                 SqlCommand myCommand = new SqlCommand(query, myConnection);
                 SqlDataReader reader = myCommand.ExecuteReader();
+
                 if (reader.HasRows)
                 {
                     DataTable dt = new DataTable();
@@ -69,6 +79,7 @@ namespace DBapplication
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message, "DBMANAGER ERROR!"); // Great job keeping this in!
                 return null;
             }
         }
@@ -77,6 +88,8 @@ namespace DBapplication
         {
             try
             {
+                if (myConnection.State == System.Data.ConnectionState.Closed)
+                    myConnection.Open();
                 SqlCommand myCommand = new SqlCommand(query, myConnection);
                 return myCommand.ExecuteScalar();
             }

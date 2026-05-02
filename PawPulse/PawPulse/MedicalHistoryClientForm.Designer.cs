@@ -29,28 +29,28 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.medicalReport = new System.Windows.Forms.TabPage();
+            this.dgvVisits = new System.Windows.Forms.DataGridView();
             this.Prescriptions = new System.Windows.Forms.TabPage();
+            this.dgvPrescriptions = new System.Windows.Forms.DataGridView();
             this.Vaccines = new System.Windows.Forms.TabPage();
+            this.dgvVaccines = new System.Windows.Forms.DataGridView();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dgvLabTests = new System.Windows.Forms.DataGridView();
             this.lblPetName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.medicalReport = new System.Windows.Forms.TabPage();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.dgvLabTests = new System.Windows.Forms.DataGridView();
-            this.dgvVaccines = new System.Windows.Forms.DataGridView();
-            this.dgvPrescriptions = new System.Windows.Forms.DataGridView();
-            this.dgvVisits = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
-            this.Prescriptions.SuspendLayout();
-            this.Vaccines.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.medicalReport.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLabTests)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVaccines)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPrescriptions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisits)).BeginInit();
+            this.Prescriptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPrescriptions)).BeginInit();
+            this.Vaccines.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVaccines)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLabTests)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -67,6 +67,37 @@
             this.tabControl1.Size = new System.Drawing.Size(796, 378);
             this.tabControl1.TabIndex = 0;
             // 
+            // medicalReport
+            // 
+            this.medicalReport.Controls.Add(this.dgvVisits);
+            this.medicalReport.Location = new System.Drawing.Point(4, 32);
+            this.medicalReport.Name = "medicalReport";
+            this.medicalReport.Padding = new System.Windows.Forms.Padding(3);
+            this.medicalReport.Size = new System.Drawing.Size(788, 342);
+            this.medicalReport.TabIndex = 0;
+            this.medicalReport.Text = "Visit History";
+            this.medicalReport.UseVisualStyleBackColor = true;
+            // 
+            // dgvVisits
+            // 
+            this.dgvVisits.AllowUserToAddRows = false;
+            this.dgvVisits.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvVisits.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvVisits.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvVisits.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvVisits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVisits.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvVisits.Location = new System.Drawing.Point(3, 3);
+            this.dgvVisits.Name = "dgvVisits";
+            this.dgvVisits.ReadOnly = true;
+            this.dgvVisits.RowHeadersVisible = false;
+            this.dgvVisits.RowHeadersWidth = 51;
+            this.dgvVisits.RowTemplate.Height = 24;
+            this.dgvVisits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvVisits.Size = new System.Drawing.Size(782, 336);
+            this.dgvVisits.TabIndex = 2;
+            this.dgvVisits.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVisits_CellContentClick);
+            // 
             // Prescriptions
             // 
             this.Prescriptions.Controls.Add(this.dgvPrescriptions);
@@ -78,6 +109,25 @@
             this.Prescriptions.Text = "Prescriptions";
             this.Prescriptions.UseVisualStyleBackColor = true;
             // 
+            // dgvPrescriptions
+            // 
+            this.dgvPrescriptions.AllowUserToAddRows = false;
+            this.dgvPrescriptions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPrescriptions.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvPrescriptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvPrescriptions.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvPrescriptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPrescriptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvPrescriptions.Location = new System.Drawing.Point(3, 3);
+            this.dgvPrescriptions.Name = "dgvPrescriptions";
+            this.dgvPrescriptions.ReadOnly = true;
+            this.dgvPrescriptions.RowHeadersVisible = false;
+            this.dgvPrescriptions.RowHeadersWidth = 51;
+            this.dgvPrescriptions.RowTemplate.Height = 24;
+            this.dgvPrescriptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPrescriptions.Size = new System.Drawing.Size(782, 336);
+            this.dgvPrescriptions.TabIndex = 2;
+            // 
             // Vaccines
             // 
             this.Vaccines.Controls.Add(this.dgvVaccines);
@@ -88,6 +138,55 @@
             this.Vaccines.TabIndex = 2;
             this.Vaccines.Text = "Vaccines";
             this.Vaccines.UseVisualStyleBackColor = true;
+            // 
+            // dgvVaccines
+            // 
+            this.dgvVaccines.AllowUserToAddRows = false;
+            this.dgvVaccines.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvVaccines.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvVaccines.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvVaccines.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvVaccines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVaccines.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvVaccines.Location = new System.Drawing.Point(3, 3);
+            this.dgvVaccines.Name = "dgvVaccines";
+            this.dgvVaccines.ReadOnly = true;
+            this.dgvVaccines.RowHeadersVisible = false;
+            this.dgvVaccines.RowHeadersWidth = 51;
+            this.dgvVaccines.RowTemplate.Height = 24;
+            this.dgvVaccines.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvVaccines.Size = new System.Drawing.Size(782, 336);
+            this.dgvVaccines.TabIndex = 2;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dgvLabTests);
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(788, 342);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Lab Tests";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dgvLabTests
+            // 
+            this.dgvLabTests.AllowUserToAddRows = false;
+            this.dgvLabTests.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvLabTests.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvLabTests.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvLabTests.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvLabTests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLabTests.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvLabTests.Location = new System.Drawing.Point(3, 3);
+            this.dgvLabTests.Name = "dgvLabTests";
+            this.dgvLabTests.ReadOnly = true;
+            this.dgvLabTests.RowHeadersVisible = false;
+            this.dgvLabTests.RowHeadersWidth = 51;
+            this.dgvLabTests.RowTemplate.Height = 24;
+            this.dgvLabTests.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvLabTests.Size = new System.Drawing.Size(782, 336);
+            this.dgvLabTests.TabIndex = 1;
             // 
             // lblPetName
             // 
@@ -110,28 +209,6 @@
             this.panel1.Size = new System.Drawing.Size(800, 75);
             this.panel1.TabIndex = 16;
             // 
-            // medicalReport
-            // 
-            this.medicalReport.Controls.Add(this.dgvVisits);
-            this.medicalReport.Location = new System.Drawing.Point(4, 32);
-            this.medicalReport.Name = "medicalReport";
-            this.medicalReport.Padding = new System.Windows.Forms.Padding(3);
-            this.medicalReport.Size = new System.Drawing.Size(788, 342);
-            this.medicalReport.TabIndex = 0;
-            this.medicalReport.Text = "Visit History";
-            this.medicalReport.UseVisualStyleBackColor = true;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.dgvLabTests);
-            this.tabPage1.Location = new System.Drawing.Point(4, 32);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(788, 342);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Lab Tests";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.tabControl1);
@@ -139,82 +216,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(796, 378);
             this.panel2.TabIndex = 17;
-            // 
-            // dgvLabTests
-            // 
-            this.dgvLabTests.AllowUserToAddRows = false;
-            this.dgvLabTests.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvLabTests.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dgvLabTests.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvLabTests.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvLabTests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLabTests.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvLabTests.Location = new System.Drawing.Point(3, 3);
-            this.dgvLabTests.Name = "dgvLabTests";
-            this.dgvLabTests.ReadOnly = true;
-            this.dgvLabTests.RowHeadersVisible = false;
-            this.dgvLabTests.RowHeadersWidth = 51;
-            this.dgvLabTests.RowTemplate.Height = 24;
-            this.dgvLabTests.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvLabTests.Size = new System.Drawing.Size(782, 336);
-            this.dgvLabTests.TabIndex = 1;
-            // 
-            // dgvVaccines
-            // 
-            this.dgvVaccines.AllowUserToAddRows = false;
-            this.dgvVaccines.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvVaccines.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dgvVaccines.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvVaccines.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvVaccines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVaccines.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvVaccines.Location = new System.Drawing.Point(3, 3);
-            this.dgvVaccines.Name = "dgvVaccines";
-            this.dgvVaccines.ReadOnly = true;
-            this.dgvVaccines.RowHeadersVisible = false;
-            this.dgvVaccines.RowHeadersWidth = 51;
-            this.dgvVaccines.RowTemplate.Height = 24;
-            this.dgvVaccines.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVaccines.Size = new System.Drawing.Size(782, 336);
-            this.dgvVaccines.TabIndex = 2;
-            // 
-            // dgvPrescriptions
-            // 
-            this.dgvPrescriptions.AllowUserToAddRows = false;
-            this.dgvPrescriptions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPrescriptions.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dgvPrescriptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvPrescriptions.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvPrescriptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPrescriptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvPrescriptions.Location = new System.Drawing.Point(3, 3);
-            this.dgvPrescriptions.Name = "dgvPrescriptions";
-            this.dgvPrescriptions.ReadOnly = true;
-            this.dgvPrescriptions.RowHeadersVisible = false;
-            this.dgvPrescriptions.RowHeadersWidth = 51;
-            this.dgvPrescriptions.RowTemplate.Height = 24;
-            this.dgvPrescriptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPrescriptions.Size = new System.Drawing.Size(782, 336);
-            this.dgvPrescriptions.TabIndex = 2;
-            // 
-            // dgvVisits
-            // 
-            this.dgvVisits.AllowUserToAddRows = false;
-            this.dgvVisits.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvVisits.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dgvVisits.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvVisits.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvVisits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVisits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvVisits.Location = new System.Drawing.Point(3, 3);
-            this.dgvVisits.Name = "dgvVisits";
-            this.dgvVisits.ReadOnly = true;
-            this.dgvVisits.RowHeadersVisible = false;
-            this.dgvVisits.RowHeadersWidth = 51;
-            this.dgvVisits.RowTemplate.Height = 24;
-            this.dgvVisits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVisits.Size = new System.Drawing.Size(782, 336);
-            this.dgvVisits.TabIndex = 2;
             // 
             // MedicalHistoryClientForm
             // 
@@ -227,17 +228,17 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MedicalHistoryClientForm";
             this.tabControl1.ResumeLayout(false);
+            this.medicalReport.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVisits)).EndInit();
             this.Prescriptions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPrescriptions)).EndInit();
             this.Vaccines.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVaccines)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLabTests)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.medicalReport.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLabTests)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVaccines)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPrescriptions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVisits)).EndInit();
             this.ResumeLayout(false);
 
         }

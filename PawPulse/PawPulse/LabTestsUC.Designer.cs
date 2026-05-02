@@ -8,18 +8,20 @@ namespace PawPulse
             this.btnAdd = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.addForm2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtCost2 = new System.Windows.Forms.TextBox();
+            this.lblResult = new System.Windows.Forms.Label();
+            this.txtResults2 = new System.Windows.Forms.TextBox();
+            this.lblTestType = new System.Windows.Forms.Label();
+            this.txtTestType2 = new System.Windows.Forms.TextBox();
             this.btnCancelAdd = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.cmbRecord2 = new System.Windows.Forms.ComboBox();
             this.lblAnimal = new System.Windows.Forms.Label();
             this.lblAddTitle = new System.Windows.Forms.Label();
             this.dgv2 = new System.Windows.Forms.DataGridView();
-            this.txtTestType2 = new System.Windows.Forms.TextBox();
-            this.lblTestType = new System.Windows.Forms.Label();
-            this.txtResults2 = new System.Windows.Forms.TextBox();
-            this.lblResult = new System.Windows.Forms.Label();
-            this.txtCost2 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.topBar.SuspendLayout();
             this.addForm2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv2)).BeginInit();
@@ -28,6 +30,8 @@ namespace PawPulse
             // topBar
             // 
             this.topBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(38)))), ((int)(((byte)(62)))));
+            this.topBar.Controls.Add(this.button2);
+            this.topBar.Controls.Add(this.button1);
             this.topBar.Controls.Add(this.btnAdd);
             this.topBar.Controls.Add(this.lblTitle);
             this.topBar.Dock = System.Windows.Forms.DockStyle.Top;
@@ -80,6 +84,63 @@ namespace PawPulse
             this.addForm2.Size = new System.Drawing.Size(400, 265);
             this.addForm2.TabIndex = 5;
             this.addForm2.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
+            this.label1.Location = new System.Drawing.Point(15, 198);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 20);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Cost (EGP) :";
+            // 
+            // txtCost2
+            // 
+            this.txtCost2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.txtCost2.Location = new System.Drawing.Point(155, 195);
+            this.txtCost2.Name = "txtCost2";
+            this.txtCost2.Size = new System.Drawing.Size(230, 30);
+            this.txtCost2.TabIndex = 13;
+            // 
+            // lblResult
+            // 
+            this.lblResult.AutoSize = true;
+            this.lblResult.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResult.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
+            this.lblResult.Location = new System.Drawing.Point(15, 153);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(61, 20);
+            this.lblResult.TabIndex = 12;
+            this.lblResult.Text = "Result :";
+            // 
+            // txtResults2
+            // 
+            this.txtResults2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.txtResults2.Location = new System.Drawing.Point(155, 150);
+            this.txtResults2.Name = "txtResults2";
+            this.txtResults2.Size = new System.Drawing.Size(230, 30);
+            this.txtResults2.TabIndex = 11;
+            // 
+            // lblTestType
+            // 
+            this.lblTestType.AutoSize = true;
+            this.lblTestType.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTestType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
+            this.lblTestType.Location = new System.Drawing.Point(15, 108);
+            this.lblTestType.Name = "lblTestType";
+            this.lblTestType.Size = new System.Drawing.Size(83, 20);
+            this.lblTestType.TabIndex = 10;
+            this.lblTestType.Text = "Test Type :";
+            // 
+            // txtTestType2
+            // 
+            this.txtTestType2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.txtTestType2.Location = new System.Drawing.Point(155, 105);
+            this.txtTestType2.Name = "txtTestType2";
+            this.txtTestType2.Size = new System.Drawing.Size(230, 30);
+            this.txtTestType2.TabIndex = 9;
             // 
             // btnCancelAdd
             // 
@@ -149,62 +210,31 @@ namespace PawPulse
             this.dgv2.Size = new System.Drawing.Size(808, 520);
             this.dgv2.TabIndex = 4;
             // 
-            // txtTestType2
+            // button2
             // 
-            this.txtTestType2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
-            this.txtTestType2.Location = new System.Drawing.Point(155, 105);
-            this.txtTestType2.Name = "txtTestType2";
-            this.txtTestType2.Size = new System.Drawing.Size(230, 30);
-            this.txtTestType2.TabIndex = 9;
+            this.button2.BackColor = System.Drawing.Color.Brown;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(438, 13);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(130, 34);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "- Delete";
+            this.button2.UseVisualStyleBackColor = false;
             // 
-            // lblTestType
+            // button1
             // 
-            this.lblTestType.AutoSize = true;
-            this.lblTestType.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTestType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
-            this.lblTestType.Location = new System.Drawing.Point(15, 108);
-            this.lblTestType.Name = "lblTestType";
-            this.lblTestType.Size = new System.Drawing.Size(83, 20);
-            this.lblTestType.TabIndex = 10;
-            this.lblTestType.Text = "Test Type :";
-            // 
-            // txtResults2
-            // 
-            this.txtResults2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
-            this.txtResults2.Location = new System.Drawing.Point(155, 150);
-            this.txtResults2.Name = "txtResults2";
-            this.txtResults2.Size = new System.Drawing.Size(230, 30);
-            this.txtResults2.TabIndex = 11;
-            // 
-            // lblResult
-            // 
-            this.lblResult.AutoSize = true;
-            this.lblResult.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResult.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
-            this.lblResult.Location = new System.Drawing.Point(15, 153);
-            this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(61, 20);
-            this.lblResult.TabIndex = 12;
-            this.lblResult.Text = "Result :";
-            // 
-            // txtCost2
-            // 
-            this.txtCost2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
-            this.txtCost2.Location = new System.Drawing.Point(155, 195);
-            this.txtCost2.Name = "txtCost2";
-            this.txtCost2.Size = new System.Drawing.Size(230, 30);
-            this.txtCost2.TabIndex = 13;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
-            this.label1.Location = new System.Drawing.Point(15, 198);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 20);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Cost (EGP) :";
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(280, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(130, 34);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Update";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // LabTestsUC
             // 
@@ -239,5 +269,7 @@ namespace PawPulse
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.TextBox txtResults2;
         private System.Windows.Forms.TextBox txtCost2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

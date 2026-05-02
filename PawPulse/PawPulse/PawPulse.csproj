@@ -97,6 +97,12 @@
     <Compile Include="AdminDashboardForm.Designer.cs">
       <DependentUpon>AdminDashboardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionClientUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdoptionClientUC.Designer.cs">
+      <DependentUpon>AdoptionClientUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="AnimalUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -114,6 +120,12 @@
     </Compile>
     <Compile Include="AppointmentsUC.Designer.cs">
       <DependentUpon>AppointmentsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AvailablePetCardUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AvailablePetCardUC.Designer.cs">
+      <DependentUpon>AvailablePetCardUC.cs</DependentUpon>
     </Compile>
     <Compile Include="AssignAnimalForm.cs">
       <SubType>Form</SubType>
@@ -243,6 +255,12 @@
     <Compile Include="MedicalRecordsUC.Designer.cs">
       <DependentUpon>MedicalRecordsUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyRequestCardUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyRequestCardUC.Designer.cs">
+      <DependentUpon>MyRequestCardUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="PetCardUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -311,6 +329,9 @@
     <EmbeddedResource Include="AdminDashboardForm.resx">
       <DependentUpon>AdminDashboardForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdoptionClientUC.resx">
+      <DependentUpon>AdoptionClientUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AnimalUC.resx">
       <DependentUpon>AnimalUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -319,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AppointmentsUC.resx">
       <DependentUpon>AppointmentsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvailablePetCardUC.resx">
+      <DependentUpon>AvailablePetCardUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ClientBillingUC.resx">
       <DependentUpon>ClientBillingUC.cs</DependentUpon>
@@ -370,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalRecordsUC.resx">
       <DependentUpon>MedicalRecordsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyRequestCardUC.resx">
+      <DependentUpon>MyRequestCardUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PetCardUC.resx">
       <DependentUpon>PetCardUC.cs</DependentUpon>

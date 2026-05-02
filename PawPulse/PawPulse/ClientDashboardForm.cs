@@ -115,6 +115,10 @@ namespace PawPulse
             AddUserControl(new ClientBillingUC(ClientID, ClientName));
         }
 
-        
+        private void btnAdoption_Click(object sender, EventArgs e)
+        {
+            HighlightActiveButton(btnAdoption);
+            AddUserControl(new AdoptionClientUC(ClientID, ClientName));
+        }
     }
 }

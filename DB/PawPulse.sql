@@ -365,13 +365,11 @@ ALTER TABLE ANIMAL ALTER COLUMN EstimatedDOB DATE NULL;
 ALTER TABLE ANIMAL ADD Age AS (DATEDIFF(YEAR, EstimatedDOB, GETDATE()));
 ALTER TABLE ANIMAL ALTER COLUMN LatestWeight DECIMAL(5,2) NULL;
 ALTER TABLE ANIMAL ALTER COLUMN Breed VARCHAR(50) NULL;
+ALTER TABLE Employee ALTER COLUMN PasswordHash VARCHAR(255) NULL;
+ALTER TABLE Adoption ALTER COLUMN EmployeeID INT NULL;
 
 -- SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1
 
 --DROP TABLE IF EXISTS Adoption; DROP TABLE IF EXISTS Prescription; DROP TABLE IF EXISTS Lab_Test; DROP TABLE IF EXISTS MEDICAL_RECORD; DROP TABLE IF EXISTS Animal_Vaccine_History; DROP TABLE IF EXISTS APPOINTMENT; DROP TABLE IF EXISTS Bill_Item; DROP TABLE IF EXISTS Medicine; DROP TABLE IF EXISTS Bill; DROP TABLE IF EXISTS ANIMAL; DROP TABLE IF EXISTS CLIENT; DROP TABLE IF EXISTS Employee; DROP TABLE IF EXISTS Kennel; DROP TABLE IF EXISTS Vaccine; DROP TABLE IF EXISTS Supplier;
 
-SELECT PasswordHash, 'Client' AS Role FROM Client WHERE Email = 'omar.h@email.com'
-UNION
-SELECT PasswordHash, EmployeeRole AS Role FROM Employee WHERE Email = 'omar.h@email.com';
-
-SELECT * FROM Client WHERE Email = 'omar.h@email.com';
+SELECT PasswordHash, 'Client' AS Role, CAST(ClientID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Client WHERE Email = 'omar.h@email.com' UNION SELECT PasswordHash, EmployeeRole AS Role, CAST(EmployeeID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Employee WHERE Email = 'omar.h@email.com';
