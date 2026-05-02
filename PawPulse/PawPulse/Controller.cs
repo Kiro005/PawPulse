@@ -1154,25 +1154,27 @@ namespace DBapplication
         ///////////////////////////////////////////////////////////////////////////////////
 
         // 1. Get all Pending Adoptions for the staff to review
+        // 1. Get all Pending Adoptions for the staff to review
         public DataTable GetPendingAdoptions()
         {
             // We JOIN Adoption, ANIMAL, and CLIENT to get a complete picture
             string query = @"
-                SELECT 
-                    adp.AdoptionID, 
-                    adp.ApplicationDate, 
-                    adp.AdoptionFee,
-                    anim.AnimalID,
-                    anim.AnimalName, 
-                    anim.Species, 
-                    c.ClientID,
-                    c.FirstName + ' ' + c.LastName AS ClientName,
-                    c.Phone
-                FROM Adoption adp
-                JOIN ANIMAL anim ON adp.AnimalID = anim.AnimalID
-                JOIN CLIENT c ON adp.ClientID = c.ClientID
-                WHERE adp.AdoptionStatus = 'Pending'
-                ORDER BY adp.ApplicationDate ASC;";
+        SELECT 
+            adp.AdoptionID, 
+            adp.ApplicationDate, 
+            adp.AdoptionStatus AS [Status], -- WE ADDED THIS LINE!
+            adp.AdoptionFee,
+            anim.AnimalID,
+            anim.AnimalName, 
+            anim.Species, 
+            c.ClientID,
+            c.FirstName + ' ' + c.LastName AS ClientName,
+            c.Phone
+        FROM Adoption adp
+        JOIN ANIMAL anim ON adp.AnimalID = anim.AnimalID
+        JOIN CLIENT c ON adp.ClientID = c.ClientID
+        WHERE adp.AdoptionStatus = 'Pending'
+        ORDER BY adp.ApplicationDate ASC;";
 
             return dbMan.ExecuteReader(query);
         }
@@ -1285,9 +1287,49 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        // Processes an adoption approval: updates adoption status, animal status, and frees up the kennel
+        public bool ApproveAdoptionApplication(int adoptionId, int animalId)
+        {
+            // We will use a transaction to ensure all these steps happen together, 
+            // or none of them happen if something fails.
+            string query = $@"
+        BEGIN TRANSACTION;
+        BEGIN TRY
+            -- 1. Update the Adoption record
+            UPDATE ADOPTION SET AdoptionStatus = 'Approved' WHERE AdoptionID = {adoptionId};
 
+            -- 2. Find which kennel the animal is currently in
+            DECLARE @KennelID INT;
+            SELECT @KennelID = KennelID FROM ANIMAL WHERE AnimalID = {animalId};
 
+            -- 3. Update the Animal record (status to Adopted, remove from kennel)
+            UPDATE ANIMAL SET SystemStatus = 'Adopted', KennelID = NULL WHERE AnimalID = {animalId};
 
+            -- 4. Update the Kennel capacity status (only if it was in a kennel)
+            IF @KennelID IS NOT NULL
+            BEGIN
+                IF (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = @KennelID) = 0
+                    UPDATE Kennel SET KennelStatus = 'Needs Cleaning' WHERE KennelID = @KennelID;
+                ELSE
+                    UPDATE Kennel SET KennelStatus = 'Available' WHERE KennelID = @KennelID;
+            END
+
+            COMMIT TRANSACTION;
+        END TRY
+        BEGIN CATCH
+            ROLLBACK TRANSACTION;
+            -- You could log the error here if needed
+        END CATCH;";
+
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        // Simple method to update adoption status (used for Rejecting)
+        public bool UpdateAdoptionStatus(int adoptionId, string status)
+        {
+            string query = $"UPDATE Adoption SET AdoptionStatus = '{status}' WHERE AdoptionID = {adoptionId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
 
 
 

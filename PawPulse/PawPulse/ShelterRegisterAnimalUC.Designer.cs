@@ -47,8 +47,8 @@
             this.accentBar = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.formCard = new System.Windows.Forms.Panel();
-            this.TopBar = new System.Windows.Forms.Panel();
             this.cmbSpecies2 = new System.Windows.Forms.ComboBox();
+            this.TopBar = new System.Windows.Forms.Panel();
             this.formCard.SuspendLayout();
             this.TopBar.SuspendLayout();
             this.SuspendLayout();
@@ -72,6 +72,7 @@
             this.btnClear2.TabIndex = 18;
             this.btnClear2.Text = "Clear";
             this.btnClear2.UseVisualStyleBackColor = false;
+            this.btnClear2.Click += new System.EventHandler(this.btnClear2_Click);
             // 
             // btnRegister2
             // 
@@ -264,6 +265,14 @@
             this.formCard.Size = new System.Drawing.Size(520, 420);
             this.formCard.TabIndex = 3;
             // 
+            // cmbSpecies2
+            // 
+            this.cmbSpecies2.FormattingEnabled = true;
+            this.cmbSpecies2.Location = new System.Drawing.Point(200, 109);
+            this.cmbSpecies2.Name = "cmbSpecies2";
+            this.cmbSpecies2.Size = new System.Drawing.Size(280, 28);
+            this.cmbSpecies2.TabIndex = 20;
+            // 
             // TopBar
             // 
             this.TopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(38)))), ((int)(((byte)(62)))));
@@ -273,14 +282,6 @@
             this.TopBar.Name = "TopBar";
             this.TopBar.Size = new System.Drawing.Size(998, 60);
             this.TopBar.TabIndex = 2;
-            // 
-            // cmbSpecies2
-            // 
-            this.cmbSpecies2.FormattingEnabled = true;
-            this.cmbSpecies2.Location = new System.Drawing.Point(200, 109);
-            this.cmbSpecies2.Name = "cmbSpecies2";
-            this.cmbSpecies2.Size = new System.Drawing.Size(280, 28);
-            this.cmbSpecies2.TabIndex = 20;
             // 
             // ShelterRegisterAnimalUC
             // 
