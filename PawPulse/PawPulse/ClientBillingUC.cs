@@ -94,5 +94,10 @@ namespace PawPulse
                 dgvBillItems.DataSource = null;
             }
         }
+
+        private void ClientBillingUC_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

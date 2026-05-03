@@ -56,7 +56,7 @@
             this.lblDate.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblDate.Location = new System.Drawing.Point(671, 25);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(106, 31);
+            this.lblDate.Size = new System.Drawing.Size(129, 38);
             this.lblDate.TabIndex = 1;
             this.lblDate.Text = "--/--/----";
             // 
@@ -67,7 +67,7 @@
             this.lblWelcome.ForeColor = System.Drawing.Color.MediumAquamarine;
             this.lblWelcome.Location = new System.Drawing.Point(44, 18);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(101, 38);
+            this.lblWelcome.Size = new System.Drawing.Size(117, 45);
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Billing";
             // 
@@ -107,6 +107,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "ClientBillingUC";
             this.Size = new System.Drawing.Size(848, 594);
+            this.Load += new System.EventHandler(this.ClientBillingUC_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBills)).EndInit();

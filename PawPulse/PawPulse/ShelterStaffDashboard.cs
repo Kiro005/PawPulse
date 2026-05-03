@@ -52,13 +52,20 @@ namespace PawPulse
 
         private void btnBilling_Click(object sender, EventArgs e)
         {
-
+            ManageAdoptionFeesShelterUC feesScreen = new ManageAdoptionFeesShelterUC();
+            LoadUserControl(feesScreen);
         }
 
         private void btnRegisterAnimal_Click(object sender, EventArgs e)
         {
             ShelterRegisterAnimalUC registerScreen = new ShelterRegisterAnimalUC();
             LoadUserControl(registerScreen);
+        }
+
+        private void btnAnimals_Click(object sender, EventArgs e)
+        {
+            HealthClearanceShelterStaffUC clearanceScreen = new HealthClearanceShelterStaffUC();
+            LoadUserControl(clearanceScreen);
         }
     }
 }

@@ -172,6 +172,7 @@
             this.btnAnimals.Text = "    Animals";
             this.btnAnimals.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAnimals.UseVisualStyleBackColor = false;
+            this.btnAnimals.Click += new System.EventHandler(this.btnAnimals_Click);
             // 
             // btnRegisterAnimal
             // 

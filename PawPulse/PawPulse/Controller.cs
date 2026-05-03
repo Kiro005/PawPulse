@@ -1,9 +1,12 @@
+using PawPulse;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
-using System.Data;
 using System.Windows.Forms;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DBapplication
 {
@@ -534,22 +537,26 @@ namespace DBapplication
             return dbMan.ExecuteNonQuery(query) > 0;
         }
 
-        public DataTable GetShelterAnimalsForClearance()
+        public DataTable GetShelterAnimals()
         {
-            string query = $@"
-                SELECT an.AnimalID, an.AnimalName, an.Species, an.Breed, an.Age,
-                       ISNULL(mr.Diagnosis, 'No Record') AS LatestDiagnosis,
-                       ISNULL(CONVERT(VARCHAR, mr.LastUpdatedDate, 103), 'N/A') AS LastCheckup,
-                       ISNULL(k.WardType, 'N/A') AS Ward
-                FROM ANIMAL an
-                LEFT JOIN Kennel k ON an.KennelID = k.KennelID
-                LEFT JOIN (
-                    SELECT AnimalID, Diagnosis, LastUpdatedDate,
-                           ROW_NUMBER() OVER (PARTITION BY AnimalID ORDER BY LastUpdatedDate DESC) AS rn
-                    FROM MEDICAL_RECORD
-                ) mr ON an.AnimalID = mr.AnimalID AND mr.rn = 1
-                WHERE an.SystemStatus = 'Shelter'
-                ORDER BY an.AnimalName;";
+            string query = @"
+        SELECT 
+            A.AnimalID AS [ID],
+            A.AnimalName AS [Name],
+            A.Species,
+            A.Breed,
+            A.Age,
+            A.SystemStatus AS [System Status],
+            ISNULL(K.WardType + ' (Cage ' + CAST(K.KennelID AS VARCHAR) + ')', 'Unassigned') AS [Current Location]
+        FROM ANIMAL A
+        LEFT JOIN Kennel K ON A.KennelID = K.KennelID
+        ORDER BY 
+            CASE A.SystemStatus 
+                WHEN 'Shelter' THEN 1 
+                WHEN 'Adopted' THEN 2 
+                ELSE 3 END, 
+            A.AnimalName;";
+
             return dbMan.ExecuteReader(query);
         }
 
@@ -1239,14 +1246,13 @@ namespace DBapplication
         // 1. Get Kennels that actually have space (Capacity > current occupants)
         public DataTable GetKennelsWithSpace()
         {
-            // This query creates a nice display string "Size - Ward (ID: X)" 
-            // but ONLY for kennels that are not full.
             string query = @"
-                SELECT 
-                    K.KennelID, 
-                    K.KennelSize + ' - ' + K.WardType + ' (ID: ' + CAST(K.KennelID AS VARCHAR) + ')' AS Display 
-                FROM Kennel K
-                WHERE (SELECT COUNT(*) FROM ANIMAL A WHERE A.KennelID = K.KennelID) < K.Capacity;";
+        SELECT 
+            K.KennelID, 
+            K.KennelSize + ' - ' + K.WardType + ' (ID: ' + CAST(K.KennelID AS VARCHAR) + ')' AS Display 
+        FROM Kennel K
+        WHERE (SELECT COUNT(*) FROM ANIMAL A WHERE A.KennelID = K.KennelID) < K.Capacity
+        AND K.KennelStatus != 'Needs Cleaning';";
 
             return dbMan.ExecuteReader(query);
         }
@@ -1325,11 +1331,13 @@ namespace DBapplication
         }
 
         // Simple method to update adoption status (used for Rejecting)
-        public bool UpdateAdoptionStatus(int adoptionId, string status)
-        {
-            string query = $"UPDATE Adoption SET AdoptionStatus = '{status}' WHERE AdoptionID = {adoptionId};";
-            return dbMan.ExecuteNonQuery(query) > 0;
-        }
+        //public bool UpdateAdoptionStatus(int adoptionId, string status)
+        //{
+        //    string query = $"UPDATE Adoption SET AdoptionStatus = '{status}' WHERE AdoptionID = {adoptionId};";
+        //    return dbMan.ExecuteNonQuery(query) > 0;
+        //}
+
+
 
 
 

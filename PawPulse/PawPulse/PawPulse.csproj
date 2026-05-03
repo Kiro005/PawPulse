@@ -189,6 +189,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HealthClearanceShelterStaffUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HealthClearanceShelterStaffUC.Designer.cs">
+      <DependentUpon>HealthClearanceShelterStaffUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="HealthClearanceUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -212,6 +218,12 @@
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageAdoptionFeesShelterUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ManageAdoptionFeesShelterUC.Designer.cs">
+      <DependentUpon>ManageAdoptionFeesShelterUC.cs</DependentUpon>
     </Compile>
     <Compile Include="ManageAdoptionFeesUC.cs">
       <SubType>UserControl</SubType>
@@ -392,6 +404,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HealthClearanceShelterStaffUC.resx">
+      <DependentUpon>HealthClearanceShelterStaffUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HealthClearanceUC.resx">
       <DependentUpon>HealthClearanceUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -400,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageAdoptionFeesShelterUC.resx">
+      <DependentUpon>ManageAdoptionFeesShelterUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageAdoptionFeesUC.resx">
       <DependentUpon>ManageAdoptionFeesUC.cs</DependentUpon>

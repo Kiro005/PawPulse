@@ -37,7 +37,7 @@ namespace PawPulse
         {
             try
             {
-                var dt = _ctrl.GetShelterAnimalsForClearance();
+                var dt = _ctrl.GetShelterAnimals();
                 dgv2.DataSource = dt;
                 if (dgv2.Columns.Contains("AnimalID")) dgv2.Columns["AnimalID"].Visible = false;
 
