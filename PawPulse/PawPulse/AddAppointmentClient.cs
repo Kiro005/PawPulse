@@ -21,6 +21,7 @@ namespace PawPulse
             controllerObj = new Controller();
             AnimalID = animalID;
             lblPetName.Text = $"For {petName}";
+            dateTimePicker1.MinDate = DateTime.Now;
 
             LoadVets();
         }
