@@ -459,7 +459,8 @@ namespace DBapplication
             string query = $@"
                 SELECT mr.RecordID, mr.LastUpdatedDate AS Date, mr.RecordedWeight AS Weight,
                        mr.Diagnosis, mr.Notes, an.AnimalName, an.Species,
-                       ISNULL(c.FirstName + ' ' + c.LastName, 'Shelter Animal') AS OwnerName
+                       ISNULL(c.FirstName + ' ' + c.LastName, 'Shelter Animal') AS OwnerName,
+                       mr.AnimalID, mr.AppointmentID
                 FROM MEDICAL_RECORD mr
                 JOIN ANIMAL an ON mr.AnimalID = an.AnimalID
                 LEFT JOIN CLIENT c ON an.ClientID = c.ClientID
@@ -480,7 +481,8 @@ namespace DBapplication
         {
             string query = $@"
                 SELECT p.PrescriptionID, p.IssueDate AS Date, m.MedicineName, an.AnimalName,
-                       p.Instructions, p.RefillsAllowed AS Refills, p.DurationInDays AS Duration
+                       p.Instructions, p.RefillsAllowed AS Refills, p.DurationInDays AS Duration,
+                       p.RecordID, p.MedicineID
                 FROM Prescription p
                 JOIN MEDICAL_RECORD mr ON p.RecordID = mr.RecordID
                 JOIN ANIMAL an ON mr.AnimalID = an.AnimalID
@@ -502,7 +504,7 @@ namespace DBapplication
         {
             string query = $@"
                 SELECT lt.TestID, lt.TestType AS Type, lt.TestDate AS Date, lt.Result, lt.Cost,
-                       an.AnimalName
+                       an.AnimalName, lt.RecordID
                 FROM Lab_Test lt
                 JOIN MEDICAL_RECORD mr ON lt.RecordID = mr.RecordID
                 JOIN ANIMAL an ON mr.AnimalID = an.AnimalID
@@ -609,6 +611,69 @@ namespace DBapplication
             return dbMan.ExecuteNonQuery(query) > 0;
         }
 
+        public bool UpdateMedicalRecord(int recordId, int animalId, string diagnosis, string notes, decimal weight, int? appointmentId)
+        {
+            string apptPart = appointmentId.HasValue ? appointmentId.Value.ToString() : "NULL";
+            string query = $"UPDATE MEDICAL_RECORD SET AnimalID={animalId}, Diagnosis='{diagnosis}', Notes='{notes}', RecordedWeight={weight}, AppointmentID={apptPart}, LastUpdatedDate=CAST(GETDATE() AS DATE) WHERE RecordID={recordId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeleteMedicalRecord(int recordId)
+        {
+            string query = $"DELETE FROM MEDICAL_RECORD WHERE RecordID={recordId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool UpdatePrescription(int prescriptionId, int recordId, int medicineId, string instructions, int refills, int duration)
+        {
+            string query = $"UPDATE Prescription SET RecordID={recordId}, MedicineID={medicineId}, Instructions='{instructions}', RefillsAllowed={refills}, DurationInDays={duration} WHERE PrescriptionID={prescriptionId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeletePrescription(int prescriptionId)
+        {
+            string query = $"DELETE FROM Prescription WHERE PrescriptionID={prescriptionId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool UpdateLabTest(int testId, int recordId, string testType, string result, decimal cost)
+        {
+            string query = $"UPDATE Lab_Test SET RecordID={recordId}, TestType='{testType}', Result='{result}', Cost={cost} WHERE TestID={testId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeleteLabTest(int testId)
+        {
+            string query = $"DELETE FROM Lab_Test WHERE TestID={testId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeleteVaccination(int animalId, int vaccineId, string date)
+        {
+            string query = $"DELETE FROM Animal_Vaccine_History WHERE AnimalID={animalId} AND VaccineID={vaccineId} AND DateAdministered='{date}';";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public DataTable GetAnimalById(int animalId)
+        {
+            string query = $"SELECT AnimalID, AnimalName, Species, Breed, Gender, EstimatedDOB, LatestWeight FROM ANIMAL WHERE AnimalID={animalId};";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public bool UpdateShelterAnimal(int animalId, string name, string species, string breed, string gender, string dob, decimal weight)
+        {
+            string query = $"UPDATE ANIMAL SET AnimalName='{name}', Species='{species}', Breed='{breed}', Gender='{gender}', EstimatedDOB='{dob}', LatestWeight={weight} WHERE AnimalID={animalId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        public bool DeleteAnimal(int animalId)
+        {
+            string query = $@"
+                UPDATE Kennel SET KennelStatus='Available' WHERE KennelID=(SELECT KennelID FROM ANIMAL WHERE AnimalID={animalId} AND KennelID IS NOT NULL);
+                UPDATE ANIMAL SET SystemStatus='Archived', ClientID=NULL, KennelID=NULL WHERE AnimalID={animalId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
         public int GetTodayAppointmentsCount(int vetId)
         {
             string query = $"SELECT COUNT(*) FROM APPOINTMENT WHERE EmployeeID = {vetId} AND AppDate = CAST(GETDATE() AS DATE);";
@@ -699,7 +764,7 @@ namespace DBapplication
         public int UpdateClient(int clientID, string txtFName, string txtLName, string txtPhone, string txtEmail,
                                 string txtCity, string txtStreet, string txtBuilding)
         {
-            string query = $@"UPDATE Clients 
+            string query = $@"UPDATE Client 
                       SET FirstName = '{txtFName}', 
                           LastName = '{txtLName}', 
                           Phone = '{txtPhone}', 
@@ -711,12 +776,21 @@ namespace DBapplication
 
             return dbMan.ExecuteNonQuery(query);
         }
+        // Retrieve a single client record by ID for editing purposes
+        public DataTable GetClientById(int clientId)
+        {
+            // SQL query to fetch all details for the specified client
+            string query = $"SELECT * FROM Client WHERE ClientID = {clientId}";
+
+            // Execute the query and return the resulting data table
+            return dbMan.ExecuteReader(query);
+        }
 
         // Update only the activation status of a client
         public int UpdateClientStatus(int clientId, int newStatusValue)
         {
             // SQL query to update the IsActive bit (0 or 1)
-            string query = $"UPDATE Clients SET IsActive = {newStatusValue} WHERE ClientID = {clientId}";
+            string query = $"UPDATE Client SET IsActive = {newStatusValue} WHERE ClientID = {clientId}";
 
             return dbMan.ExecuteNonQuery(query);
         }
@@ -724,7 +798,7 @@ namespace DBapplication
         public int DeleteClient(int clientID)
         {
             // SQL query targeting the Clients table and its Primary Key
-            string query = $"DELETE FROM Clients WHERE ClientID = {clientID}";
+            string query = $"DELETE FROM Client WHERE ClientID = {clientID}";
 
             // Execute the non-query and return rows affected
             return dbMan.ExecuteNonQuery(query);
@@ -740,6 +814,529 @@ namespace DBapplication
 
             return dbMan.ExecuteReader(query);
         }
+
+        // --- Medicines & Suppliers Logic ---
+
+        // 1.GET all medicines with supplier names for display in the DataGridView
+        public DataTable GetAllMedicines()
+        {
+            // English comments: Joining Medicine and Supplier to show names instead of IDs
+            string query = @"SELECT M.MedicineID, M.MedicineName, M.Dosage, M.StockQuantity, 
+                            M.UnitPrice, M.ExpiryDate, S.SupplierName 
+                     FROM Medicine M 
+                     JOIN Supplier S ON M.SupplierID = S.SupplierID";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. GET all suppliers for the dropdown when adding/editing medicines
+        public DataTable GetAllSuppliers()
+        {
+            string query = "SELECT * FROM Supplier";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 3. Search medicines by name or supplier name using a single query with JOIN and LIKE
+        public DataTable SearchMedicines(string term)
+        {
+            string query = $@"SELECT M.MedicineID, M.MedicineName, M.Dosage, M.StockQuantity, 
+                             M.UnitPrice, M.ExpiryDate, S.SupplierName 
+                      FROM Medicine M 
+                      JOIN Supplier S ON M.SupplierID = S.SupplierID
+                      WHERE M.MedicineName LIKE '%{term}%' OR S.SupplierName LIKE '%{term}%'";
+            return dbMan.ExecuteReader(query);
+        }
+        // Retrieves all medicines joined with their supplier names
+        public DataTable GetAllMedicinesWithSuppliers()
+        {
+            string query = @"SELECT M.MedicineID, M.MedicineName, M.Dosage, M.StockQuantity, 
+                            M.UnitPrice, M.ExpiryDate, S.SupplierName 
+                     FROM Medicine M 
+                     JOIN Supplier S ON M.SupplierID = S.SupplierID";
+            return dbMan.ExecuteReader(query);
+        }
+
+        
+
+        // Deletes a medicine record by ID
+        public int DeleteMedicine(int medicineID)
+        {
+            string query = $"DELETE FROM Medicine WHERE MedicineID = {medicineID}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Retrieve distinct species from the ANIMAL table for the ComboBox suggestions
+        public DataTable GetDistinctSpecies()
+        {
+            string query = "SELECT DISTINCT Species FROM ANIMAL WHERE Species IS NOT NULL";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Retrieve current adoption fees configuration
+        public DataTable GetAdoptionSettings()
+        {
+            string query = "SELECT SettingID, Species, BaseFee FROM AdoptionSettings";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Insert or Update the adoption fee for a specific species
+        public int SetAdoptionFee(string species, decimal fee)
+        {
+            // Check if the species already exists in the settings
+            string checkQuery = $"SELECT COUNT(*) FROM AdoptionSettings WHERE Species = '{species}'";
+            int count = (int)dbMan.ExecuteScalar(checkQuery);
+
+            string query;
+            if (count > 0)
+            {
+                query = $"UPDATE AdoptionSettings SET BaseFee = {fee} WHERE Species = '{species}'";
+            }
+            else
+            {
+                query = $"INSERT INTO AdoptionSettings (Species, BaseFee) VALUES ('{species}', {fee})";
+            }
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+        // 1. Get total revenue for a specific month
+        public decimal GetMonthlyRevenue(int month, int year)
+        {
+            // English comments: Summing up all paid bills for the given period
+            string query = $@"SELECT SUM(Total_Amount) FROM Bill 
+                      WHERE MONTH(BillDate) = {month} 
+                      AND YEAR(BillDate) = {year} 
+                      AND BillStatus = 'Paid'";
+            object result = dbMan.ExecuteScalar(query);
+            return result == DBNull.Value ? 0 : Convert.ToDecimal(result);
+        }
+        // 1. Detailed Animals Report (Using existing columns only)
+        public DataTable GetDetailedAnimalsReport()
+        {
+            // English comments: Joining ANIMAL with AdoptionSettings based on Species
+            string query = @"SELECT 
+                        A.AnimalName AS [Name], 
+                        A.Species, 
+                        A.Breed, 
+                        A.Gender,
+                        A.Age,
+                        ISNULL(S.BaseFee, 0) AS [Base Adoption Fee],
+                        A.SystemStatus AS [Current Status]
+                     FROM ANIMAL A
+                     LEFT JOIN AdoptionSettings S ON A.Species = S.Species";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Managerial Report (Financials and HR summaries)
+        public DataTable GetManagerialReport(int month, int year)
+        {
+            // English comments: Aggregating stats from Employee, Medicine, and Bill tables
+            string query = $@"
+        SELECT 'Total Staff' AS [Category], CAST(COUNT(*) AS VARCHAR) AS [Stats] 
+        FROM Employee WHERE IsActive = 1
+        
+        UNION ALL
+        
+        SELECT 'Monthly Payroll (Salaries)', CAST(SUM(Salary) AS VARCHAR) 
+        FROM Employee WHERE IsActive = 1
+        
+        UNION ALL
+        
+        SELECT 'Unique Medicines in Stock', CAST(COUNT(*) AS VARCHAR) 
+        FROM Medicine
+        
+        UNION ALL
+        
+        SELECT 'Total Inventory Value (Meds)', CAST(SUM(StockQuantity * UnitPrice) AS VARCHAR) 
+        FROM Medicine
+        
+        UNION ALL
+        
+        SELECT 'Monthly Revenue', CAST(ISNULL(SUM(Total_Amount), 0) AS VARCHAR) 
+        FROM Bill 
+        WHERE MONTH(BillDate) = {month} AND YEAR(BillDate) = {year} AND BillStatus = 'Paid'";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Retrieves the total count of all animals in the database
+        public int GetTotalAnimals()
+        {
+            string query = "SELECT COUNT(*) FROM ANIMAL";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // 2. Get animal species distribution for the Pie Chart
+        public DataTable GetSpeciesDistribution()
+        {
+            
+            string query = "SELECT Species, COUNT(*) AS SpeciesCount FROM ANIMAL GROUP BY Species";
+            return dbMan.ExecuteReader(query);
+        }
+        // ==========================================
+        // Dashboard & Reports Data Retrieval
+        // ==========================================
+
+        // Retrieves the total count of animals currently in the shelter
+        public int GetTotalShelterAnimals()
+        {
+            string query = "SELECT COUNT(*) FROM ANIMAL WHERE SystemStatus = 'Shelter'";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // Retrieves the total revenue from paid bills for the current month
+        public decimal GetCurrentMonthRevenue()
+        {
+            string query = @"SELECT SUM(Total_Amount) FROM Bill 
+                     WHERE MONTH(BillDate) = MONTH(GETDATE()) 
+                     AND YEAR(BillDate) = YEAR(GETDATE()) 
+                     AND BillStatus = 'Paid'";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToDecimal(result) : 0m;
+        }
+
+        // Retrieves the count of pending adoption requests
+        public int GetPendingAdoptionsCount()
+        {
+            string query = "SELECT COUNT(*) FROM Adoption WHERE AdoptionStatus = 'Pending'";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // Retrieves the count of medicines with stock below 10
+        public int GetLowStockMedicineCount()
+        {
+            string query = "SELECT COUNT(*) FROM Medicine WHERE StockQuantity < 10";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // Retrieves monthly revenue trend for the Column Chart (Last 6 months)
+        public DataTable GetRevenueTrend()
+        {
+            string query = @"SELECT FORMAT(BillDate, 'MMM yyyy') AS MonthName, SUM(Total_Amount) AS Revenue 
+                     FROM Bill 
+                     WHERE BillStatus = 'Paid' AND BillDate >= DATEADD(month, -6, GETDATE())
+                     GROUP BY FORMAT(BillDate, 'MMM yyyy'), YEAR(BillDate), MONTH(BillDate)
+                     ORDER BY YEAR(BillDate), MONTH(BillDate)";
+            return dbMan.ExecuteReader(query);
+        }
+        // 1. Get total number of active employees
+        public int GetTotalActiveEmployees()
+        {
+            string query = "SELECT COUNT(*) FROM Employee WHERE IsActive = 1";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // 2. Get total monthly salaries for active staff
+        public decimal GetTotalSalaries()
+        {
+            string query = "SELECT SUM(Salary) FROM Employee WHERE IsActive = 1";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+        }
+
+        // 3. Get total types of medicine in stock
+        public int GetMedicineCount()
+        {
+            string query = "SELECT COUNT(*) FROM Medicine";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+        }
+
+        // 4. Get total monetary value of medicine inventory
+        public decimal GetTotalInventoryValue()
+        {
+            string query = "SELECT SUM(StockQuantity * UnitPrice) FROM Medicine";
+            object result = dbMan.ExecuteScalar(query);
+            return result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+        }
+
+        // 5. Get distribution of employee roles for Pie Chart
+        public DataTable GetEmployeeRoleDist()
+        {
+            string query = "SELECT EmployeeRole, COUNT(*) AS Count FROM Employee WHERE IsActive = 1 GROUP BY EmployeeRole";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 6. Get a summary of Revenue vs Salaries for the Column Chart
+        public DataTable GetFinancialSummary(int month, int year)
+        {
+            string query = $@"
+        SELECT 'Revenue' AS Category, ISNULL(SUM(Total_Amount), 0) AS Amount 
+        FROM Bill 
+        WHERE MONTH(BillDate) = {month} AND YEAR(BillDate) = {year} AND BillStatus = 'Paid'
+        UNION ALL
+        SELECT 'Salaries', ISNULL(SUM(Salary), 0) 
+        FROM Employee 
+        WHERE IsActive = 1";
+            return dbMan.ExecuteReader(query);
+        }
+        // Retrieves all kennels and the names of assigned animals
+        public DataTable GetAllKennelsWithAnimals()
+        {
+            string query = @"SELECT 
+                K.KennelID, 
+                K.KennelSize AS [Size], 
+                K.WardType AS [Ward], 
+                K.Capacity, 
+                K.KennelStatus AS [Status],
+                ISNULL(A.AnimalName, 'Empty') AS [Occupied By],
+                A.AnimalID  -- WE MUST ADD THIS LINE SO THE GRID HAS THE ID
+             FROM Kennel K
+             LEFT JOIN ANIMAL A ON K.KennelID = A.KennelID";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Updates the status of a specific kennel
+        public int UpdateKennelStatus(int kennelId, string newStatus)
+        {
+            string query = $"UPDATE Kennel SET KennelStatus = '{newStatus}' WHERE KennelID = {kennelId}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Deletes a kennel from the database
+        public int DeleteKennel(int kennelId)
+        {
+            string query = $"DELETE FROM Kennel WHERE KennelID = {kennelId}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+
+
+        //Shelter staff stuff
+
+        // 1. Get shelter animals that are NOT in a kennel yet
+        public DataTable GetUnassignedShelterAnimals()
+        {
+            string query = "SELECT AnimalID, AnimalName FROM ANIMAL WHERE SystemStatus = 'Shelter' AND KennelID IS NULL;";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Assign an animal to a kennel
+        public int AssignAnimalToKennel(int animalId, int kennelId)
+        {
+            // 1. Assign the animal
+            string query1 = $"UPDATE ANIMAL SET KennelID = {kennelId} WHERE AnimalID = {animalId};";
+            dbMan.ExecuteNonQuery(query1);
+
+            // 2. Dynamically check if the kennel is full now, and update status accordingly
+            string query2 = $@"
+        IF (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = {kennelId}) >= (SELECT Capacity FROM Kennel WHERE KennelID = {kennelId})
+            UPDATE Kennel SET KennelStatus = 'Occupied' WHERE KennelID = {kennelId};
+        ELSE
+            UPDATE Kennel SET KennelStatus = 'Available' WHERE KennelID = {kennelId};";
+
+            return dbMan.ExecuteNonQuery(query2);
+        }
+
+        // 3. Clear a kennel (Removes the animal and marks kennel for cleaning)
+        // Removes a specific animal from a kennel and marks the kennel for cleaning
+        // Removes a specific animal from a kennel and marks the kennel for cleaning
+        public int RemoveAnimalFromKennel(int animalId, int kennelId)
+        {
+            // 1. Remove ONLY the specific animal we clicked on (Notice: WHERE AnimalID = ...)
+            string query1 = $"UPDATE ANIMAL SET KennelID = NULL WHERE AnimalID = {animalId};";
+            dbMan.ExecuteNonQuery(query1);
+
+            // 2. Check if the kennel is NOW completely empty
+            string query2 = $@"
+        IF (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = {kennelId}) = 0
+            UPDATE Kennel SET KennelStatus = 'Needs Cleaning' WHERE KennelID = {kennelId};
+        ELSE
+            UPDATE Kennel SET KennelStatus = 'Available' WHERE KennelID = {kennelId};";
+
+            return dbMan.ExecuteNonQuery(query2);
+        }
+
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
+        /// Shelter Staff: Process Adoptions
+        ///////////////////////////////////////////////////////////////////////////////////
+
+        // 1. Get all Pending Adoptions for the staff to review
+        // 1. Get all Pending Adoptions for the staff to review
+        public DataTable GetPendingAdoptions()
+        {
+            // We JOIN Adoption, ANIMAL, and CLIENT to get a complete picture
+            string query = @"
+        SELECT 
+            adp.AdoptionID, 
+            adp.ApplicationDate, 
+            adp.AdoptionStatus AS [Status], -- WE ADDED THIS LINE!
+            adp.AdoptionFee,
+            anim.AnimalID,
+            anim.AnimalName, 
+            anim.Species, 
+            c.ClientID,
+            c.FirstName + ' ' + c.LastName AS ClientName,
+            c.Phone
+        FROM Adoption adp
+        JOIN ANIMAL anim ON adp.AnimalID = anim.AnimalID
+        JOIN CLIENT c ON adp.ClientID = c.ClientID
+        WHERE adp.AdoptionStatus = 'Pending'
+        ORDER BY adp.ApplicationDate ASC;";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Reject an Adoption
+        public int RejectAdoption(int adoptionId, int employeeId)
+        {
+            // Update the status and record WHICH staff member rejected it
+            string query = $@"
+                UPDATE Adoption 
+                SET AdoptionStatus = 'Rejected', EmployeeID = {employeeId} 
+                WHERE AdoptionID = {adoptionId};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // 3. Approve an Adoption (Complex transaction!)
+        public int ApproveAdoption(int adoptionId, int animalId, int clientId, int employeeId)
+        {
+            /* 
+             * When an adoption is approved:
+             * 1. Update the Adoption record (Approved, mark the employee).
+             * 2. Free up the Kennel (Only affects the kennel if the animal actually had one).
+             * 3. Update the Animal record (SystemStatus = 'Adopted', assign ClientID, clear KennelID).
+             */
+            string query = $@"
+                UPDATE Adoption 
+                SET AdoptionStatus = 'Approved', EmployeeID = {employeeId} 
+                WHERE AdoptionID = {adoptionId};
+
+                UPDATE Kennel 
+                SET KennelStatus = 'Needs Cleaning' 
+                WHERE KennelID = (SELECT KennelID FROM ANIMAL WHERE AnimalID = {animalId});
+
+                UPDATE ANIMAL 
+                SET SystemStatus = 'Adopted', ClientID = {clientId}, KennelID = NULL 
+                WHERE AnimalID = {animalId};";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Checks if the kennel has reached its maximum capacity
+        public bool IsKennelFull(int kennelId)
+        {
+            string query = $@"
+        SELECT 
+            (SELECT Capacity FROM Kennel WHERE KennelID = {kennelId}) - 
+            (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = {kennelId})";
+
+            object result = dbMan.ExecuteScalar(query);
+            int freeSpace = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+
+            return freeSpace <= 0; // Returns true if there is 0 or less free space
+        }
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////
+        /// Shelter Staff: Register Animal
+        ///////////////////////////////////////////////////////////////////////////////////
+
+        // 1. Get Kennels that actually have space (Capacity > current occupants)
+        public DataTable GetKennelsWithSpace()
+        {
+            // This query creates a nice display string "Size - Ward (ID: X)" 
+            // but ONLY for kennels that are not full.
+            string query = @"
+                SELECT 
+                    K.KennelID, 
+                    K.KennelSize + ' - ' + K.WardType + ' (ID: ' + CAST(K.KennelID AS VARCHAR) + ')' AS Display 
+                FROM Kennel K
+                WHERE (SELECT COUNT(*) FROM ANIMAL A WHERE A.KennelID = K.KennelID) < K.Capacity;";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        // 2. Register the Animal (Smart enough to handle NULL kennels)
+        public bool ShelterRegisterAnimal(string name, string species, string breed, string gender, string dob, decimal weight, int? kennelId)
+        {
+            // Handle the NULL value for SQL if they leave the kennel blank
+            string kennelPart = kennelId.HasValue ? kennelId.Value.ToString() : "NULL";
+
+            // Insert the animal
+            string query1 = $@"
+                INSERT INTO ANIMAL (AnimalName, Species, Breed, Gender, EstimatedDOB, SystemStatus, LatestWeight, ClientID, KennelID)
+                VALUES ('{name}', '{species}', '{breed}', '{gender}', '{dob}', 'Shelter', {weight}, NULL, {kennelPart});";
+
+            dbMan.ExecuteNonQuery(query1);
+
+            // ONLY update kennel capacity if a kennel was actually selected
+            if (kennelId.HasValue)
+            {
+                string query2 = $@"
+                    IF (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = {kennelId.Value}) >= (SELECT Capacity FROM Kennel WHERE KennelID = {kennelId.Value})
+                        UPDATE Kennel SET KennelStatus = 'Occupied' WHERE KennelID = {kennelId.Value};
+                    ELSE
+                        UPDATE Kennel SET KennelStatus = 'Available' WHERE KennelID = {kennelId.Value};";
+
+                dbMan.ExecuteNonQuery(query2);
+            }
+
+            return true;
+        }
+
+        // Fetches a unique list of species currently in the database
+        //For animal data entry
+        public DataTable GetExistingSpecies()
+        {
+            string query = "SELECT DISTINCT Species FROM ANIMAL WHERE Species IS NOT NULL AND Species != ''";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Processes an adoption approval: updates adoption status, animal status, and frees up the kennel
+        public bool ApproveAdoptionApplication(int adoptionId, int animalId)
+        {
+            // We will use a transaction to ensure all these steps happen together, 
+            // or none of them happen if something fails.
+            string query = $@"
+        BEGIN TRANSACTION;
+        BEGIN TRY
+            -- 1. Update the Adoption record
+            UPDATE ADOPTION SET AdoptionStatus = 'Approved' WHERE AdoptionID = {adoptionId};
+
+            -- 2. Find which kennel the animal is currently in
+            DECLARE @KennelID INT;
+            SELECT @KennelID = KennelID FROM ANIMAL WHERE AnimalID = {animalId};
+
+            -- 3. Update the Animal record (status to Adopted, remove from kennel)
+            UPDATE ANIMAL SET SystemStatus = 'Adopted', KennelID = NULL WHERE AnimalID = {animalId};
+
+            -- 4. Update the Kennel capacity status (only if it was in a kennel)
+            IF @KennelID IS NOT NULL
+            BEGIN
+                IF (SELECT COUNT(*) FROM ANIMAL WHERE KennelID = @KennelID) = 0
+                    UPDATE Kennel SET KennelStatus = 'Needs Cleaning' WHERE KennelID = @KennelID;
+                ELSE
+                    UPDATE Kennel SET KennelStatus = 'Available' WHERE KennelID = @KennelID;
+            END
+
+            COMMIT TRANSACTION;
+        END TRY
+        BEGIN CATCH
+            ROLLBACK TRANSACTION;
+            -- You could log the error here if needed
+        END CATCH;";
+
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+        // Simple method to update adoption status (used for Rejecting)
+        public bool UpdateAdoptionStatus(int adoptionId, string status)
+        {
+            string query = $"UPDATE Adoption SET AdoptionStatus = '{status}' WHERE AdoptionID = {adoptionId};";
+            return dbMan.ExecuteNonQuery(query) > 0;
+        }
+
+
 
     }
 }

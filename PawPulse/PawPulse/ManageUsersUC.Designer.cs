@@ -1,6 +1,6 @@
 ﻿namespace PawPulse
 {
-    partial class ManageUsers
+    partial class ManageUsersUC
     {
         /// <summary> 
         /// Required designer variable.

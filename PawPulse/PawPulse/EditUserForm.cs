@@ -127,7 +127,90 @@ namespace PawPulse
             }
         }
 
-        
+        private void lblError_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSalary_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtphone_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtLName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblemail_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblLastname_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblsalary_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblphone_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRole_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFirstname_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
 }

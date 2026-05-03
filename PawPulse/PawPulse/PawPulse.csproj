@@ -55,6 +55,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +72,12 @@
     </Compile>
     <Compile Include="AddAppointmentClient.Designer.cs">
       <DependentUpon>AddAppointmentClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddMedicineForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddMedicineForm.Designer.cs">
+      <DependentUpon>AddMedicineForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AddPetClientForm.cs">
       <SubType>Form</SubType>
@@ -120,6 +127,12 @@
     <Compile Include="AvailablePetCardUC.Designer.cs">
       <DependentUpon>AvailablePetCardUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssignAnimalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssignAnimalForm.Designer.cs">
+      <DependentUpon>AssignAnimalForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClientBillingUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -140,6 +153,18 @@
       <DependentUpon>DashboardUC.cs</DependentUpon>
     </Compile>
     <Compile Include="DBManager.cs" />
+    <Compile Include="EditClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditClientForm.Designer.cs">
+      <DependentUpon>EditClientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditMedicineForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditMedicineForm.Designer.cs">
+      <DependentUpon>EditMedicineForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditPetClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +195,12 @@
     <Compile Include="HealthClearanceUC.Designer.cs">
       <DependentUpon>HealthClearanceUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="KennelDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KennelDetailForm.Designer.cs">
+      <DependentUpon>KennelDetailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LabTestsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -182,17 +213,35 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageAdoptionFeesUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ManageAdoptionFeesUC.Designer.cs">
+      <DependentUpon>ManageAdoptionFeesUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageKennelsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ManageKennelsUC.Designer.cs">
+      <DependentUpon>ManageKennelsUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManageMedicinesUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ManageMedicinesUC.Designer.cs">
       <DependentUpon>ManageMedicinesUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageUsers.cs">
+    <Compile Include="ManageSuppliersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageSuppliersForm.Designer.cs">
+      <DependentUpon>ManageSuppliersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageUsersUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ManageUsers.Designer.cs">
-      <DependentUpon>ManageUsers.cs</DependentUpon>
+    <Compile Include="ManageUsersUC.Designer.cs">
+      <DependentUpon>ManageUsersUC.cs</DependentUpon>
     </Compile>
     <Compile Include="MedicalHistoryClientForm.cs">
       <SubType>Form</SubType>
@@ -224,6 +273,12 @@
     <Compile Include="PrescriptionsUC.Designer.cs">
       <DependentUpon>PrescriptionsUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProcessAdoptionsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProcessAdoptionsUC.Designer.cs">
+      <DependentUpon>ProcessAdoptionsUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterAnimalUC.cs">
@@ -231,6 +286,36 @@
     </Compile>
     <Compile Include="RegisterAnimalUC.Designer.cs">
       <DependentUpon>RegisterAnimalUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportsUC.Designer.cs">
+      <DependentUpon>ReportsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ResupplyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResupplyForm.Designer.cs">
+      <DependentUpon>ResupplyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShelterManageKennelsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShelterManageKennelsUC.Designer.cs">
+      <DependentUpon>ShelterManageKennelsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShelterRegisterAnimalUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShelterRegisterAnimalUC.Designer.cs">
+      <DependentUpon>ShelterRegisterAnimalUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShelterStaffDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShelterStaffDashboard.Designer.cs">
+      <DependentUpon>ShelterStaffDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="SignUpForm.cs">
       <SubType>Form</SubType>
@@ -292,6 +377,9 @@
     <EmbeddedResource Include="DashboardUC.resx">
       <DependentUpon>DashboardUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditClientForm.resx">
+      <DependentUpon>EditClientForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditPetClientForm.resx">
       <DependentUpon>EditPetClientForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -313,11 +401,17 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManageAdoptionFeesUC.resx">
+      <DependentUpon>ManageAdoptionFeesUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageKennelsUC.resx">
+      <DependentUpon>ManageKennelsUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ManageMedicinesUC.resx">
       <DependentUpon>ManageMedicinesUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageUsers.resx">
-      <DependentUpon>ManageUsers.cs</DependentUpon>
+    <EmbeddedResource Include="ManageUsersUC.resx">
+      <DependentUpon>ManageUsersUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalHistoryClientForm.resx">
       <DependentUpon>MedicalHistoryClientForm.cs</DependentUpon>
@@ -334,8 +428,23 @@
     <EmbeddedResource Include="PrescriptionsUC.resx">
       <DependentUpon>PrescriptionsUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProcessAdoptionsUC.resx">
+      <DependentUpon>ProcessAdoptionsUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegisterAnimalUC.resx">
       <DependentUpon>RegisterAnimalUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsUC.resx">
+      <DependentUpon>ReportsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShelterManageKennelsUC.resx">
+      <DependentUpon>ShelterManageKennelsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShelterRegisterAnimalUC.resx">
+      <DependentUpon>ShelterRegisterAnimalUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShelterStaffDashboard.resx">
+      <DependentUpon>ShelterStaffDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>

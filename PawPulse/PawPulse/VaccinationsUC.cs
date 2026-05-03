@@ -17,6 +17,7 @@ namespace PawPulse
             btnAdd.Click += (s, e) => { addForm2.Visible = true; addForm2.BringToFront(); };
             btnSave.Click += BtnSave_Click;
             btnCancelAdd.Click += (s, e) => addForm2.Visible = false;
+            button2.Click += BtnDelete_Click;
             LoadData();
         }
 
@@ -53,6 +54,18 @@ namespace PawPulse
                 cmbVaccine2.ValueMember = "VaccineID";
             }
             catch { }
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgv2.SelectedRows.Count == 0) { MessageBox.Show("Select a vaccination record to delete.", "PawPulse"); return; }
+            if (MessageBox.Show("Delete this vaccination record?", "PawPulse", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+            int animalId = Convert.ToInt32(dgv2.SelectedRows[0].Cells["AnimalID"].Value);
+            int vaccineId = Convert.ToInt32(dgv2.SelectedRows[0].Cells["VaccineID"].Value);
+            string date = Convert.ToDateTime(dgv2.SelectedRows[0].Cells["Date"].Value).ToString("yyyy-MM-dd");
+            bool ok = _ctrl.DeleteVaccination(animalId, vaccineId, date);
+            if (ok) { MessageBox.Show("Vaccination record deleted.", "PawPulse"); LoadData(); }
+            else MessageBox.Show("Failed to delete.", "PawPulse", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void BtnSave_Click(object sender, EventArgs e)

@@ -66,7 +66,9 @@ namespace PawPulse
                             AdminDashboardForm adminPortal = new AdminDashboardForm(userId, fullName);
                             adminPortal.Show();
                             break;
-                        case "Staff":
+                        case "Shelter Staff":
+                            ShelterStaffDashboard shelter = new ShelterStaffDashboard(userId, fullName);
+                            shelter.Show();
                             break;
                         default:
                             MessageBox.Show("Error: Unrecognized user role.");
@@ -117,6 +119,16 @@ namespace PawPulse
         {
             FirstTimeSetupForm setupForm = new FirstTimeSetupForm();
             setupForm.ShowDialog();
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            // Skip authentication for testing purposes
+            // Using dummy ID (1) and generic Name
+            AdminDashboardForm adminDash = new AdminDashboardForm(1, "Test Administrator");
+
+            adminDash.Show();
+            this.Hide(); // Hide login form to keep app running
         }
     }
     

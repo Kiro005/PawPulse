@@ -8,20 +8,22 @@ namespace PawPulse
             this.btnAdd = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.addForm2 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtDuration2 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtRefills2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtInstructions2 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbMedicine2 = new System.Windows.Forms.ComboBox();
             this.btnCancelAdd = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.cmbRecord2 = new System.Windows.Forms.ComboBox();
             this.lblAnimal = new System.Windows.Forms.Label();
             this.lblAddTitle = new System.Windows.Forms.Label();
             this.dgv2 = new System.Windows.Forms.DataGridView();
-            this.cmbMedicine2 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtInstructions2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtRefills2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtDuration2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.topBar.SuspendLayout();
             this.addForm2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv2)).BeginInit();
@@ -30,6 +32,8 @@ namespace PawPulse
             // topBar
             // 
             this.topBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(38)))), ((int)(((byte)(62)))));
+            this.topBar.Controls.Add(this.button2);
+            this.topBar.Controls.Add(this.button1);
             this.topBar.Controls.Add(this.btnAdd);
             this.topBar.Controls.Add(this.lblTitle);
             this.topBar.Dock = System.Windows.Forms.DockStyle.Top;
@@ -84,6 +88,79 @@ namespace PawPulse
             this.addForm2.Size = new System.Drawing.Size(420, 310);
             this.addForm2.TabIndex = 8;
             this.addForm2.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
+            this.label4.Location = new System.Drawing.Point(15, 248);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(127, 20);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Duration (days) :";
+            // 
+            // txtDuration2
+            // 
+            this.txtDuration2.Location = new System.Drawing.Point(165, 245);
+            this.txtDuration2.Name = "txtDuration2";
+            this.txtDuration2.Size = new System.Drawing.Size(240, 22);
+            this.txtDuration2.TabIndex = 15;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
+            this.label3.Location = new System.Drawing.Point(15, 208);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 20);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Refills Allowed :";
+            // 
+            // txtRefills2
+            // 
+            this.txtRefills2.Location = new System.Drawing.Point(165, 205);
+            this.txtRefills2.Name = "txtRefills2";
+            this.txtRefills2.Size = new System.Drawing.Size(240, 22);
+            this.txtRefills2.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
+            this.label2.Location = new System.Drawing.Point(15, 158);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(101, 20);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Instructions :";
+            // 
+            // txtInstructions2
+            // 
+            this.txtInstructions2.Location = new System.Drawing.Point(165, 155);
+            this.txtInstructions2.Name = "txtInstructions2";
+            this.txtInstructions2.Size = new System.Drawing.Size(240, 22);
+            this.txtInstructions2.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
+            this.label1.Location = new System.Drawing.Point(15, 108);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 20);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Medicine :";
+            // 
+            // cmbMedicine2
+            // 
+            this.cmbMedicine2.FormattingEnabled = true;
+            this.cmbMedicine2.Location = new System.Drawing.Point(165, 105);
+            this.cmbMedicine2.Name = "cmbMedicine2";
+            this.cmbMedicine2.Size = new System.Drawing.Size(240, 24);
+            this.cmbMedicine2.TabIndex = 9;
             // 
             // btnCancelAdd
             // 
@@ -153,78 +230,31 @@ namespace PawPulse
             this.dgv2.Size = new System.Drawing.Size(808, 520);
             this.dgv2.TabIndex = 7;
             // 
-            // cmbMedicine2
+            // button2
             // 
-            this.cmbMedicine2.FormattingEnabled = true;
-            this.cmbMedicine2.Location = new System.Drawing.Point(165, 105);
-            this.cmbMedicine2.Name = "cmbMedicine2";
-            this.cmbMedicine2.Size = new System.Drawing.Size(240, 24);
-            this.cmbMedicine2.TabIndex = 9;
+            this.button2.BackColor = System.Drawing.Color.Brown;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(438, 13);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(130, 34);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "- Delete";
+            this.button2.UseVisualStyleBackColor = false;
             // 
-            // label1
+            // button1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
-            this.label1.Location = new System.Drawing.Point(15, 108);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 20);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Medicine :";
-            // 
-            // txtInstructions2
-            // 
-            this.txtInstructions2.Location = new System.Drawing.Point(165, 155);
-            this.txtInstructions2.Name = "txtInstructions2";
-            this.txtInstructions2.Size = new System.Drawing.Size(240, 22);
-            this.txtInstructions2.TabIndex = 11;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
-            this.label2.Location = new System.Drawing.Point(15, 158);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 20);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Instructions :";
-            // 
-            // txtRefills2
-            // 
-            this.txtRefills2.Location = new System.Drawing.Point(165, 205);
-            this.txtRefills2.Name = "txtRefills2";
-            this.txtRefills2.Size = new System.Drawing.Size(240, 22);
-            this.txtRefills2.TabIndex = 13;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
-            this.label3.Location = new System.Drawing.Point(15, 208);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 20);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Refills Allowed :";
-            // 
-            // txtDuration2
-            // 
-            this.txtDuration2.Location = new System.Drawing.Point(165, 245);
-            this.txtDuration2.Name = "txtDuration2";
-            this.txtDuration2.Size = new System.Drawing.Size(240, 22);
-            this.txtDuration2.TabIndex = 15;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
-            this.label4.Location = new System.Drawing.Point(15, 248);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(127, 20);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Duration (days) :";
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(280, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(130, 34);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Update";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // PrescriptionsUC
             // 
@@ -261,5 +291,7 @@ namespace PawPulse
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtDuration2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
