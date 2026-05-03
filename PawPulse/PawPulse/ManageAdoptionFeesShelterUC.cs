@@ -16,6 +16,17 @@ namespace PawPulse
 
             lblDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
+            cmbSpecies.Items.Clear();
+            DataTable speciesData = controllerObj.GetDistinctSpecies();
+
+            if (speciesData != null)
+            {
+                foreach (DataRow row in speciesData.Rows)
+                {
+                    cmbSpecies.Items.Add(row["Species"].ToString());
+                }
+            }
+
             RefreshGrid();
         }
 
@@ -35,6 +46,12 @@ namespace PawPulse
             if (!decimal.TryParse(txtFees.Text, out decimal fee))
             {
                 MessageBox.Show("Please enter a valid number for the fee.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (fee < 0)
+            {
+                MessageBox.Show("Adoption fees cannot be negative. Please enter a valid amount.", "Invalid Fee", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -60,14 +77,16 @@ namespace PawPulse
             txtFees.Clear();
         }
 
-        private void dgvFees_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvFees_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvFees.Rows[e.RowIndex];
                 cmbSpecies.Text = row.Cells["Species"].Value.ToString();
                 txtFees.Text = row.Cells["BaseFee"].Value.ToString();
             }
+
         }
     }
 }

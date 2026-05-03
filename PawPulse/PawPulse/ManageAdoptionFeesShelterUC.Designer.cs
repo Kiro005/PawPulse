@@ -34,7 +34,7 @@
             this.lblSearchTag = new System.Windows.Forms.Label();
             this.lblFilterTag = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
-            this.btnِSet = new System.Windows.Forms.Button();
+            this.btnSet = new System.Windows.Forms.Button();
             this.cmbSpecies = new System.Windows.Forms.ComboBox();
             this.txtFees = new System.Windows.Forms.TextBox();
             this.lblState = new System.Windows.Forms.Label();
@@ -74,7 +74,7 @@
             this.lblWelcome.AutoSize = true;
             this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWelcome.ForeColor = System.Drawing.Color.MediumAquamarine;
-            this.lblWelcome.Location = new System.Drawing.Point(33, 22);
+            this.lblWelcome.Location = new System.Drawing.Point(182, 26);
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(242, 45);
             this.lblWelcome.TabIndex = 0;
@@ -84,7 +84,7 @@
             // lblSearchTag
             // 
             this.lblSearchTag.AutoSize = true;
-            this.lblSearchTag.Location = new System.Drawing.Point(21, 22);
+            this.lblSearchTag.Location = new System.Drawing.Point(97, 23);
             this.lblSearchTag.Name = "lblSearchTag";
             this.lblSearchTag.Size = new System.Drawing.Size(66, 20);
             this.lblSearchTag.TabIndex = 79;
@@ -93,7 +93,7 @@
             // lblFilterTag
             // 
             this.lblFilterTag.AutoSize = true;
-            this.lblFilterTag.Location = new System.Drawing.Point(287, 22);
+            this.lblFilterTag.Location = new System.Drawing.Point(333, 22);
             this.lblFilterTag.Name = "lblFilterTag";
             this.lblFilterTag.Size = new System.Drawing.Size(45, 20);
             this.lblFilterTag.TabIndex = 72;
@@ -107,53 +107,55 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(830, 156);
+            this.btnClear.Location = new System.Drawing.Point(859, 165);
             this.btnClear.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(176, 64);
+            this.btnClear.Size = new System.Drawing.Size(136, 44);
             this.btnClear.TabIndex = 88;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // btnِSet
+            // btnSet
             // 
-            this.btnِSet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
-            this.btnِSet.FlatAppearance.BorderSize = 0;
-            this.btnِSet.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnِSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnِSet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnِSet.ForeColor = System.Drawing.Color.White;
-            this.btnِSet.Location = new System.Drawing.Point(611, 156);
-            this.btnِSet.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnِSet.Name = "btnِSet";
-            this.btnِSet.Size = new System.Drawing.Size(176, 60);
-            this.btnِSet.TabIndex = 87;
-            this.btnِSet.Text = "SET FEES";
-            this.btnِSet.UseVisualStyleBackColor = false;
+            this.btnSet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
+            this.btnSet.FlatAppearance.BorderSize = 0;
+            this.btnSet.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSet.ForeColor = System.Drawing.Color.White;
+            this.btnSet.Location = new System.Drawing.Point(672, 165);
+            this.btnSet.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSet.Name = "btnSet";
+            this.btnSet.Size = new System.Drawing.Size(166, 44);
+            this.btnSet.TabIndex = 87;
+            this.btnSet.Text = "SET FEES";
+            this.btnSet.UseVisualStyleBackColor = false;
+            this.btnSet.Click += new System.EventHandler(this.btnSet_Click);
             // 
             // cmbSpecies
             // 
             this.cmbSpecies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSpecies.FormattingEnabled = true;
-            this.cmbSpecies.Location = new System.Drawing.Point(7, 51);
+            this.cmbSpecies.Location = new System.Drawing.Point(101, 51);
             this.cmbSpecies.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbSpecies.Name = "cmbSpecies";
-            this.cmbSpecies.Size = new System.Drawing.Size(230, 28);
+            this.cmbSpecies.Size = new System.Drawing.Size(174, 28);
             this.cmbSpecies.TabIndex = 76;
             // 
             // txtFees
             // 
-            this.txtFees.Location = new System.Drawing.Point(290, 51);
+            this.txtFees.Location = new System.Drawing.Point(312, 51);
             this.txtFees.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtFees.Name = "txtFees";
-            this.txtFees.Size = new System.Drawing.Size(228, 26);
+            this.txtFees.Size = new System.Drawing.Size(177, 26);
             this.txtFees.TabIndex = 75;
             // 
             // lblState
             // 
             this.lblState.AutoSize = true;
             this.lblState.ForeColor = System.Drawing.Color.Red;
-            this.lblState.Location = new System.Drawing.Point(53, 249);
+            this.lblState.Location = new System.Drawing.Point(123, 263);
             this.lblState.Name = "lblState";
             this.lblState.Size = new System.Drawing.Size(140, 20);
             this.lblState.TabIndex = 90;
@@ -165,11 +167,11 @@
             this.groupBox1.Controls.Add(this.txtFees);
             this.groupBox1.Controls.Add(this.lblSearchTag);
             this.groupBox1.Controls.Add(this.lblFilterTag);
-            this.groupBox1.Location = new System.Drawing.Point(49, 125);
+            this.groupBox1.Location = new System.Drawing.Point(149, 140);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(542, 120);
+            this.groupBox1.Size = new System.Drawing.Size(495, 105);
             this.groupBox1.TabIndex = 89;
             this.groupBox1.TabStop = false;
             // 
@@ -178,7 +180,7 @@
             this.dgvFees.AllowUserToAddRows = false;
             this.dgvFees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFees.EnableHeadersVisualStyles = false;
-            this.dgvFees.Location = new System.Drawing.Point(45, 294);
+            this.dgvFees.Location = new System.Drawing.Point(280, 249);
             this.dgvFees.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvFees.Name = "dgvFees";
             this.dgvFees.ReadOnly = true;
@@ -186,8 +188,9 @@
             this.dgvFees.RowHeadersWidth = 51;
             this.dgvFees.RowTemplate.Height = 24;
             this.dgvFees.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFees.Size = new System.Drawing.Size(648, 331);
+            this.dgvFees.Size = new System.Drawing.Size(648, 306);
             this.dgvFees.TabIndex = 86;
+            this.dgvFees.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFees_CellContentClick);
             // 
             // ManageAdoptionFeesShelterUC
             // 
@@ -195,7 +198,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnِSet);
+            this.Controls.Add(this.btnSet);
             this.Controls.Add(this.lblState);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvFees);
@@ -219,7 +222,7 @@
         private System.Windows.Forms.Label lblSearchTag;
         private System.Windows.Forms.Label lblFilterTag;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnِSet;
+        private System.Windows.Forms.Button btnSet;
         private System.Windows.Forms.ComboBox cmbSpecies;
         private System.Windows.Forms.TextBox txtFees;
         private System.Windows.Forms.Label lblState;

@@ -16,6 +16,9 @@ namespace PawPulse
         public ProcessAdoptionsUC(int staffId)
         {
             InitializeComponent();
+
+            UIThemeManager.ApplyTheme(this);
+
             currentStaffId = staffId;
         }
 

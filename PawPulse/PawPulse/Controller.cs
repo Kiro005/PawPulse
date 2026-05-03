@@ -1342,6 +1342,8 @@ namespace DBapplication
         //    return dbMan.ExecuteNonQuery(query) > 0;
         //}
 
+        // Fetch a list of all unique species currently in the shelter system
+       
 
 
 

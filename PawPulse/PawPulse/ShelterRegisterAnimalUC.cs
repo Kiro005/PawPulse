@@ -13,6 +13,8 @@ namespace PawPulse
         {
             InitializeComponent();
 
+            UIThemeManager.ApplyTheme(this);
+
             // 1. Make sure the dropdown allows typing (so they can add new species like "Rabbit")
             cmbSpecies2.DropDownStyle = ComboBoxStyle.DropDown;
 

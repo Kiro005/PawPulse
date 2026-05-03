@@ -335,6 +335,7 @@
     <Compile Include="SignUpForm.Designer.cs">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIThemeManager.cs" />
     <Compile Include="VaccinationsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>

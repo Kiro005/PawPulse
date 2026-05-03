@@ -19,6 +19,9 @@ namespace PawPulse
         public ShelterManageKennelsUC()
         {
             InitializeComponent();
+
+            UIThemeManager.ApplyTheme(this);
+
         }
 
         private void ShelterManageKennelsUC_Load(object sender, EventArgs e)
