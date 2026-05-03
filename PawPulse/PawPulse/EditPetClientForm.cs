@@ -24,6 +24,8 @@ namespace PawPulse
             lblError.Visible = false;
             label2.Text = petName;
 
+            dtpDOB.MaxDate = DateTime.Today;
+
             // 1. Setup Dropdowns (Just like the Add form!)
             cmbSpecies.Items.AddRange(new string[] { "Dog", "Cat", "Rabbit", "Other" });
             cmbGender.Items.AddRange(new string[] { "Male", "Female" });
@@ -131,6 +133,11 @@ namespace PawPulse
             {
                 MessageBox.Show("Failed to update pet. Please try again.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void EditPetClientForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

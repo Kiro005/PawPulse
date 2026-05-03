@@ -95,7 +95,7 @@ namespace DBapplication
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message);
                 return 0;
             }
         }

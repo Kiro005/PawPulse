@@ -56,7 +56,7 @@
             this.dtpDOB.CalendarFont = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDOB.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDOB.Location = new System.Drawing.Point(437, 217);
-            this.dtpDOB.MaxDate = new System.DateTime(2026, 4, 30, 0, 0, 0, 0);
+            this.dtpDOB.MaxDate = new System.DateTime(2026, 5, 3, 0, 0, 0, 0);
             this.dtpDOB.Name = "dtpDOB";
             this.dtpDOB.ShowCheckBox = true;
             this.dtpDOB.Size = new System.Drawing.Size(208, 30);
@@ -136,6 +136,7 @@
             // cmbSpecies
             // 
             this.cmbSpecies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSpecies.Enabled = false;
             this.cmbSpecies.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbSpecies.FormattingEnabled = true;
             this.cmbSpecies.Location = new System.Drawing.Point(320, 96);
@@ -279,6 +280,7 @@
             this.Name = "EditPetClientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EditPetClientForm";
+            this.Load += new System.EventHandler(this.EditPetClientForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numWeight)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

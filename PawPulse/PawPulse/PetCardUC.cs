@@ -26,7 +26,7 @@ namespace PawPulse
         public void LoadPetData(int id, string name, string species, string breed, int age, decimal weight)
         {
             AnimalID = id;
-            string stringAge = age > 0 ? $"{age} Years Old" : "Age Unknown";
+            string stringAge = age >= 0 ? $"{age} Years Old" : "Age Unknown";
             string stringWeight = weight > 0 ? $"{weight} kg" : "Weight Unknown";
             breed = string.IsNullOrEmpty(breed) ? "Breed Unknown" : breed;
 

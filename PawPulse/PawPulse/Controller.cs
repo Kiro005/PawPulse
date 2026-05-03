@@ -76,13 +76,18 @@ namespace DBapplication
         {
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(rawPassword);
 
+            fName = fName.Replace("'", "''");
+            lName = lName.Replace("'", "''");
+            city = city.Replace("'", "''");
+            street = street.Replace("'", "''");
+
             // We do NOT include ClientID (Identity handles it) or IsActive (Defaults to 1)
             string query = $@"
         INSERT INTO CLIENT (FirstName, LastName, Phone, Email, City, Street, BuildingNumber, PasswordHash) 
         VALUES (
             '{fName}', '{lName}', '{phone}', '{email}', '{city}', '{street}', '{buildingNum}', '{hashedPassword}'
         );
-        SELECT SCOPE_IDENTITY();";
+            SELECT SCOPE_IDENTITY(); ";
 
             object result = dbMan.ExecuteScalar(query);
 
@@ -208,7 +213,7 @@ namespace DBapplication
         public DataTable GetActiveVets()
         {
             string query = @"
-        SELECT EmployeeID, ('Dr. ' + FirstName + ' ' + LastName) AS VetName 
+        SELECT EmployeeID, (FirstName + ' ' + LastName) AS VetName 
         FROM Employee 
         WHERE EmployeeRole = 'Veterinarian' AND IsActive = 1;";
             return dbMan.ExecuteReader(query);
