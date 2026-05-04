@@ -12,6 +12,9 @@ namespace PawPulse
         public ManageAdoptionFeesShelterUC()
         {
             InitializeComponent();
+
+            UIThemeManager.ApplyTheme(this);
+
             controllerObj = new Controller();
 
             lblDate.Text = DateTime.Now.ToString("dd/MM/yyyy");

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using MaterialSkin.Controls; // Make sure you have this using statement!
 
 namespace PawPulse
 {
@@ -9,7 +10,13 @@ namespace PawPulse
         {
             foreach (Control c in parent.Controls)
             {
-                if (c is Button btn)
+                if (c is MaterialButton matBtn)
+                {
+                 
+                    matBtn.AutoSize = true;
+                    matBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                }
+                else if (c is Button btn)
                 {
                     btn.FlatStyle = FlatStyle.Flat;
                     btn.FlatAppearance.BorderSize = 0;
@@ -17,9 +24,13 @@ namespace PawPulse
                     btn.ForeColor = Color.White;
                     btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                     btn.Cursor = Cursors.Hand;
+                    btn.AutoSize = true;
+                    btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                    btn.Padding = new Padding(10, 5, 10, 5);
                 }
                 else if (c is DataGridView dgv)
                 {
+                    
                     dgv.BackgroundColor = Color.White;
                     dgv.BorderStyle = BorderStyle.None;
                     dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
