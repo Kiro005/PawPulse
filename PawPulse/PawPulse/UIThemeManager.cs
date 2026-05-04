@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using MaterialSkin.Controls; // Make sure you have this using statement!
+using MaterialSkin.Controls; 
 
 namespace PawPulse
 {

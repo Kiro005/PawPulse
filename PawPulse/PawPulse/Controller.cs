@@ -907,7 +907,6 @@ namespace DBapplication
         // 1. Get total revenue for a specific month
         public decimal GetMonthlyRevenue(int month, int year)
         {
-            // English comments: Summing up all paid bills for the given period
             string query = $@"SELECT SUM(Total_Amount) FROM Bill 
                       WHERE MONTH(BillDate) = {month} 
                       AND YEAR(BillDate) = {year} 
@@ -918,7 +917,6 @@ namespace DBapplication
         // 1. Detailed Animals Report (Using existing columns only)
         public DataTable GetDetailedAnimalsReport()
         {
-            // English comments: Joining ANIMAL with AdoptionSettings based on Species
             string query = @"SELECT 
                         A.AnimalName AS [Name], 
                         A.Species, 
