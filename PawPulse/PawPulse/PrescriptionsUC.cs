@@ -94,15 +94,31 @@ namespace PawPulse
             int refills = 0; int.TryParse(txtRefills2.Text, out refills);
             int duration = 0; int.TryParse(txtDuration2.Text, out duration);
 
+            bool paidInCash = false;
+            bool isClientAnimal = false;
+
+            if (!_editMode)
+            {
+                int? clientId = _ctrl.GetClientIdFromRecord(recordId);
+                if (clientId.HasValue)
+                {
+                    isClientAnimal = true;
+                    paidInCash = MessageBox.Show("Did the client pay in cash?", "Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+                }
+            }
+
             bool ok;
             if (_editMode)
                 ok = _ctrl.UpdatePrescription(_editingPrescriptionId, recordId, medicineId, txtInstructions2.Text.Trim(), refills, duration);
             else
-                ok = _ctrl.AddPrescription(recordId, medicineId, _vetId, txtInstructions2.Text.Trim(), refills, duration);
+                ok = _ctrl.AddPrescription(recordId, medicineId, _vetId, txtInstructions2.Text.Trim(), refills, duration, paidInCash);
 
             if (ok)
             {
-                MessageBox.Show(_editMode ? "Prescription updated." : "Prescription added.", "PawPulse");
+                string msg = _editMode ? "Prescription updated." : "Prescription added.";
+                if (!_editMode)
+                    msg += isClientAnimal ? (paidInCash ? "\nMarked as Paid." : "\nAdded to client's bill as Unpaid.") : "\nShelter animal — not billed.";
+                MessageBox.Show(msg, "PawPulse");
                 _editMode = false; _editingPrescriptionId = 0;
                 addForm2.Visible = false;
                 txtInstructions2.Clear(); txtRefills2.Clear(); txtDuration2.Clear();
