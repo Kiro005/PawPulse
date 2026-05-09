@@ -417,6 +417,9 @@
     <EmbeddedResource Include="HealthClearanceUC.resx">
       <DependentUpon>HealthClearanceUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KennelDetailForm.resx">
+      <DependentUpon>KennelDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LabTestsUC.resx">
       <DependentUpon>LabTestsUC.cs</DependentUpon>
     </EmbeddedResource>

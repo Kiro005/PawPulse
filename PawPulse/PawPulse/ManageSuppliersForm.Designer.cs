@@ -34,7 +34,7 @@
             this.lblphone = new System.Windows.Forms.Label();
             this.lbladdress = new System.Windows.Forms.Label();
             this.lblemail = new System.Windows.Forms.Label();
-            this.btncancel = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.txtphone = new System.Windows.Forms.TextBox();
             this.txtemail = new System.Windows.Forms.TextBox();
             this.txtaddress = new System.Windows.Forms.TextBox();
@@ -100,21 +100,21 @@
             this.lblemail.TabIndex = 5;
             this.lblemail.Text = "Email Address";
             // 
-            // btncancel
+            // btnCancel
             // 
-            this.btncancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            this.btncancel.FlatAppearance.BorderSize = 0;
-            this.btncancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btncancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncancel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btncancel.ForeColor = System.Drawing.Color.White;
-            this.btncancel.Location = new System.Drawing.Point(54, 320);
-            this.btncancel.Name = "btncancel";
-            this.btncancel.Size = new System.Drawing.Size(110, 38);
-            this.btncancel.TabIndex = 68;
-            this.btncancel.Text = " Cancel";
-            this.btncancel.UseVisualStyleBackColor = false;
-            this.btncancel.Click += new System.EventHandler(this.btncancel_Click);
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.Location = new System.Drawing.Point(54, 320);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(110, 38);
+            this.btnCancel.TabIndex = 68;
+            this.btnCancel.Text = " Cancel";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btncancel_Click);
             // 
             // txtphone
             // 
@@ -163,7 +163,7 @@
             this.Controls.Add(this.txtaddress);
             this.Controls.Add(this.txtemail);
             this.Controls.Add(this.txtphone);
-            this.Controls.Add(this.btncancel);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblemail);
             this.Controls.Add(this.lbladdress);
             this.Controls.Add(this.btnAddsupp);
@@ -184,7 +184,7 @@
         private System.Windows.Forms.Label lblphone;
         private System.Windows.Forms.Label lbladdress;
         private System.Windows.Forms.Label lblemail;
-        private System.Windows.Forms.Button btncancel;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox txtphone;
         private System.Windows.Forms.TextBox txtemail;
         private System.Windows.Forms.TextBox txtaddress;

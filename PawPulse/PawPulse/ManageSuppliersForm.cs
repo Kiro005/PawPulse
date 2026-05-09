@@ -58,11 +58,11 @@ namespace PawPulse
             btnSave.FlatAppearance.BorderSize = 0;
             btnSave.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
 
-            btncancel.BackColor = Color.FromArgb(64, 80, 100); // Slate Gray
-            btncancel.ForeColor = Color.White;
-            btncancel.FlatStyle = FlatStyle.Flat;
-            btncancel.FlatAppearance.BorderSize = 0;
-            btncancel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            btnCancel.BackColor = Color.FromArgb(64, 80, 100); // Slate Gray
+            btnCancel.ForeColor = Color.White;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
 
             btnAddsupp.BackColor = Color.White;
             btnAddsupp.ForeColor = Color.Black;

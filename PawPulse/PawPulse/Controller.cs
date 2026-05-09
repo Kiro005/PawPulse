@@ -1439,6 +1439,33 @@ namespace DBapplication
             return result == DBNull.Value || result == null ? 0 : Convert.ToDecimal(result);
         }
 
+        // Retrieves a single kennel details by its ID
+        public DataTable GetKennelByID(int kennelId)
+        {
+            string query = $"SELECT Capacity, KennelSize, WardType, KennelStatus FROM Kennel WHERE KennelID = {kennelId}";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Inserts a new kennel record
+        public int InsertKennel(int capacity, string size, string ward, string status)
+        {
+            string query = $@"INSERT INTO Kennel (Capacity, KennelSize, WardType, KennelStatus) 
+                      VALUES ({capacity}, '{size}', '{ward}', '{status}')";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Updates an existing kennel record
+        public int UpdateKennel(int id, int capacity, string size, string ward, string status)
+        {
+            string query = $@"UPDATE Kennel 
+                      SET Capacity = {capacity}, 
+                          KennelSize = '{size}', 
+                          WardType = '{ward}', 
+                          KennelStatus = '{status}' 
+                      WHERE KennelID = {id}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
 
 
 
