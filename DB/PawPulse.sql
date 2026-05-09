@@ -49,11 +49,9 @@ CREATE TABLE ANIMAL (
     AnimalName VARCHAR(50),
     Species VARCHAR(50),
     Breed VARCHAR(50),
-    Gender VARCHAR(10), -- Added Gender!
+    Gender VARCHAR(10), 
     EstimatedDOB DATE, 
     
-    -- This is how you do a Derived Attribute in SQL! 
-    -- It automatically calculates the difference in years between their DOB and today's date.
     Age AS (DATEDIFF(YEAR, EstimatedDOB, GETDATE())), 
 
     SystemStatus VARCHAR(20), -- 'Owned', 'Shelter', 'Adopted'
@@ -368,10 +366,56 @@ ALTER TABLE ANIMAL ALTER COLUMN Breed VARCHAR(50) NULL;
 ALTER TABLE Employee ALTER COLUMN PasswordHash VARCHAR(255) NULL;
 ALTER TABLE Adoption ALTER COLUMN EmployeeID INT NULL;
 
+INSERT INTO ANIMAL (AnimalName, Species, Breed, Gender, EstimatedDOB, SystemStatus, LatestWeight, ClientID, KennelID)
+VALUES 
+('Max',  'Dog',    'Mixed Breed',     'Male',   '2022-03-10', 'Shelter', 22.0, NULL, NULL),
+('Cleo',    'Cat',    'Bengal',          'Female', '2023-06-15', 'Shelter',  3.8, NULL, NULL),
+('Titan',   'Dog',    'Rottweiler',      'Male',   '2020-11-20', 'Shelter', 40.5, NULL, NULL),
+('Whisper', 'Cat',    'Maine Coon',      'Female', '2021-08-01', 'Shelter',  6.1, NULL, NULL),
+('Biscuit', 'Rabbit', 'Flemish Giant',   'Male',   '2023-12-05', 'Shelter',  4.2, NULL, NULL),
+('Nova',    'Dog',    'Border Collie',   'Female', '2022-05-18', 'Shelter', 18.3, NULL, NULL),
+('Ember',   'Cat',    'Abyssinian',      'Female', '2024-02-10', 'Shelter',  3.2, NULL, NULL);
+
+USE [PawPulse]
+GO
+
+/****** Object:  Table [dbo].[AdoptionSettings]    Script Date: 5/9/2026 2:12:24 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[AdoptionSettings](
+	[SettingID] [int] IDENTITY(1,1) NOT NULL,
+	[Species] [varchar](50) NULL,
+	[BaseFee] [decimal](10, 2) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[SettingID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE Medicine_Purchase (
+    PurchaseID INT identity(1,1) PRIMARY KEY,
+    MedicineID INT NOT NULL FOREIGN KEY REFERENCES Medicine(MedicineID) ON DELETE CASCADE,
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(10,2) NOT NULL,
+    PurchaseDate DATE NOT NULL
+    );
+
+    -- Insert logs for medicine purchases to test managerial reports (April & May 2026)
+INSERT INTO Medicine_Purchase (MedicineID, Quantity, UnitPrice, PurchaseDate) VALUES 
+(1, 10, 150.00, '2026-04-05'), -- Bought 10 Amoxicillin in April
+(2, 20, 250.00, '2026-04-12'), -- Bought 20 Flea/Tick in April
+(3, 30, 50.00, '2026-05-01'),  -- Bought 30 Pain Relief in May
+(4, 15, 100.00, '2026-05-08'); -- Bought 15 Ear Drops in May
+
 -- SELECT EmployeeID, FirstName, LastName, EmployeeRole, Phone, Email, HireDate, Salary FROM Employee WHERE IsActive = 1
 
 --DROP TABLE IF EXISTS Adoption; DROP TABLE IF EXISTS Prescription; DROP TABLE IF EXISTS Lab_Test; DROP TABLE IF EXISTS MEDICAL_RECORD; DROP TABLE IF EXISTS Animal_Vaccine_History; DROP TABLE IF EXISTS APPOINTMENT; DROP TABLE IF EXISTS Bill_Item; DROP TABLE IF EXISTS Medicine; DROP TABLE IF EXISTS Bill; DROP TABLE IF EXISTS ANIMAL; DROP TABLE IF EXISTS CLIENT; DROP TABLE IF EXISTS Employee; DROP TABLE IF EXISTS Kennel; DROP TABLE IF EXISTS Vaccine; DROP TABLE IF EXISTS Supplier;
 
-SELECT PasswordHash, 'Client' AS Role, CAST(ClientID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Client WHERE Email = 'omar.h@email.com' UNION SELECT PasswordHash, EmployeeRole AS Role, CAST(EmployeeID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Employee WHERE Email = 'omar.h@email.com';
+-- SELECT PasswordHash, 'Client' AS Role, CAST(ClientID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Client WHERE Email = 'omar.h@email.com' UNION SELECT PasswordHash, EmployeeRole AS Role, CAST(EmployeeID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Employee WHERE Email = 'omar.h@email.com';
 
 Select * from CLIENT

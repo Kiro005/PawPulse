@@ -38,11 +38,11 @@
             // dgvClearance
             // 
             this.dgvClearance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClearance.Location = new System.Drawing.Point(242, 93);
+            this.dgvClearance.Location = new System.Drawing.Point(47, 95);
             this.dgvClearance.Name = "dgvClearance";
             this.dgvClearance.RowHeadersWidth = 51;
             this.dgvClearance.RowTemplate.Height = 24;
-            this.dgvClearance.Size = new System.Drawing.Size(753, 395);
+            this.dgvClearance.Size = new System.Drawing.Size(921, 395);
             this.dgvClearance.TabIndex = 5;
             // 
             // topBar
@@ -60,7 +60,7 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(235, 11);
+            this.lblTitle.Location = new System.Drawing.Point(171, 9);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(269, 38);
             this.lblTitle.TabIndex = 0;

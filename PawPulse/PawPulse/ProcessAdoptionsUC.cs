@@ -35,29 +35,37 @@ namespace PawPulse
 
         private void btnApprove_Click(object sender, EventArgs e)
         {
+            // Ensure a row is selected in the grid
             if (dgvPendingAdoptions.SelectedRows.Count == 0 && dgvPendingAdoptions.SelectedCells.Count == 0)
             {
-                MessageBox.Show("Please select an application from the grid first.");
+                MessageBox.Show("Please select an adoption application to approve.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // Grab the hidden IDs from the selected row in your grid
             int rowIndex = dgvPendingAdoptions.CurrentCell.RowIndex;
 
-            // Collect the IDs needed for the transaction
             int adoptionId = Convert.ToInt32(dgvPendingAdoptions.Rows[rowIndex].Cells["AdoptionID"].Value);
-            int animalId = Convert.ToInt32(dgvPendingAdoptions.Rows[rowIndex].Cells["AnimalID"].Value);
             int clientId = Convert.ToInt32(dgvPendingAdoptions.Rows[rowIndex].Cells["ClientID"].Value);
-            string animalName = dgvPendingAdoptions.Rows[rowIndex].Cells["AnimalName"].Value.ToString();
+            int animalId = Convert.ToInt32(dgvPendingAdoptions.Rows[rowIndex].Cells["AnimalID"].Value);
+            string species = dgvPendingAdoptions.Rows[rowIndex].Cells["Species"].Value.ToString();
 
-            DialogResult confirm = MessageBox.Show($"Approve adoption for {animalName}?", "Confirm", MessageBoxButtons.YesNo);
+            // Confirm the action with the staff member
+            DialogResult confirm = MessageBox.Show($"Approve adoption and generate a bill for this {species}?", "Confirm Approval", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (confirm == DialogResult.Yes)
             {
-                // This call updates the Adoption, the Animal, and the Kennel in one go
-                if (controllerObj.ApproveAdoption(adoptionId, animalId, clientId, currentStaffId) > 0)
+                // Trigger the master database transaction we wrote in Step 1
+                if (controllerObj.ApproveAdoptionAndBillClient(adoptionId, clientId, animalId, species))
                 {
-                    MessageBox.Show("Adoption Approved! The animal is now owned by the client and the kennel is marked for cleaning.");
+                    MessageBox.Show("Adoption approved! Ownership transferred and the fee has been added to the client's billing account.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Refresh the grid so the approved animal disappears from the pending list
                     RefreshGrid();
+                }
+                else
+                {
+                    MessageBox.Show("There was an error processing the adoption.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

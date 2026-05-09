@@ -145,7 +145,7 @@ namespace DBapplication
             string query = $@"
         SELECT AnimalID, AnimalName, Species, Breed, Age, LatestWeight 
         FROM ANIMAL 
-        WHERE ClientID = {clientID} AND SystemStatus != 'Adopted';"; // Assuming they still own them
+        WHERE ClientID = {clientID};"; // Assuming they still own them
 
             return dbMan.ExecuteReader(query);
         }
@@ -365,14 +365,18 @@ namespace DBapplication
 
         ///////////////////////////     Adoption Client     //////////////////////////////
 
-        // For Tab 1: Get pets in the shelter that haven't been adopted yet
+
         public DataTable GetAvailablePets()
         {
-            // Make sure Age and LatestWeight are actually typed out in the SELECT line!
             string query = @"
         SELECT AnimalID, AnimalName, Species, Breed, Gender, Age, LatestWeight 
         FROM ANIMAL 
-        WHERE SystemStatus = 'Shelter';";
+        WHERE SystemStatus = 'Shelter'
+        AND AnimalID NOT IN (
+            SELECT AnimalID 
+            FROM Adoption 
+            WHERE AdoptionStatus IN ('Pending', 'Approved')
+        );";
 
             return dbMan.ExecuteReader(query);
         }
@@ -1479,7 +1483,49 @@ namespace DBapplication
 
         // Fetch a list of all unique species currently in the shelter system
 
+        // Approves the adoption, updates the animal's owner, and adds the fee to the Bill and Bill_Item tables
+        public bool ApproveAdoptionAndBillClient(int adoptionId, int clientId, int animalId, string species)
+        {
+            try
+            {
+                // 1. Get the exact fee that was saved on this specific Adoption application
+                string getFeeQuery = $"SELECT AdoptionFee FROM Adoption WHERE AdoptionID = {adoptionId};";
+                object result = dbMan.ExecuteScalar(getFeeQuery);
+                decimal fee = (result != null && result != DBNull.Value) ? Convert.ToDecimal(result) : 0;
 
+                // 2. Create the Parent Bill and grab the new BillID using SCOPE_IDENTITY()
+                string insertBillQuery = $@"
+            INSERT INTO Bill (BillDate, Total_Amount, BillStatus, ClientID)
+            VALUES (GETDATE(), {fee}, 'Unpaid', {clientId});
+            SELECT SCOPE_IDENTITY();";
+
+                int newBillId = Convert.ToInt32(dbMan.ExecuteScalar(insertBillQuery));
+
+                // 3. Insert the specific charge into the Bill_Item weak entity table
+                string insertBillItemQuery = $@"
+            INSERT INTO Bill_Item (BillID, ItemID, ItemDescription, UnitCost, Quantity, Subtotal)
+            VALUES ({newBillId}, 1, 'Adoption Fee - {species}', {fee}, 1, {fee});";
+                dbMan.ExecuteNonQuery(insertBillItemQuery);
+
+                // 4. Update the Adoption Status
+                string approveAppQuery = $"UPDATE Adoption SET AdoptionStatus = 'Approved' WHERE AdoptionID = {adoptionId};";
+                dbMan.ExecuteNonQuery(approveAppQuery);
+
+                // 5. Update the Animal: Set to Adopted, clear the Kennel, and assign the ClientID
+                string updateAnimalQuery = $@"
+            UPDATE ANIMAL 
+            SET SystemStatus = 'Adopted', KennelID = NULL, ClientID = {clientId} 
+            WHERE AnimalID = {animalId};";
+
+                int rowsAffected = dbMan.ExecuteNonQuery(updateAnimalQuery);
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
 
 
 

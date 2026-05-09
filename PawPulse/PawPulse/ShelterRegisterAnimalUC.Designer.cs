@@ -66,9 +66,9 @@
             this.btnClear2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear2.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear2.ForeColor = System.Drawing.Color.Black;
-            this.btnClear2.Location = new System.Drawing.Point(365, 375);
+            this.btnClear2.Location = new System.Drawing.Point(377, 375);
             this.btnClear2.Name = "btnClear2";
-            this.btnClear2.Size = new System.Drawing.Size(90, 38);
+            this.btnClear2.Size = new System.Drawing.Size(90, 45);
             this.btnClear2.TabIndex = 18;
             this.btnClear2.Text = "Clear";
             this.btnClear2.UseVisualStyleBackColor = false;
@@ -80,9 +80,9 @@
             this.btnRegister2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister2.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegister2.ForeColor = System.Drawing.Color.Black;
-            this.btnRegister2.Location = new System.Drawing.Point(200, 375);
+            this.btnRegister2.Location = new System.Drawing.Point(204, 375);
             this.btnRegister2.Name = "btnRegister2";
-            this.btnRegister2.Size = new System.Drawing.Size(155, 38);
+            this.btnRegister2.Size = new System.Drawing.Size(155, 45);
             this.btnRegister2.TabIndex = 17;
             this.btnRegister2.Text = "Register Animal";
             this.btnRegister2.UseVisualStyleBackColor = false;
@@ -260,9 +260,9 @@
             this.formCard.Controls.Add(this.lblAnimalName);
             this.formCard.Controls.Add(this.lblForm);
             this.formCard.Controls.Add(this.accentBar);
-            this.formCard.Location = new System.Drawing.Point(297, 109);
+            this.formCard.Location = new System.Drawing.Point(283, 85);
             this.formCard.Name = "formCard";
-            this.formCard.Size = new System.Drawing.Size(520, 420);
+            this.formCard.Size = new System.Drawing.Size(520, 444);
             this.formCard.TabIndex = 3;
             // 
             // cmbSpecies2
