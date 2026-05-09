@@ -38,11 +38,11 @@
             // dgvClearance
             // 
             this.dgvClearance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClearance.Location = new System.Drawing.Point(47, 95);
+            this.dgvClearance.Location = new System.Drawing.Point(16, 86);
             this.dgvClearance.Name = "dgvClearance";
             this.dgvClearance.RowHeadersWidth = 51;
             this.dgvClearance.RowTemplate.Height = 24;
-            this.dgvClearance.Size = new System.Drawing.Size(921, 395);
+            this.dgvClearance.Size = new System.Drawing.Size(979, 470);
             this.dgvClearance.TabIndex = 5;
             // 
             // topBar

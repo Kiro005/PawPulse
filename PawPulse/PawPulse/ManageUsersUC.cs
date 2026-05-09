@@ -82,7 +82,7 @@ namespace PawPulse
                 lblSubTitle.Text = "Employee Directory";
 
                 cmbRoleFilter.Items.Clear();
-                cmbRoleFilter.Items.AddRange(new string[] { "All", "Veterinarian", "Receptionist", "Manager", "Staff" });
+                cmbRoleFilter.Items.AddRange(new string[] { "All", "Veterinarian", "Receptionist", "Manager", "Shelter Staff" });
                 cmbRoleFilter.SelectedIndex = 0;
             }
 

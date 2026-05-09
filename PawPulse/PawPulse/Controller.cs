@@ -333,18 +333,10 @@ namespace DBapplication
         ////////////////////////////    ClientBilling   /////////////////////////////
 
         // 1. Get the summary of bills for the client
+        // Simple Procedure #2 (Client Section)
         public DataTable GetClientBills(int clientID)
         {
-            string query = $@"
-        SELECT 
-            BillID, 
-            BillDate AS [Date], 
-            Total_Amount AS [Total Amount], 
-            BillStatus AS [Status]
-        FROM Bill
-        WHERE ClientID = {clientID}
-        ORDER BY BillDate DESC;";
-
+            string query = $"EXEC sp_GetClientBills @ClientID = {clientID};";
             return dbMan.ExecuteReader(query);
         }
 
@@ -463,9 +455,10 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        // Simple Procedure #1 (Vet Section)
         public bool UpdateAppointmentStatus(int appointmentId, string status)
         {
-            string query = $"UPDATE APPOINTMENT SET AppStatus = '{status}' WHERE AppointmentID = {appointmentId};";
+            string query = $"EXEC sp_UpdateAppointmentStatus @AppointmentID = {appointmentId}, @Status = '{status}';";
             return dbMan.ExecuteNonQuery(query) > 0;
         }
 
@@ -545,23 +538,14 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        // Complex Procedure #1 (Vet Section)
         public bool AddLabTest(int recordId, string testType, string result, decimal cost, bool paidInCash = false)
         {
-            string query = $@"
-                INSERT INTO Lab_Test (TestType, TestDate, Result, Cost, RecordID)
-                VALUES ('{testType}', CAST(GETDATE() AS DATE), '{result}', {cost}, {recordId});";
-            bool ok = dbMan.ExecuteNonQuery(query) > 0;
-            if (ok)
-            {
-                int? clientId = GetClientIdFromRecord(recordId);
-                if (clientId.HasValue)
-                {
-                    int billId = GetOrCreateOpenBill(clientId.Value, paidInCash);
-                    if (billId > 0)
-                        AddBillItem(billId, $"Lab Test: {testType}", cost);
-                }
-            }
-            return ok;
+            int paid = paidInCash ? 1 : 0;
+            string safeType = testType.Replace("'", "''");
+            string safeResult = result.Replace("'", "''");
+            string query = $"EXEC sp_AddLabTestAndBill @RecordID={recordId}, @TestType='{safeType}', @Result='{safeResult}', @Cost={cost}, @PaidInCash={paid};";
+            return dbMan.ExecuteNonQuery(query) > 0;
         }
 
         public DataTable GetVaccinations()
@@ -586,22 +570,27 @@ namespace DBapplication
         public DataTable GetShelterAnimals()
         {
             string query = @"
-        SELECT 
-            A.AnimalID AS [ID],
-            A.AnimalName AS [Name],
-            A.Species,
-            A.Breed,
-            A.Age,
-            A.SystemStatus AS [System Status],
-            ISNULL(K.WardType + ' (Cage ' + CAST(K.KennelID AS VARCHAR) + ')', 'Unassigned') AS [Current Location]
-        FROM ANIMAL A
-        LEFT JOIN Kennel K ON A.KennelID = K.KennelID
-        ORDER BY 
-            CASE A.SystemStatus 
-                WHEN 'Shelter' THEN 1 
-                WHEN 'Adopted' THEN 2 
-                ELSE 3 END, 
-            A.AnimalName;";
+SELECT 
+    A.AnimalID AS [ID],
+    A.AnimalName AS [Name],
+    A.Species,
+    A.Breed,
+    A.Age,
+    A.SystemStatus AS [System Status],
+    -- THE NEW SMART LOCATION LOGIC
+    CASE 
+        WHEN A.SystemStatus = 'Adopted' THEN 'Adopted (With Owner)'
+        WHEN A.SystemStatus = 'Owned' THEN 'With Owner'
+        ELSE ISNULL(K.WardType + ' (Cage ' + CAST(K.KennelID AS VARCHAR) + ')', 'Unassigned') 
+    END AS [Current Location]
+FROM ANIMAL A
+LEFT JOIN Kennel K ON A.KennelID = K.KennelID
+ORDER BY 
+    CASE A.SystemStatus 
+        WHEN 'Shelter' THEN 1 
+        WHEN 'Adopted' THEN 2 
+        ELSE 3 END, 
+    A.AnimalName;";
 
             return dbMan.ExecuteReader(query);
         }
@@ -754,9 +743,10 @@ namespace DBapplication
         // 
 
 
+        // Simple Procedure #3 (Admin Section)
         public int UpdateEmployeeStatus(int id, int status)
         {
-            string query = $"UPDATE Employee SET IsActive = {status} WHERE EmployeeID = {id}";
+            string query = $"EXEC sp_UpdateEmployeeStatus @EmployeeID = {id}, @IsActive = {status};";
             return dbMan.ExecuteNonQuery(query);
         }
         // Insert a new employee into the database
@@ -1243,28 +1233,11 @@ namespace DBapplication
             return dbMan.ExecuteNonQuery(query);
         }
 
+        // Complex Procedure #2 (Shelter Section)
         // 3. Approve an Adoption (Complex transaction!)
         public int ApproveAdoption(int adoptionId, int animalId, int clientId, int employeeId)
         {
-            /* 
-             * When an adoption is approved:
-             * 1. Update the Adoption record (Approved, mark the employee).
-             * 2. Free up the Kennel (Only affects the kennel if the animal actually had one).
-             * 3. Update the Animal record (SystemStatus = 'Adopted', assign ClientID, clear KennelID).
-             */
-            string query = $@"
-                UPDATE Adoption 
-                SET AdoptionStatus = 'Approved', EmployeeID = {employeeId} 
-                WHERE AdoptionID = {adoptionId};
-
-                UPDATE Kennel 
-                SET KennelStatus = 'Needs Cleaning' 
-                WHERE KennelID = (SELECT KennelID FROM ANIMAL WHERE AnimalID = {animalId});
-
-                UPDATE ANIMAL 
-                SET SystemStatus = 'Adopted', ClientID = {clientId}, KennelID = NULL 
-                WHERE AnimalID = {animalId};";
-
+            string query = $"EXEC sp_ApproveAdoptionAndBill @AdoptionID={adoptionId}, @ClientID={clientId}, @AnimalID={animalId}, @EmployeeID={employeeId};";
             return dbMan.ExecuteNonQuery(query);
         }
 
