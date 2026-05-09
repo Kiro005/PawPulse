@@ -33,26 +33,26 @@
             this.whitebg = new System.Windows.Forms.Panel();
             this.MainContentPanel = new System.Windows.Forms.Panel();
             this.header = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.cmsUser = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.emplyeeDircToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button5 = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.btnReports = new System.Windows.Forms.Button();
             this.btnAdoptionfees = new System.Windows.Forms.Button();
             this.btnKennels = new System.Windows.Forms.Button();
             this.btnMedicines = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmsUser = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.emplyeeDircToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.whitebg.SuspendLayout();
             this.header.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.cmsUser.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // whitebg
@@ -84,6 +84,17 @@
             this.header.Name = "header";
             this.header.Size = new System.Drawing.Size(932, 60);
             this.header.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(728, 15);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(49, 40);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // lblUsername
             // 
@@ -125,51 +136,6 @@
             this.panel1.Size = new System.Drawing.Size(250, 672);
             this.panel1.TabIndex = 2;
             // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel3.Location = new System.Drawing.Point(20, 90);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 1);
-            this.panel3.TabIndex = 6;
-            // 
-            // cmsUser
-            // 
-            this.cmsUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
-            this.cmsUser.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmsUser.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsUser.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.emplyeeDircToolStripMenuItem,
-            this.clientDirectoryToolStripMenuItem});
-            this.cmsUser.Name = "contextMenuStrip1";
-            this.cmsUser.Size = new System.Drawing.Size(229, 60);
-            // 
-            // emplyeeDircToolStripMenuItem
-            // 
-            this.emplyeeDircToolStripMenuItem.Name = "emplyeeDircToolStripMenuItem";
-            this.emplyeeDircToolStripMenuItem.Size = new System.Drawing.Size(228, 28);
-            this.emplyeeDircToolStripMenuItem.Text = "Employee Directory";
-            this.emplyeeDircToolStripMenuItem.Click += new System.EventHandler(this.emplyeeDircToolStripMenuItem_Click);
-            // 
-            // clientDirectoryToolStripMenuItem
-            // 
-            this.clientDirectoryToolStripMenuItem.Name = "clientDirectoryToolStripMenuItem";
-            this.clientDirectoryToolStripMenuItem.Size = new System.Drawing.Size(228, 28);
-            this.clientDirectoryToolStripMenuItem.Text = "Client Directory";
-            this.clientDirectoryToolStripMenuItem.Click += new System.EventHandler(this.clientDirectoryToolStripMenuItem_Click);
-            this.clientDirectoryToolStripMenuItem.MouseEnter += new System.EventHandler(this.clientDirectoryToolStripMenuItem_MouseEnter);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(728, 15);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(49, 40);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -188,6 +154,14 @@
             this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel3.Location = new System.Drawing.Point(20, 90);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 1);
+            this.panel3.TabIndex = 6;
             // 
             // btnReports
             // 
@@ -293,6 +267,32 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "       PawPulse";
             // 
+            // cmsUser
+            // 
+            this.cmsUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
+            this.cmsUser.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmsUser.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsUser.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.emplyeeDircToolStripMenuItem,
+            this.clientDirectoryToolStripMenuItem});
+            this.cmsUser.Name = "contextMenuStrip1";
+            this.cmsUser.Size = new System.Drawing.Size(229, 60);
+            // 
+            // emplyeeDircToolStripMenuItem
+            // 
+            this.emplyeeDircToolStripMenuItem.Name = "emplyeeDircToolStripMenuItem";
+            this.emplyeeDircToolStripMenuItem.Size = new System.Drawing.Size(228, 28);
+            this.emplyeeDircToolStripMenuItem.Text = "Employee Directory";
+            this.emplyeeDircToolStripMenuItem.Click += new System.EventHandler(this.emplyeeDircToolStripMenuItem_Click);
+            // 
+            // clientDirectoryToolStripMenuItem
+            // 
+            this.clientDirectoryToolStripMenuItem.Name = "clientDirectoryToolStripMenuItem";
+            this.clientDirectoryToolStripMenuItem.Size = new System.Drawing.Size(228, 28);
+            this.clientDirectoryToolStripMenuItem.Text = "Client Directory";
+            this.clientDirectoryToolStripMenuItem.Click += new System.EventHandler(this.clientDirectoryToolStripMenuItem_Click);
+            this.clientDirectoryToolStripMenuItem.MouseEnter += new System.EventHandler(this.clientDirectoryToolStripMenuItem_MouseEnter);
+            // 
             // AdminDashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -307,10 +307,10 @@
             this.whitebg.ResumeLayout(false);
             this.header.ResumeLayout(false);
             this.header.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.cmsUser.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

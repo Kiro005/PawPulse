@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.pnlVerify = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblError = new System.Windows.Forms.Label();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnVerify = new System.Windows.Forms.Button();
-            this.lblError = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.pnlPassword = new System.Windows.Forms.Panel();
             this.ErrorPass = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
@@ -58,22 +58,37 @@
             this.pnlVerify.Controls.Add(this.txtEmail);
             this.pnlVerify.Controls.Add(this.label1);
             this.pnlVerify.Controls.Add(this.label4);
-            this.pnlVerify.Controls.Add(this.pnlPassword);
             this.pnlVerify.Location = new System.Drawing.Point(32, 26);
             this.pnlVerify.Name = "pnlVerify";
             this.pnlVerify.Size = new System.Drawing.Size(514, 339);
             this.pnlVerify.TabIndex = 0;
             // 
-            // label4
+            // lblError
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.MediumAquamarine;
-            this.label4.Location = new System.Drawing.Point(22, 17);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(329, 54);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "VERIFY IT\'S YOU";
+            this.lblError.AutoSize = true;
+            this.lblError.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(121, 248);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(47, 23);
+            this.lblError.TabIndex = 15;
+            this.lblError.Text = "Error";
+            // 
+            // btnVerify
+            // 
+            this.btnVerify.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.btnVerify.FlatAppearance.BorderSize = 0;
+            this.btnVerify.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnVerify.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerify.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerify.ForeColor = System.Drawing.Color.White;
+            this.btnVerify.Location = new System.Drawing.Point(121, 274);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(268, 41);
+            this.btnVerify.TabIndex = 13;
+            this.btnVerify.Text = "Verify Identity";
+            this.btnVerify.UseVisualStyleBackColor = false;
+            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
             // 
             // txtPhone
             // 
@@ -121,32 +136,16 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Email";
             // 
-            // btnVerify
+            // label4
             // 
-            this.btnVerify.BackColor = System.Drawing.Color.MediumAquamarine;
-            this.btnVerify.FlatAppearance.BorderSize = 0;
-            this.btnVerify.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnVerify.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerify.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVerify.ForeColor = System.Drawing.Color.White;
-            this.btnVerify.Location = new System.Drawing.Point(121, 274);
-            this.btnVerify.Name = "btnVerify";
-            this.btnVerify.Size = new System.Drawing.Size(268, 41);
-            this.btnVerify.TabIndex = 13;
-            this.btnVerify.Text = "Verify Identity";
-            this.btnVerify.UseVisualStyleBackColor = false;
-            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
-            // 
-            // lblError
-            // 
-            this.lblError.AutoSize = true;
-            this.lblError.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblError.ForeColor = System.Drawing.Color.Red;
-            this.lblError.Location = new System.Drawing.Point(121, 248);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(47, 23);
-            this.lblError.TabIndex = 15;
-            this.lblError.Text = "Error";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.MediumAquamarine;
+            this.label4.Location = new System.Drawing.Point(22, 17);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(329, 54);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "VERIFY IT\'S YOU";
             // 
             // pnlPassword
             // 
@@ -158,7 +157,7 @@
             this.pnlPassword.Controls.Add(this.txtNewPassword);
             this.pnlPassword.Controls.Add(this.label6);
             this.pnlPassword.Controls.Add(this.label7);
-            this.pnlPassword.Location = new System.Drawing.Point(0, 0);
+            this.pnlPassword.Location = new System.Drawing.Point(29, 28);
             this.pnlPassword.Name = "pnlPassword";
             this.pnlPassword.Size = new System.Drawing.Size(514, 339);
             this.pnlPassword.TabIndex = 16;
@@ -257,6 +256,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
             this.ClientSize = new System.Drawing.Size(582, 363);
+            this.Controls.Add(this.pnlPassword);
             this.Controls.Add(this.pnlVerify);
             this.Name = "FirstTimeSetupForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
