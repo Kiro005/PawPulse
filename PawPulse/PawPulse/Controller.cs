@@ -145,7 +145,7 @@ namespace DBapplication
             string query = $@"
         SELECT AnimalID, AnimalName, Species, Breed, Age, LatestWeight 
         FROM ANIMAL 
-        WHERE ClientID = {clientID} AND SystemStatus != 'Adopted';"; // Assuming they still own them
+        WHERE ClientID = {clientID};"; // Assuming they still own them
 
             return dbMan.ExecuteReader(query);
         }
@@ -365,14 +365,18 @@ namespace DBapplication
 
         ///////////////////////////     Adoption Client     //////////////////////////////
 
-        // For Tab 1: Get pets in the shelter that haven't been adopted yet
+
         public DataTable GetAvailablePets()
         {
-            // Make sure Age and LatestWeight are actually typed out in the SELECT line!
             string query = @"
         SELECT AnimalID, AnimalName, Species, Breed, Gender, Age, LatestWeight 
         FROM ANIMAL 
-        WHERE SystemStatus = 'Shelter';";
+        WHERE SystemStatus = 'Shelter'
+        AND AnimalID NOT IN (
+            SELECT AnimalID 
+            FROM Adoption 
+            WHERE AdoptionStatus IN ('Pending', 'Approved')
+        );";
 
             return dbMan.ExecuteReader(query);
         }
