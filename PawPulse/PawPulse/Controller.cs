@@ -1456,7 +1456,49 @@ namespace DBapplication
 
         // Fetch a list of all unique species currently in the shelter system
 
+        // Approves the adoption, updates the animal's owner, and adds the fee to the Bill and Bill_Item tables
+        public bool ApproveAdoptionAndBillClient(int adoptionId, int clientId, int animalId, string species)
+        {
+            try
+            {
+                // 1. Get the exact fee that was saved on this specific Adoption application
+                string getFeeQuery = $"SELECT AdoptionFee FROM Adoption WHERE AdoptionID = {adoptionId};";
+                object result = dbMan.ExecuteScalar(getFeeQuery);
+                decimal fee = (result != null && result != DBNull.Value) ? Convert.ToDecimal(result) : 0;
 
+                // 2. Create the Parent Bill and grab the new BillID using SCOPE_IDENTITY()
+                string insertBillQuery = $@"
+            INSERT INTO Bill (BillDate, Total_Amount, BillStatus, ClientID)
+            VALUES (GETDATE(), {fee}, 'Unpaid', {clientId});
+            SELECT SCOPE_IDENTITY();";
+
+                int newBillId = Convert.ToInt32(dbMan.ExecuteScalar(insertBillQuery));
+
+                // 3. Insert the specific charge into the Bill_Item weak entity table
+                string insertBillItemQuery = $@"
+            INSERT INTO Bill_Item (BillID, ItemID, ItemDescription, UnitCost, Quantity, Subtotal)
+            VALUES ({newBillId}, 1, 'Adoption Fee - {species}', {fee}, 1, {fee});";
+                dbMan.ExecuteNonQuery(insertBillItemQuery);
+
+                // 4. Update the Adoption Status
+                string approveAppQuery = $"UPDATE Adoption SET AdoptionStatus = 'Approved' WHERE AdoptionID = {adoptionId};";
+                dbMan.ExecuteNonQuery(approveAppQuery);
+
+                // 5. Update the Animal: Set to Adopted, clear the Kennel, and assign the ClientID
+                string updateAnimalQuery = $@"
+            UPDATE ANIMAL 
+            SET SystemStatus = 'Adopted', KennelID = NULL, ClientID = {clientId} 
+            WHERE AnimalID = {animalId};";
+
+                int rowsAffected = dbMan.ExecuteNonQuery(updateAnimalQuery);
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
 
 
 
