@@ -42,16 +42,16 @@
             // dgvKennels
             // 
             this.dgvKennels.ColumnHeadersHeight = 34;
-            this.dgvKennels.Location = new System.Drawing.Point(39, 258);
+            this.dgvKennels.Location = new System.Drawing.Point(23, 225);
             this.dgvKennels.Name = "dgvKennels";
             this.dgvKennels.RowHeadersWidth = 62;
-            this.dgvKennels.Size = new System.Drawing.Size(936, 279);
+            this.dgvKennels.Size = new System.Drawing.Size(952, 320);
             this.dgvKennels.TabIndex = 0;
             // 
             // cmbUnassignedAnimals
             // 
             this.cmbUnassignedAnimals.FormattingEnabled = true;
-            this.cmbUnassignedAnimals.Location = new System.Drawing.Point(318, 48);
+            this.cmbUnassignedAnimals.Location = new System.Drawing.Point(318, 37);
             this.cmbUnassignedAnimals.Name = "cmbUnassignedAnimals";
             this.cmbUnassignedAnimals.Size = new System.Drawing.Size(121, 28);
             this.cmbUnassignedAnimals.TabIndex = 1;
@@ -64,7 +64,7 @@
             this.btnAssign.Depth = 0;
             this.btnAssign.HighEmphasis = true;
             this.btnAssign.Icon = null;
-            this.btnAssign.Location = new System.Drawing.Point(771, 191);
+            this.btnAssign.Location = new System.Drawing.Point(771, 130);
             this.btnAssign.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAssign.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAssign.Name = "btnAssign";
@@ -84,7 +84,7 @@
             this.btnRemove.Depth = 0;
             this.btnRemove.HighEmphasis = true;
             this.btnRemove.Icon = null;
-            this.btnRemove.Location = new System.Drawing.Point(380, 191);
+            this.btnRemove.Location = new System.Drawing.Point(383, 130);
             this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRemove.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRemove.Name = "btnRemove";
@@ -104,7 +104,7 @@
             this.btnUpdateStatus.Depth = 0;
             this.btnUpdateStatus.HighEmphasis = true;
             this.btnUpdateStatus.Icon = null;
-            this.btnUpdateStatus.Location = new System.Drawing.Point(23, 191);
+            this.btnUpdateStatus.Location = new System.Drawing.Point(23, 130);
             this.btnUpdateStatus.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnUpdateStatus.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnUpdateStatus.Name = "btnUpdateStatus";
@@ -123,7 +123,7 @@
             this.cmbStatus.Items.AddRange(new object[] {
             "Available",
             "Needs Cleaning"});
-            this.cmbStatus.Location = new System.Drawing.Point(854, 52);
+            this.cmbStatus.Location = new System.Drawing.Point(854, 41);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(121, 28);
             this.cmbStatus.TabIndex = 5;
@@ -132,7 +132,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label1.Location = new System.Drawing.Point(34, 48);
+            this.label1.Location = new System.Drawing.Point(34, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(247, 25);
             this.label1.TabIndex = 6;
@@ -142,7 +142,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label2.Location = new System.Drawing.Point(611, 55);
+            this.label2.Location = new System.Drawing.Point(610, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(217, 25);
             this.label2.TabIndex = 7;

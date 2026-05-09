@@ -408,10 +408,18 @@ namespace DBapplication
 
         public int SubmitAdoptionRequest(int animalID, int clientID)
         {
-            // Inserts the pending request. EmployeeID is NULL because no admin has reviewed it yet!
+            // Inserts the pending request and dynamically looks up the fee based on the animal's species!
             string query = $@"
-        INSERT INTO Adoption (ApplicationDate, AdoptionStatus, AdoptionFee, AnimalID, ClientID, EmployeeID) 
-        VALUES (CAST(GETDATE() AS DATE), 'Pending', 0.00, {animalID}, {clientID}, NULL);";
+    INSERT INTO Adoption (ApplicationDate, AdoptionStatus, AdoptionFee, AnimalID, ClientID, EmployeeID) 
+    SELECT 
+        CAST(GETDATE() AS DATE), 
+        'Pending', 
+        ISNULL((SELECT BaseFee FROM AdoptionSettings WHERE Species = A.Species), 0.00), 
+        {animalID}, 
+        {clientID}, 
+        NULL
+    FROM ANIMAL A
+    WHERE A.AnimalID = {animalID};";
 
             return dbMan.ExecuteNonQuery(query);
         }
