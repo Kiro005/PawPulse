@@ -82,7 +82,7 @@ namespace PawPulse
                 lblSubTitle.Text = "Employee Directory";
 
                 cmbRoleFilter.Items.Clear();
-                cmbRoleFilter.Items.AddRange(new string[] { "All", "Veterinarian", "Receptionist", "Manager", "Staff" });
+                cmbRoleFilter.Items.AddRange(new string[] { "All", "Veterinarian", "Receptionist", "Manager", "Shelter Staff" });
                 cmbRoleFilter.SelectedIndex = 0;
             }
 
@@ -309,7 +309,7 @@ namespace PawPulse
                 if (currentView != "Client")
                 {
                     // Retrieve the role from the selected row (Change "EmployeeRole" if your column name is different)
-                    string employeeRole = dgvEmployees.SelectedRows[0].Cells["EmployeeRole"].Value.ToString();
+                    string employeeRole = dgvEmployees.SelectedRows[0].Cells["Role"].Value.ToString();
 
                     if (employeeRole == "Manager")
                     {
