@@ -48,7 +48,7 @@ namespace PawPulse
             // Populate Dropdown Lists with standard values
             cmbSize.Items.AddRange(new string[] { "Small", "Medium", "Large" });
             cmbWard.Items.AddRange(new string[] { "Isolation", "General", "Adoption" });
-            cmbStatus.Items.AddRange(new string[] { "Available", "Occupied", "Needs Cleaning" });
+            cmbStatus.Items.AddRange(new string[] { "Available", "Needs Cleaning" });
 
             // Set default selections
             cmbSize.SelectedIndex = 0;

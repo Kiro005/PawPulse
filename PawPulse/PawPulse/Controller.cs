@@ -732,9 +732,10 @@ namespace DBapplication
             return dbMan.ExecuteNonQuery(query); // Returns rows affected
         }
         // Get distinct employee roles for the dropdown
+        // Retrieves distinct employee roles excluding the 'Manager' role
         public DataTable GetEmployeeRoles()
         {
-            string query = "SELECT DISTINCT EmployeeRole FROM Employee";
+            string query = "SELECT DISTINCT EmployeeRole FROM Employee WHERE EmployeeRole != 'Manager'";
             return dbMan.ExecuteReader(query);
         }
         // Get a single employee's data by ID
