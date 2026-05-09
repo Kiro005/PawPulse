@@ -305,10 +305,24 @@ namespace PawPulse
                 string idCol = currentView == "Client" ? "ClientID" : "EmployeeID";
                 int targetID = Convert.ToInt32(dgvEmployees.SelectedRows[0].Cells[idCol].Value);
 
+                // Check if the current view is Employee to validate the Manager role
+                if (currentView != "Client")
+                {
+                    // Retrieve the role from the selected row (Change "EmployeeRole" if your column name is different)
+                    string employeeRole = dgvEmployees.SelectedRows[0].Cells["EmployeeRole"].Value.ToString();
+
+                    if (employeeRole == "Manager")
+                    {
+                        // Block deletion and show the custom message
+                        MessageBox.Show("Can't fire our Great and kind manager!", "Action Denied", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return; // Exit the method early
+                    }
+                }
+
                 string msg = currentView == "Client" ? "delete this client?" : "fire this employee?";
 
                 DialogResult result = MessageBox.Show($"Are you sure you want to {msg}", "Confirm Action",
-                                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
@@ -318,7 +332,7 @@ namespace PawPulse
 
                     if (affected > 0)
                     {
-                        MessageBox.Show("Record removed successfully.");
+                        MessageBox.Show("Record removed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         RefreshGrid();
                     }
                 }
