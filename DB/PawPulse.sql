@@ -419,3 +419,132 @@ INSERT INTO Medicine_Purchase (MedicineID, Quantity, UnitPrice, PurchaseDate) VA
 -- SELECT PasswordHash, 'Client' AS Role, CAST(ClientID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Client WHERE Email = 'omar.h@email.com' UNION SELECT PasswordHash, EmployeeRole AS Role, CAST(EmployeeID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Employee WHERE Email = 'omar.h@email.com';
 
 Select * from CLIENT
+
+-- =============================================
+-- STORED PROCEDURES
+-- =============================================
+
+-- Simple Procedure #1 (Vet Section)
+-- Updates the status of an appointment (Completed / Cancelled)
+CREATE OR ALTER PROCEDURE sp_UpdateAppointmentStatus
+    @AppointmentID INT,
+    @Status VARCHAR(20)
+AS
+BEGIN
+    UPDATE APPOINTMENT
+    SET AppStatus = @Status
+    WHERE AppointmentID = @AppointmentID;
+END
+GO
+
+-- Complex Procedure #1 (Vet Section)
+-- Inserts a lab test and automatically creates a bill for the client if the animal has an owner
+CREATE OR ALTER PROCEDURE sp_AddLabTestAndBill
+    @RecordID   INT,
+    @TestType   VARCHAR(100),
+    @Result     VARCHAR(255),
+    @Cost       DECIMAL(10,2),
+    @PaidInCash BIT
+AS
+BEGIN
+    -- Insert the lab test
+    INSERT INTO Lab_Test (TestType, TestDate, Result, Cost, RecordID)
+    VALUES (@TestType, CAST(GETDATE() AS DATE), @Result, @Cost, @RecordID);
+
+    -- Find the animal owner from the medical record
+    DECLARE @ClientID INT;
+    SELECT @ClientID = a.ClientID
+    FROM MEDICAL_RECORD mr
+    JOIN ANIMAL a ON mr.AnimalID = a.AnimalID
+    WHERE mr.RecordID = @RecordID;
+
+    -- Only bill if the animal belongs to a client (not a shelter animal)
+    IF @ClientID IS NOT NULL
+    BEGIN
+        DECLARE @BillStatus VARCHAR(20) = CASE WHEN @PaidInCash = 1 THEN 'Paid' ELSE 'Unpaid' END;
+
+        INSERT INTO Bill (BillDate, Total_Amount, BillStatus, ClientID)
+        VALUES (CAST(GETDATE() AS DATE), 0, @BillStatus, @ClientID);
+
+        DECLARE @BillID    INT = SCOPE_IDENTITY();
+        DECLARE @NextItemID INT = ISNULL((SELECT MAX(ItemID) FROM Bill_Item), 0) + 1;
+
+        INSERT INTO Bill_Item (ItemID, ItemDescription, UnitCost, Quantity, Subtotal, BillID)
+        VALUES (@NextItemID, 'Lab Test: ' + @TestType, @Cost, 1, @Cost, @BillID);
+
+        UPDATE Bill SET Total_Amount = @Cost WHERE BillID = @BillID;
+    END
+END
+GO
+
+-- Simple Procedure #2 (Client Section)
+-- Returns all bills for a specific client ordered by date
+CREATE OR ALTER PROCEDURE sp_GetClientBills
+    @ClientID INT
+AS
+BEGIN
+    SELECT BillID,
+           BillDate       AS [Date],
+           Total_Amount   AS [Total Amount],
+           BillStatus     AS [Status]
+    FROM Bill
+    WHERE ClientID = @ClientID
+    ORDER BY BillDate DESC;
+END
+GO
+
+-- Simple Procedure #3 (Admin Section)
+-- Activates or deactivates an employee account
+CREATE OR ALTER PROCEDURE sp_UpdateEmployeeStatus
+    @EmployeeID INT,
+    @IsActive   INT
+AS
+BEGIN
+    UPDATE Employee
+    SET IsActive = @IsActive
+    WHERE EmployeeID = @EmployeeID;
+END
+GO
+
+-- Complex Procedure #2 (Shelter Section)
+-- Approves an adoption: updates adoption record, transfers animal to client, frees kennel, and creates an unpaid bill
+CREATE OR ALTER PROCEDURE sp_ApproveAdoptionAndBill
+    @AdoptionID  INT,
+    @ClientID    INT,
+    @AnimalID    INT,
+    @EmployeeID  INT
+AS
+BEGIN
+    -- Get the adoption fee set for this application
+    DECLARE @Fee DECIMAL(10,2);
+    SELECT @Fee = AdoptionFee FROM Adoption WHERE AdoptionID = @AdoptionID;
+
+    -- Approve the adoption and record which staff member approved it
+    UPDATE Adoption
+    SET AdoptionStatus = 'Approved', EmployeeID = @EmployeeID
+    WHERE AdoptionID = @AdoptionID;
+
+    -- Find the animal's current kennel before removing it
+    DECLARE @KennelID INT;
+    SELECT @KennelID = KennelID FROM ANIMAL WHERE AnimalID = @AnimalID;
+
+    -- Transfer the animal to the new owner and remove from shelter
+    UPDATE ANIMAL
+    SET SystemStatus = 'Adopted', ClientID = @ClientID, KennelID = NULL
+    WHERE AnimalID = @AnimalID;
+
+    -- Free up the kennel
+    IF @KennelID IS NOT NULL
+        UPDATE Kennel SET KennelStatus = 'Needs Cleaning' WHERE KennelID = @KennelID;
+
+    -- Create a bill for the adoption fee
+    INSERT INTO Bill (BillDate, Total_Amount, BillStatus, ClientID)
+    VALUES (CAST(GETDATE() AS DATE), @Fee, 'Unpaid', @ClientID);
+
+    DECLARE @BillID     INT = SCOPE_IDENTITY();
+    DECLARE @NextItemID INT = ISNULL((SELECT MAX(ItemID) FROM Bill_Item), 0) + 1;
+
+    INSERT INTO Bill_Item (ItemID, ItemDescription, UnitCost, Quantity, Subtotal, BillID)
+    VALUES (@NextItemID, 'Adoption Fee', @Fee, 1, @Fee, @BillID);
+END
+GO
