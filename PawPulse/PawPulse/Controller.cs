@@ -586,22 +586,27 @@ namespace DBapplication
         public DataTable GetShelterAnimals()
         {
             string query = @"
-        SELECT 
-            A.AnimalID AS [ID],
-            A.AnimalName AS [Name],
-            A.Species,
-            A.Breed,
-            A.Age,
-            A.SystemStatus AS [System Status],
-            ISNULL(K.WardType + ' (Cage ' + CAST(K.KennelID AS VARCHAR) + ')', 'Unassigned') AS [Current Location]
-        FROM ANIMAL A
-        LEFT JOIN Kennel K ON A.KennelID = K.KennelID
-        ORDER BY 
-            CASE A.SystemStatus 
-                WHEN 'Shelter' THEN 1 
-                WHEN 'Adopted' THEN 2 
-                ELSE 3 END, 
-            A.AnimalName;";
+SELECT 
+    A.AnimalID AS [ID],
+    A.AnimalName AS [Name],
+    A.Species,
+    A.Breed,
+    A.Age,
+    A.SystemStatus AS [System Status],
+    -- THE NEW SMART LOCATION LOGIC
+    CASE 
+        WHEN A.SystemStatus = 'Adopted' THEN 'Adopted (With Owner)'
+        WHEN A.SystemStatus = 'Owned' THEN 'With Owner'
+        ELSE ISNULL(K.WardType + ' (Cage ' + CAST(K.KennelID AS VARCHAR) + ')', 'Unassigned') 
+    END AS [Current Location]
+FROM ANIMAL A
+LEFT JOIN Kennel K ON A.KennelID = K.KennelID
+ORDER BY 
+    CASE A.SystemStatus 
+        WHEN 'Shelter' THEN 1 
+        WHEN 'Adopted' THEN 2 
+        ELSE 3 END, 
+    A.AnimalName;";
 
             return dbMan.ExecuteReader(query);
         }
