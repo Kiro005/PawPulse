@@ -36,18 +36,30 @@ namespace PawPulse
 
             if (mode == "Managerial Report")
             {
-                // 1. Numbers from Employee and Medicine
-                labeltotnum.Text = controllerObj.GetTotalActiveEmployees().ToString();
-                labelmonthnum.Text = controllerObj.GetTotalSalaries().ToString("C2");
+                // 1. Fetch financial data (Ensure these methods exist in your Controller)
+                decimal salaries = Convert.ToDecimal(controllerObj.GetTotalSalaries());
+                decimal medExpenses = Convert.ToDecimal(controllerObj.GetMedicineExpenses(month, year));
+                decimal labExpenses = Convert.ToDecimal(controllerObj.GetLabExpenses(month, year));
+                decimal revenue = Convert.ToDecimal(controllerObj.GetMonthlyRevenue(month, year));
 
-                lblpennum.Text = controllerObj.GetMedicineCount().ToString();
+                // Calculate total expenses
+                decimal totalExpenses = salaries + medExpenses + labExpenses;
+
+                // 2. Bind data to KPI numbers
+                labeltotnum.Text = controllerObj.GetTotalActiveEmployees().ToString();
+                labelmonthnum.Text = totalExpenses.ToString("C2"); // Displays Total Expenses
+                lblpennum.Text = revenue.ToString("C2"); // Displays Revenue
                 lbllownum.Text = controllerObj.GetTotalInventoryValue().ToString("C2");
 
-                // 2. Chart Pie: Employees per Role
+                // 3. Update Pie Chart
                 UpdatePieChart(controllerObj.GetEmployeeRoleDist(), "EmployeeRole", "Count");
 
-                // 3. Chart Col: Monthly Expenses vs Revenue
-                UpdateColChart(controllerObj.GetFinancialSummary(month, year));
+                // 4. Update Column Chart directly with 4 distinct bars
+                chartcol.Series[0].Points.Clear();
+                chartcol.Series[0].Points.AddXY("Salaries", salaries);
+                chartcol.Series[0].Points.AddXY("Medicine", medExpenses);
+                chartcol.Series[0].Points.AddXY("Labs", labExpenses);
+                chartcol.Series[0].Points.AddXY("Revenue", revenue);
             }
             else
             {
@@ -157,11 +169,17 @@ namespace PawPulse
             chartcol.ChartAreas[0].AxisX.LineColor = Color.FromArgb(200, 200, 200);
             chartcol.ChartAreas[0].AxisY.LineColor = Color.FromArgb(200, 200, 200);
 
-            // Prevent text overlapping on X-axis
-            chartcol.ChartAreas[0].AxisX.IsLabelAutoFit = false;
-            chartcol.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Segoe UI", 9F);
-            chartcol.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Segoe UI", 9F);
-            // Formats Y-axis values to display in thousands with 'K' suffix (e.g., 120000 -> 120K)
+            // Configure X-axis to display labels on a single line without wrapping
+            chartcol.ChartAreas[0].AxisX.Interval = 1; // Force showing all labels
+            chartcol.ChartAreas[0].AxisX.LabelStyle.IsStaggered = false; // Disable multi-row layout
+            chartcol.ChartAreas[0].AxisX.IsLabelAutoFit = true; // Enable smart auto-fit
+
+            // Prevent word-wrap by strictly allowing only font size reduction to fit the labels
+            chartcol.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
+
+            // Set text fonts
+            chartcol.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            chartcol.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
             chartcol.ChartAreas[0].AxisY.LabelStyle.Format = "0,K";
 
             // Format the Report Type ComboBox and Label
@@ -238,8 +256,8 @@ namespace PawPulse
             if (mode == "Managerial Report")
             {
                 lbltotalanimal.Text = "Active Employees";
-                lblmonthlyrev.Text = "Total Salaries";
-                lblpend.Text = "Medicine Types";
+                lblmonthlyrev.Text = "Total Expenses";
+                lblpend.Text = "Monthly Revenue";
                 lbllow.Text = "Stock Value";
 
                 lblspec.Text = "Employee Roles Dist.";
