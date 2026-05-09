@@ -1,5 +1,11 @@
--- LEVEL 1
+--IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'PawPulse')
+--BEGIN
+--    CREATE DATABASE PawPulse;
+--END
+--GO
+
 Use PawPulse;
+GO
 
 CREATE TABLE CLIENT (
     ClientID INT identity(1,1) PRIMARY KEY,
@@ -199,7 +205,7 @@ INSERT INTO CLIENT (FirstName, LastName, Phone, Email, City, Street, BuildingNum
 
 -- 2. Employee (Covers Vets, Receptionists, Shelter Staff, Active/Inactive)
 INSERT INTO Employee (FirstName, LastName, EmployeeRole, Phone, Email, PasswordHash, HireDate, Salary, IsActive) VALUES 
-('Dr. Amina', 'Fawzy', 'Veterinarian', '01011122233', 'amina.vet@pawpulse.com', '$2a$11$xgCqVmpVFRtpU.mJDFHTc.t3Qqe.Qj0JN0AGvY1ivuCp/vRA.8G76', '2020-03-15', 25000.00, 1), -- 1240124
+('Dr. Amina', 'Fawzy', 'Veterinarian', '01011122233', ' ', '$2a$11$xgCqVmpVFRtpU.mJDFHTc.t3Qqe.Qj0JN0AGvY1ivuCp/vRA.8G76', '2020-03-15', 25000.00, 1), -- 1240124
 ('Dr. Kareem', 'Mostafa', 'Veterinarian', '01122233344', 'kareem.vet@pawpulse.com', '$2a$11$Is1CGauDw1xU7YocNsRTWO4WPnE958aRoolauU9I1O1ORrecALary', '2021-06-01', 23000.00, 1), -- 1234
 ('Hala', 'Saad', 'Receptionist', '01244455566', 'hala.s@pawpulse.com', '$2a$11$Qk9u/MNsZXGUpLTpohs6bOkgjdXrTrC32frhVecI663XzAHXL2ppi', '2023-01-10', 10000.00, 1), -- 987
 ('Amr', 'Adel', 'Shelter Staff', '01511223344', 'amr.a@pawpulse.com', '$2a$11$3tjTXy5BXI45BUeTxXkeKusPb.sSl739weV6yXb2BB/9CoEfollUK', '2022-08-20', 12000.00, 1), -- 654
