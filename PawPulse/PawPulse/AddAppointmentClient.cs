@@ -68,13 +68,39 @@ namespace PawPulse
 
             string selectedDate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
 
-            // 2. Create your standard clinic hours (e.g., 9 AM to 5 PM, 1-hour slots)
-            // You can change these to match whatever hours your clinic uses!
-            List<string> availableTimes = new List<string>
-    {
-        "09:00:00", "10:00:00", "11:00:00", "12:00:00",
-        "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00"
-    };
+            // 2. Create your standard clinic hours
+            List<string> allPossibleTimes = new List<string>
+        {
+            "09:00:00", "10:00:00", "11:00:00", "12:00:00",
+            "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00"
+        };
+
+            List<string> availableTimes = new List<string>();
+
+            // 2.5 THE TIME TRAVEL FIX! 
+            // Check if the user selected TODAY'S date
+            bool isToday = dateTimePicker1.Value.Date == DateTime.Today;
+            TimeSpan currentTime = DateTime.Now.TimeOfDay;
+
+            foreach (string timeStr in allPossibleTimes)
+            {
+                // Convert our string ("13:00:00") into a TimeSpan so we can do math on it
+                TimeSpan slotTime = TimeSpan.Parse(timeStr);
+
+                if (isToday)
+                {
+                    // Only add the time slot to the list if it is in the future!
+                    if (slotTime > currentTime)
+                    {
+                        availableTimes.Add(timeStr);
+                    }
+                }
+                else
+                {
+                    // If it's a future date, they can book any open hour
+                    availableTimes.Add(timeStr);
+                }
+            }
 
             // 3. Ask the database what is already booked
             DataTable dtBooked = controllerObj.GetBookedTimes(vetID, selectedDate);
@@ -105,9 +131,10 @@ namespace PawPulse
             }
             else
             {
-                // If they removed all the items, the vet is full!
+                // If they removed all the items, the vet is full (or the day is over!)
+                AvailableTime.DataSource = null; // Clear out the datasource so we can edit the text safely
                 AvailableTime.Enabled = false;
-                AvailableTime.Text = "Fully Booked";
+                AvailableTime.Text = "Unavailable";
             }
         }
         private void AddAppointmentClient_Load(object sender, EventArgs e)

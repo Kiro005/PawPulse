@@ -43,7 +43,6 @@
             this.header = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblUsername = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.whitebg.SuspendLayout();
             this.header.SuspendLayout();
@@ -52,10 +51,10 @@
             // 
             // MainContentPanel
             // 
-            this.MainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainContentPanel.Location = new System.Drawing.Point(0, 60);
+            this.MainContentPanel.Location = new System.Drawing.Point(239, 48);
+            this.MainContentPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MainContentPanel.Name = "MainContentPanel";
-            this.MainContentPanel.Size = new System.Drawing.Size(1490, 559);
+            this.MainContentPanel.Size = new System.Drawing.Size(1085, 447);
             this.MainContentPanel.TabIndex = 2;
             this.MainContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainContentPanel_Paint);
             // 
@@ -72,8 +71,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(237, 619);
+            this.panel1.Size = new System.Drawing.Size(247, 495);
             this.panel1.TabIndex = 2;
             // 
             // button5
@@ -86,9 +86,10 @@
             this.button5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.Location = new System.Drawing.Point(12, 550);
+            this.button5.Location = new System.Drawing.Point(11, 440);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(224, 57);
+            this.button5.Size = new System.Drawing.Size(199, 46);
             this.button5.TabIndex = 7;
             this.button5.Text = "Log Out";
             this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -97,9 +98,10 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel3.Location = new System.Drawing.Point(20, 90);
+            this.panel3.Location = new System.Drawing.Point(18, 72);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 1);
+            this.panel3.Size = new System.Drawing.Size(178, 1);
             this.panel3.TabIndex = 6;
             // 
             // btnAdoption
@@ -111,9 +113,10 @@
             this.btnAdoption.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdoption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnAdoption.Image = ((System.Drawing.Image)(resources.GetObject("btnAdoption.Image")));
-            this.btnAdoption.Location = new System.Drawing.Point(-5, 428);
+            this.btnAdoption.Location = new System.Drawing.Point(19, 343);
+            this.btnAdoption.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAdoption.Name = "btnAdoption";
-            this.btnAdoption.Size = new System.Drawing.Size(224, 57);
+            this.btnAdoption.Size = new System.Drawing.Size(199, 46);
             this.btnAdoption.TabIndex = 5;
             this.btnAdoption.Text = "  Adoption Center";
             this.btnAdoption.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -129,9 +132,10 @@
             this.btnBilling.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBilling.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnBilling.Image = ((System.Drawing.Image)(resources.GetObject("btnBilling.Image")));
-            this.btnBilling.Location = new System.Drawing.Point(-11, 353);
+            this.btnBilling.Location = new System.Drawing.Point(13, 283);
+            this.btnBilling.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBilling.Name = "btnBilling";
-            this.btnBilling.Size = new System.Drawing.Size(224, 57);
+            this.btnBilling.Size = new System.Drawing.Size(199, 46);
             this.btnBilling.TabIndex = 4;
             this.btnBilling.Text = "     Billing   ";
             this.btnBilling.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -147,9 +151,10 @@
             this.btnManageKennels.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnManageKennels.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnManageKennels.Image = ((System.Drawing.Image)(resources.GetObject("btnManageKennels.Image")));
-            this.btnManageKennels.Location = new System.Drawing.Point(-6, 288);
+            this.btnManageKennels.Location = new System.Drawing.Point(18, 231);
+            this.btnManageKennels.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnManageKennels.Name = "btnManageKennels";
-            this.btnManageKennels.Size = new System.Drawing.Size(242, 57);
+            this.btnManageKennels.Size = new System.Drawing.Size(215, 46);
             this.btnManageKennels.TabIndex = 3;
             this.btnManageKennels.Text = "Manage Kennels";
             this.btnManageKennels.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -165,9 +170,10 @@
             this.btnAnimals.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnimals.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnAnimals.Image = ((System.Drawing.Image)(resources.GetObject("btnAnimals.Image")));
-            this.btnAnimals.Location = new System.Drawing.Point(-3, 206);
+            this.btnAnimals.Location = new System.Drawing.Point(20, 166);
+            this.btnAnimals.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAnimals.Name = "btnAnimals";
-            this.btnAnimals.Size = new System.Drawing.Size(224, 57);
+            this.btnAnimals.Size = new System.Drawing.Size(199, 46);
             this.btnAnimals.TabIndex = 2;
             this.btnAnimals.Text = "    Animals";
             this.btnAnimals.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -182,9 +188,10 @@
             this.btnRegisterAnimal.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.btnRegisterAnimal.ForeColor = System.Drawing.Color.White;
             this.btnRegisterAnimal.Image = ((System.Drawing.Image)(resources.GetObject("btnRegisterAnimal.Image")));
-            this.btnRegisterAnimal.Location = new System.Drawing.Point(-5, 128);
+            this.btnRegisterAnimal.Location = new System.Drawing.Point(19, 103);
+            this.btnRegisterAnimal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRegisterAnimal.Name = "btnRegisterAnimal";
-            this.btnRegisterAnimal.Size = new System.Drawing.Size(238, 57);
+            this.btnRegisterAnimal.Size = new System.Drawing.Size(212, 46);
             this.btnRegisterAnimal.TabIndex = 1;
             this.btnRegisterAnimal.Text = "Register Animal";
             this.btnRegisterAnimal.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -198,9 +205,9 @@
             this.label1.ForeColor = System.Drawing.Color.MediumAquamarine;
             this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(0, 30);
+            this.label1.Location = new System.Drawing.Point(0, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(310, 61);
+            this.label1.Size = new System.Drawing.Size(256, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "       PawPulse";
             // 
@@ -211,19 +218,20 @@
             this.whitebg.Controls.Add(this.header);
             this.whitebg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.whitebg.Location = new System.Drawing.Point(0, 0);
+            this.whitebg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.whitebg.Name = "whitebg";
-            this.whitebg.Size = new System.Drawing.Size(1490, 619);
+            this.whitebg.Size = new System.Drawing.Size(1324, 495);
             this.whitebg.TabIndex = 3;
             // 
             // header
             // 
             this.header.Controls.Add(this.pictureBox1);
             this.header.Controls.Add(this.lblUsername);
-            this.header.Controls.Add(this.textBox1);
             this.header.Dock = System.Windows.Forms.DockStyle.Top;
             this.header.Location = new System.Drawing.Point(0, 0);
+            this.header.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.header.Name = "header";
-            this.header.Size = new System.Drawing.Size(1490, 60);
+            this.header.Size = new System.Drawing.Size(1324, 48);
             this.header.TabIndex = 1;
             // 
             // pictureBox1
@@ -231,9 +239,10 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(1286, 15);
+            this.pictureBox1.Location = new System.Drawing.Point(1143, 12);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(49, 40);
+            this.pictureBox1.Size = new System.Drawing.Size(44, 32);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -242,31 +251,20 @@
             this.lblUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.Location = new System.Drawing.Point(1337, 19);
+            this.lblUsername.Location = new System.Drawing.Point(1188, 15);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(86, 30);
+            this.lblUsername.Size = new System.Drawing.Size(71, 25);
             this.lblUsername.TabIndex = 1;
             this.lblUsername.Text = "Logger";
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.textBox1.Location = new System.Drawing.Point(51, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 36);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "🔍 Search...";
-            // 
             // ShelterStaffDashboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1490, 619);
+            this.ClientSize = new System.Drawing.Size(1324, 495);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.whitebg);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ShelterStaffDashboard";
             this.Text = "ShelterStaffDashboard";
             this.panel1.ResumeLayout(false);
@@ -295,6 +293,5 @@
         private System.Windows.Forms.Panel header;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblUsername;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }

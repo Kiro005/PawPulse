@@ -91,5 +91,10 @@ namespace PawPulse
             }
 
         }
+
+        private void ManageAdoptionFeesShelterUC_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
