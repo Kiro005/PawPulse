@@ -14,7 +14,7 @@ namespace DBapplication
         //gharbawy : Data Source=.;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True
         //Kiro: Data Source=localhost\SQLEXPRESS02;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True
         // Orashy : Data Source=.\SQLEXPRESS;Initial Catalog=PawPulse;Integrated Security=True;Encrypt=True;TrustServerCertificate=True
-        static string DB_Connection_String = @"Data Source=.\SQLEXPRESS;Initial Catalog=PawPulse;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        static string DB_Connection_String = @"Data Source=localhost\SQLEXPRESS02;Initial Catalog=PawPulse;Integrated Security=True;TrustServerCertificate=True";
         SqlConnection myConnection;
 
         public DBManager()
