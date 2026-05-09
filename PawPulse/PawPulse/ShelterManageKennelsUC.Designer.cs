@@ -42,16 +42,16 @@
             // dgvKennels
             // 
             this.dgvKennels.ColumnHeadersHeight = 34;
-            this.dgvKennels.Location = new System.Drawing.Point(222, 277);
+            this.dgvKennels.Location = new System.Drawing.Point(39, 258);
             this.dgvKennels.Name = "dgvKennels";
             this.dgvKennels.RowHeadersWidth = 62;
-            this.dgvKennels.Size = new System.Drawing.Size(776, 279);
+            this.dgvKennels.Size = new System.Drawing.Size(936, 279);
             this.dgvKennels.TabIndex = 0;
             // 
             // cmbUnassignedAnimals
             // 
             this.cmbUnassignedAnimals.FormattingEnabled = true;
-            this.cmbUnassignedAnimals.Location = new System.Drawing.Point(455, 52);
+            this.cmbUnassignedAnimals.Location = new System.Drawing.Point(318, 48);
             this.cmbUnassignedAnimals.Name = "cmbUnassignedAnimals";
             this.cmbUnassignedAnimals.Size = new System.Drawing.Size(121, 28);
             this.cmbUnassignedAnimals.TabIndex = 1;
@@ -84,7 +84,7 @@
             this.btnRemove.Depth = 0;
             this.btnRemove.HighEmphasis = true;
             this.btnRemove.Icon = null;
-            this.btnRemove.Location = new System.Drawing.Point(498, 191);
+            this.btnRemove.Location = new System.Drawing.Point(380, 191);
             this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRemove.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRemove.Name = "btnRemove";
@@ -104,7 +104,7 @@
             this.btnUpdateStatus.Depth = 0;
             this.btnUpdateStatus.HighEmphasis = true;
             this.btnUpdateStatus.Icon = null;
-            this.btnUpdateStatus.Location = new System.Drawing.Point(222, 191);
+            this.btnUpdateStatus.Location = new System.Drawing.Point(23, 191);
             this.btnUpdateStatus.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnUpdateStatus.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnUpdateStatus.Name = "btnUpdateStatus";
@@ -132,7 +132,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label1.Location = new System.Drawing.Point(169, 51);
+            this.label1.Location = new System.Drawing.Point(34, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(247, 25);
             this.label1.TabIndex = 6;

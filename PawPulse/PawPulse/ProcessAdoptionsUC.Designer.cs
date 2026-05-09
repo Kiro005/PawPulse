@@ -39,7 +39,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label1.Location = new System.Drawing.Point(112, 57);
+            this.label1.ForeColor = System.Drawing.Color.Navy;
+            this.label1.Location = new System.Drawing.Point(26, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(278, 25);
             this.label1.TabIndex = 0;
@@ -48,11 +49,11 @@
             // dgvPendingAdoptions
             // 
             this.dgvPendingAdoptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPendingAdoptions.Location = new System.Drawing.Point(228, 126);
+            this.dgvPendingAdoptions.Location = new System.Drawing.Point(3, 124);
             this.dgvPendingAdoptions.Name = "dgvPendingAdoptions";
             this.dgvPendingAdoptions.RowHeadersWidth = 62;
             this.dgvPendingAdoptions.RowTemplate.Height = 28;
-            this.dgvPendingAdoptions.Size = new System.Drawing.Size(743, 305);
+            this.dgvPendingAdoptions.Size = new System.Drawing.Size(976, 305);
             this.dgvPendingAdoptions.TabIndex = 1;
             // 
             // btnApprove
@@ -62,7 +63,7 @@
             this.btnApprove.Depth = 0;
             this.btnApprove.HighEmphasis = true;
             this.btnApprove.Icon = null;
-            this.btnApprove.Location = new System.Drawing.Point(259, 466);
+            this.btnApprove.Location = new System.Drawing.Point(226, 466);
             this.btnApprove.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnApprove.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnApprove.Name = "btnApprove";
