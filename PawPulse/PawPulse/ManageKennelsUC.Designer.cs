@@ -31,7 +31,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
-            this.btnreassign = new System.Windows.Forms.Button();
             this.btndlt = new System.Windows.Forms.Button();
             this.lblFilterTag = new System.Windows.Forms.Label();
             this.lblSearchTag = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             this.dgvKennels = new System.Windows.Forms.DataGridView();
             this.lblDetails = new System.Windows.Forms.Label();
             this.cmbFilterValue = new System.Windows.Forms.ComboBox();
+            this.btnreassign = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKennels)).BeginInit();
             this.SuspendLayout();
@@ -78,22 +78,6 @@
             this.lblWelcome.Size = new System.Drawing.Size(119, 38);
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Kennels";
-            // 
-            // btnreassign
-            // 
-            this.btnreassign.BackColor = System.Drawing.Color.Yellow;
-            this.btnreassign.FlatAppearance.BorderSize = 0;
-            this.btnreassign.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnreassign.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnreassign.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnreassign.ForeColor = System.Drawing.Color.Black;
-            this.btnreassign.Location = new System.Drawing.Point(768, 437);
-            this.btnreassign.Name = "btnreassign";
-            this.btnreassign.Size = new System.Drawing.Size(156, 50);
-            this.btnreassign.TabIndex = 82;
-            this.btnreassign.Text = "Assign";
-            this.btnreassign.UseVisualStyleBackColor = false;
-            this.btnreassign.Click += new System.EventHandler(this.btnreassign_Click);
             // 
             // btndlt
             // 
@@ -213,6 +197,22 @@
             this.cmbFilterValue.TabIndex = 84;
             this.cmbFilterValue.SelectedIndexChanged += new System.EventHandler(this.cmbFilterValue_SelectedIndexChanged);
             // 
+            // btnreassign
+            // 
+            this.btnreassign.BackColor = System.Drawing.Color.Yellow;
+            this.btnreassign.FlatAppearance.BorderSize = 0;
+            this.btnreassign.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnreassign.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnreassign.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnreassign.ForeColor = System.Drawing.Color.Black;
+            this.btnreassign.Location = new System.Drawing.Point(768, 437);
+            this.btnreassign.Name = "btnreassign";
+            this.btnreassign.Size = new System.Drawing.Size(156, 50);
+            this.btnreassign.TabIndex = 82;
+            this.btnreassign.Text = "Assign";
+            this.btnreassign.UseVisualStyleBackColor = false;
+            this.btnreassign.Click += new System.EventHandler(this.btnreassign_Click);
+            // 
             // ManageKennelsUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -244,7 +244,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblWelcome;
-        private System.Windows.Forms.Button btnreassign;
         private System.Windows.Forms.Button btndlt;
         private System.Windows.Forms.Label lblFilterTag;
         private System.Windows.Forms.Label lblSearchTag;
@@ -255,5 +254,6 @@
         private System.Windows.Forms.DataGridView dgvKennels;
         private System.Windows.Forms.Label lblDetails;
         private System.Windows.Forms.ComboBox cmbFilterValue;
+        private System.Windows.Forms.Button btnreassign;
     }
 }
