@@ -219,16 +219,30 @@ namespace PawPulse
 
         private void btnEditMedicine_Click(object sender, EventArgs e)
         {
+            // Ensure at least one row is selected in the grid
             if (dgvMedicine.SelectedRows.Count > 0)
             {
-                int id = Convert.ToInt32(dgvMedicine.SelectedRows[0].Cells["MedicineID"].Value);
-                EditMedicineForm editFrm = new EditMedicineForm(id);
-                if (editFrm.ShowDialog() == DialogResult.OK)
-                    RefreshGrid();
+                var selectedRow = dgvMedicine.SelectedRows[0];
+
+                // Verify that the MedicineID column exists and contains a valid value
+                if (selectedRow.Cells["MedicineID"].Value != null && selectedRow.Cells["MedicineID"].Value != DBNull.Value)
+                {
+                    int medicineId = Convert.ToInt32(selectedRow.Cells["MedicineID"].Value);
+
+                    // Open the edit form modally, passing the selected medicine ID
+                    using (EditMedicineForm editFrm = new EditMedicineForm(medicineId))
+                    {
+                        if (editFrm.ShowDialog() == DialogResult.OK)
+                        {
+                            // Refresh the grid to show the updated medicine data
+                            RefreshGrid();
+                        }
+                    }
+                }
             }
             else
             {
-                MessageBox.Show("Please select a medicine to edit.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please select a medicine record to edit.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -253,13 +267,31 @@ namespace PawPulse
 
         private void btnresupply_Click(object sender, EventArgs e)
         {
+            // Ensure a row is selected in the grid
             if (dgvMedicine.SelectedRows.Count > 0)
             {
-                int id = Convert.ToInt32(dgvMedicine.SelectedRows[0].Cells["MedicineID"].Value);
-                // Assume ResupplyForm takes the ID to add stock quantity
-                ResupplyForm resupplyFrm = new ResupplyForm(id);
-                if (resupplyFrm.ShowDialog() == DialogResult.OK)
-                    RefreshGrid();
+                var selectedRow = dgvMedicine.SelectedRows[0];
+
+                if (selectedRow.Cells["MedicineID"].Value != null && selectedRow.Cells["MedicineID"].Value != DBNull.Value)
+                {
+                    int id = Convert.ToInt32(selectedRow.Cells["MedicineID"].Value);
+                    string name = selectedRow.Cells["MedicineName"].Value.ToString();
+                    decimal currentPrice = Convert.ToDecimal(selectedRow.Cells["UnitPrice"].Value);
+
+                    // Open the small Resupply Form and pass selected medicine details
+                    using (ResupplyForm resupplyFrm = new ResupplyForm(id, name, currentPrice))
+                    {
+                        if (resupplyFrm.ShowDialog() == DialogResult.OK)
+                        {
+                            // Refresh the grid to show the updated stock and price
+                            RefreshGrid();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a medicine to resupply.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

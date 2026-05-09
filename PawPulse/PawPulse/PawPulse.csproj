@@ -357,6 +357,9 @@
     <EmbeddedResource Include="AddAppointmentClient.resx">
       <DependentUpon>AddAppointmentClient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddMedicineForm.resx">
+      <DependentUpon>AddMedicineForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddPetClientForm.resx">
       <DependentUpon>AddPetClientForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -392,6 +395,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditClientForm.resx">
       <DependentUpon>EditClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditMedicineForm.resx">
+      <DependentUpon>EditMedicineForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditPetClientForm.resx">
       <DependentUpon>EditPetClientForm.cs</DependentUpon>
@@ -429,6 +435,9 @@
     <EmbeddedResource Include="ManageMedicinesUC.resx">
       <DependentUpon>ManageMedicinesUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManageSuppliersForm.resx">
+      <DependentUpon>ManageSuppliersForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ManageUsersUC.resx">
       <DependentUpon>ManageUsersUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -455,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportsUC.resx">
       <DependentUpon>ReportsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResupplyForm.resx">
+      <DependentUpon>ResupplyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ShelterManageKennelsUC.resx">
       <DependentUpon>ShelterManageKennelsUC.cs</DependentUpon>

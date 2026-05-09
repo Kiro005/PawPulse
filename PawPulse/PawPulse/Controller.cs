@@ -1336,6 +1336,116 @@ namespace DBapplication
 
             return dbMan.ExecuteNonQuery(query) > 0;
         }
+        // Calculates total medicine prescription expenses for a specific month and year
+        
+
+        // Calculates total laboratory test expenses for a specific month and year
+        public decimal GetLabExpenses(int month, int year)
+        {
+            // Sums the cost from the Lab_Test table (exact schema match)
+            string query = $"SELECT SUM(Cost) FROM Lab_Test WHERE MONTH(TestDate) = {month} AND YEAR(TestDate) = {year}";
+
+            object result = dbMan.ExecuteScalar(query);
+            return result == DBNull.Value || result == null ? 0 : Convert.ToDecimal(result);
+        }
+
+        // Retrieves list of all suppliers for dropdown
+        public DataTable GetSuppliers()
+        {
+            string query = "SELECT SupplierID, SupplierName FROM Supplier";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Retrieves full details for a specific supplier
+        public DataTable GetSupplierDetails(int id)
+        {
+            string query = $"SELECT ContactPhone, SupplierAddress, Email FROM Supplier WHERE SupplierID = {id}";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Inserts a new supplier record
+        public int InsertSupplier(string name, string phone, string address, string email)
+        {
+            string query = $"INSERT INTO Supplier (SupplierName, ContactPhone, SupplierAddress, Email) VALUES ('{name}', '{phone}', '{address}', '{email}')";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Updates an existing supplier record
+        public int UpdateSupplier(int id, string name, string phone, string address, string email)
+        {
+            string query = $"UPDATE Supplier SET SupplierName = '{name}', ContactPhone = '{phone}', SupplierAddress = '{address}', Email = '{email}' WHERE SupplierID = {id}";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Inserts a new medicine record into the database
+        public int InsertMedicine(string name, string dosage, int quantity, decimal price, DateTime expiry, int supplierId)
+        {
+            // Format date for SQL compatibility
+            string formattedDate = expiry.ToString("yyyy-MM-dd");
+
+            string query = $@"INSERT INTO Medicine (MedicineName, Dosage, StockQuantity, UnitPrice, ExpiryDate, SupplierID) 
+                      VALUES ('{name}', '{dosage}', {quantity}, {price}, '{formattedDate}', {supplierId})";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        // Retrieves a single medicine record by its ID
+        public DataTable GetMedicineByID(int medicineId)
+        {
+            string query = $"SELECT * FROM Medicine WHERE MedicineID = {medicineId}";
+            return dbMan.ExecuteReader(query);
+        }
+
+        // Updates an existing medicine record
+        public int UpdateMedicine(int medicineId, string name, string dosage, int quantity, decimal price, DateTime expiry, int supplierId)
+        {
+            string formattedDate = expiry.ToString("yyyy-MM-dd");
+
+            string query = $@"UPDATE Medicine 
+                      SET MedicineName = '{name}', 
+                          Dosage = '{dosage}', 
+                          StockQuantity = {quantity}, 
+                          UnitPrice = {price}, 
+                          ExpiryDate = '{formattedDate}', 
+                          SupplierID = {supplierId} 
+                      WHERE MedicineID = {medicineId}";
+
+            return dbMan.ExecuteNonQuery(query);
+        }
+        // Increments existing stock quantity and updates unit price for a medicine
+        // Increments the existing stock quantity for a specific medicine
+        // Increments stock, updates price, and logs the purchase transaction with today's date
+        public int ResupplyMedicine(int medicineId, int addedQuantity, decimal purchaseCost)
+        {
+            // 1. Update main Medicine table
+            string updateQuery = $@"UPDATE Medicine 
+                            SET StockQuantity = StockQuantity + {addedQuantity}, 
+                                UnitPrice = {purchaseCost} 
+                            WHERE MedicineID = {medicineId}";
+            dbMan.ExecuteNonQuery(updateQuery);
+
+            // 2. Log purchase with current timestamp
+            string logQuery = $@"INSERT INTO Medicine_Purchase (MedicineID, Quantity, UnitPrice, PurchaseDate) 
+                         VALUES ({medicineId}, {addedQuantity}, {purchaseCost}, '{DateTime.Now:yyyy-MM-dd}')";
+
+            return dbMan.ExecuteNonQuery(logQuery);
+        }
+
+        // Calculates total medicine purchase expenses for reports based on transaction logs
+        public decimal GetMedicineExpenses(int month, int year)
+        {
+            // Sums (Qty * UnitPrice) from the purchase logs
+            string query = $@"SELECT SUM(Quantity * UnitPrice) 
+                      FROM Medicine_Purchase 
+                      WHERE MONTH(PurchaseDate) = {month} AND YEAR(PurchaseDate) = {year}";
+
+            object result = dbMan.ExecuteScalar(query);
+            return result == DBNull.Value || result == null ? 0 : Convert.ToDecimal(result);
+        }
+
+
+
+
 
         // Simple method to update adoption status (used for Rejecting)
         //public bool UpdateAdoptionStatus(int adoptionId, string status)
@@ -1345,7 +1455,7 @@ namespace DBapplication
         //}
 
         // Fetch a list of all unique species currently in the shelter system
-       
+
 
 
 

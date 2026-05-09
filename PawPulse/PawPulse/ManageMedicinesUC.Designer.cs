@@ -92,6 +92,7 @@
             this.dltMedicine.TabIndex = 69;
             this.dltMedicine.Text = "× Remove Medicine";
             this.dltMedicine.UseVisualStyleBackColor = false;
+            this.dltMedicine.Click += new System.EventHandler(this.dltMedicine_Click);
             // 
             // lblFilterTag
             // 
@@ -125,6 +126,7 @@
             this.btnEditMedicine.TabIndex = 67;
             this.btnEditMedicine.Text = "✎ Edit Medicine";
             this.btnEditMedicine.UseVisualStyleBackColor = false;
+            this.btnEditMedicine.Click += new System.EventHandler(this.btnEditMedicine_Click);
             // 
             // btnِAddMedicine
             // 
@@ -140,6 +142,7 @@
             this.btnِAddMedicine.TabIndex = 66;
             this.btnِAddMedicine.Text = "+ Add Medicine";
             this.btnِAddMedicine.UseVisualStyleBackColor = false;
+            this.btnِAddMedicine.Click += new System.EventHandler(this.btnAddMedicine_Click);
             // 
             // cmbTypeFilter
             // 
@@ -149,6 +152,7 @@
             this.cmbTypeFilter.Size = new System.Drawing.Size(205, 24);
             this.cmbTypeFilter.TabIndex = 65;
             this.cmbTypeFilter.SelectedIndexChanged += new System.EventHandler(this.cmbTypeFilter_SelectedIndexChanged);
+            this.cmbTypeFilter.Click += new System.EventHandler(this.cmbTypeFilter_SelectedIndexChanged);
             // 
             // txtSearchUser
             // 
@@ -156,6 +160,7 @@
             this.txtSearchUser.Name = "txtSearchUser";
             this.txtSearchUser.Size = new System.Drawing.Size(328, 22);
             this.txtSearchUser.TabIndex = 64;
+            this.txtSearchUser.Click += new System.EventHandler(this.txtSearchUser_TextChanged);
             this.txtSearchUser.TextChanged += new System.EventHandler(this.txtSearchUser_TextChanged);
             // 
             // dgvMedicine
@@ -187,6 +192,7 @@
             this.btnManageSup.TabIndex = 70;
             this.btnManageSup.Text = "Manage Suppliers";
             this.btnManageSup.UseVisualStyleBackColor = false;
+            this.btnManageSup.Click += new System.EventHandler(this.btnManageSup_Click);
             // 
             // btnresupply
             // 
@@ -202,6 +208,7 @@
             this.btnresupply.TabIndex = 71;
             this.btnresupply.Text = "Resupply";
             this.btnresupply.UseVisualStyleBackColor = false;
+            this.btnresupply.Click += new System.EventHandler(this.btnresupply_Click);
             // 
             // ManageMedicinesUC
             // 

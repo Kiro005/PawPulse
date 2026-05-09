@@ -418,4 +418,4 @@ INSERT INTO Medicine_Purchase (MedicineID, Quantity, UnitPrice, PurchaseDate) VA
 
 -- SELECT PasswordHash, 'Client' AS Role, CAST(ClientID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Client WHERE Email = 'omar.h@email.com' UNION SELECT PasswordHash, EmployeeRole AS Role, CAST(EmployeeID AS VARCHAR) AS UserID, FirstName, LastName, IsActive FROM Employee WHERE Email = 'omar.h@email.com';
 
-
+Select * from CLIENT
