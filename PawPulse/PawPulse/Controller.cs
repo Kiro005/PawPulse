@@ -499,12 +499,30 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
-        public bool AddPrescription(int recordId, int medicineId, int vetId, string instructions, int refills, int duration)
+        public bool AddPrescription(int recordId, int medicineId, int vetId, string instructions, int refills, int duration, bool paidInCash = false)
         {
             string query = $@"
                 INSERT INTO Prescription (Instructions, IssueDate, RefillsAllowed, DurationInDays, RecordID, MedicineID, EmployeeID)
                 VALUES ('{instructions}', CAST(GETDATE() AS DATE), {refills}, {duration}, {recordId}, {medicineId}, {vetId});";
-            return dbMan.ExecuteNonQuery(query) > 0;
+            bool ok = dbMan.ExecuteNonQuery(query) > 0;
+            if (ok)
+            {
+                int? clientId = GetClientIdFromRecord(recordId);
+                if (clientId.HasValue)
+                {
+                    var medDt = dbMan.ExecuteReader($"SELECT MedicineName, UnitPrice FROM Medicine WHERE MedicineID = {medicineId};");
+                    if (medDt != null && medDt.Rows.Count > 0)
+                    {
+                        string medName = medDt.Rows[0]["MedicineName"].ToString();
+                        decimal unitPrice = Convert.ToDecimal(medDt.Rows[0]["UnitPrice"]);
+                        decimal totalCost = unitPrice * (refills + 1);
+                        int billId = GetOrCreateOpenBill(clientId.Value, paidInCash);
+                        if (billId > 0)
+                            AddBillItem(billId, $"Prescription: {medName} x{refills + 1}", totalCost);
+                    }
+                }
+            }
+            return ok;
         }
 
         public DataTable GetLabTests()
@@ -519,12 +537,23 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
-        public bool AddLabTest(int recordId, string testType, string result, decimal cost)
+        public bool AddLabTest(int recordId, string testType, string result, decimal cost, bool paidInCash = false)
         {
             string query = $@"
                 INSERT INTO Lab_Test (TestType, TestDate, Result, Cost, RecordID)
                 VALUES ('{testType}', CAST(GETDATE() AS DATE), '{result}', {cost}, {recordId});";
-            return dbMan.ExecuteNonQuery(query) > 0;
+            bool ok = dbMan.ExecuteNonQuery(query) > 0;
+            if (ok)
+            {
+                int? clientId = GetClientIdFromRecord(recordId);
+                if (clientId.HasValue)
+                {
+                    int billId = GetOrCreateOpenBill(clientId.Value, paidInCash);
+                    if (billId > 0)
+                        AddBillItem(billId, $"Lab Test: {testType}", cost);
+                }
+            }
+            return ok;
         }
 
         public DataTable GetVaccinations()
@@ -1483,6 +1512,33 @@ namespace DBapplication
         //}
 
         // Fetch a list of all unique species currently in the shelter system
+
+        public int? GetClientIdFromRecord(int recordId)
+        {
+            string query = $"SELECT a.ClientID FROM MEDICAL_RECORD mr JOIN ANIMAL a ON mr.AnimalID = a.AnimalID WHERE mr.RecordID = {recordId};";
+            object result = dbMan.ExecuteScalar(query);
+            if (result == null || result == DBNull.Value) return null;
+            return Convert.ToInt32(result);
+        }
+
+        private int GetOrCreateOpenBill(int clientId, bool paidInCash = false)
+        {
+            string status = paidInCash ? "Paid" : "Unpaid";
+            string createQuery = $"INSERT INTO Bill (BillDate, Total_Amount, BillStatus, ClientID) VALUES (CAST(GETDATE() AS DATE), 0, '{status}', {clientId}); SELECT SCOPE_IDENTITY();";
+            object newId = dbMan.ExecuteScalar(createQuery);
+            return newId != null ? Convert.ToInt32(newId) : 0;
+        }
+
+        private void AddBillItem(int billId, string description, decimal unitCost)
+        {
+            string safeDesc = description.Replace("'", "''");
+            string query = $@"
+                DECLARE @NextID INT = ISNULL((SELECT MAX(ItemID) FROM Bill_Item), 0) + 1;
+                INSERT INTO Bill_Item (ItemID, ItemDescription, UnitCost, Quantity, Subtotal, BillID)
+                VALUES (@NextID, '{safeDesc}', {unitCost}, 1, {unitCost}, {billId});
+                UPDATE Bill SET Total_Amount = Total_Amount + {unitCost} WHERE BillID = {billId};";
+            dbMan.ExecuteNonQuery(query);
+        }
 
         // Approves the adoption, updates the animal's owner, and adds the fee to the Bill and Bill_Item tables
         public bool ApproveAdoptionAndBillClient(int adoptionId, int clientId, int animalId, string species)

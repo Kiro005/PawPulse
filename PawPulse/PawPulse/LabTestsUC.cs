@@ -85,15 +85,31 @@ namespace PawPulse
             int recordId = Convert.ToInt32(cmbRecord2.SelectedValue);
             decimal cost = 0; decimal.TryParse(txtCost2.Text, out cost);
 
+            bool paidInCash = false;
+            bool isClientAnimal = false;
+
+            if (!_editMode)
+            {
+                int? clientId = _ctrl.GetClientIdFromRecord(recordId);
+                if (clientId.HasValue)
+                {
+                    isClientAnimal = true;
+                    paidInCash = MessageBox.Show("Did the client pay in cash?", "Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+                }
+            }
+
             bool ok;
             if (_editMode)
                 ok = _ctrl.UpdateLabTest(_editingTestId, recordId, txtTestType2.Text.Trim(), txtResults2.Text.Trim(), cost);
             else
-                ok = _ctrl.AddLabTest(recordId, txtTestType2.Text.Trim(), txtResults2.Text.Trim(), cost);
+                ok = _ctrl.AddLabTest(recordId, txtTestType2.Text.Trim(), txtResults2.Text.Trim(), cost, paidInCash);
 
             if (ok)
             {
-                MessageBox.Show(_editMode ? "Lab test updated." : "Lab test added.", "PawPulse");
+                string msg = _editMode ? "Lab test updated." : "Lab test added.";
+                if (!_editMode)
+                    msg += isClientAnimal ? (paidInCash ? "\nMarked as Paid." : "\nAdded to client's bill as Unpaid.") : "\nShelter animal — not billed.";
+                MessageBox.Show(msg, "PawPulse");
                 _editMode = false; _editingTestId = 0;
                 addForm2.Visible = false;
                 txtTestType2.Clear(); txtResults2.Clear(); txtCost2.Clear();
