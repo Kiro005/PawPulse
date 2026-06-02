@@ -975,7 +975,7 @@ namespace DBapplication
         // 2. Managerial Report (Financials and HR summaries)
         public DataTable GetManagerialReport(int month, int year)
         {
-            // English comments: Aggregating stats from Employee, Medicine, and Bill tables
+           // Aggregating stats from Employee, Medicine, and Bill tables by the iconic gharbawy
             string query = $@"
         SELECT 'Total Staff' AS [Category], CAST(COUNT(*) AS VARCHAR) AS [Stats] 
         FROM Employee WHERE IsActive = 1
