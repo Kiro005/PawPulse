@@ -54,7 +54,7 @@ namespace PawPulse
                 pnlVerify.Enabled = false;
 
                 pnlPassword.Visible = true;
-                pnlVerify.Enabled = true;
+                pnlPassword.Enabled = true;
 
                 MessageBox.Show("Identity verified! Please create your new password.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
